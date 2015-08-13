@@ -27,9 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['settings@mw.com']
+DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['backups@haushaus.mx']
 
-DEFAULT_FROM_EMAIL = 'admin@mw.com'
+DEFAULT_FROM_EMAIL = 'admin@haushaus.mx'
 
 # Test email in localhost, mail is showed in console, remove it in production!
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

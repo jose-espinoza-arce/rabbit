@@ -72,7 +72,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     else:
         recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
     client_email = [advert.advertiser.email]
-    send_mail('some subjet', message, from_email, client_email, recipient_list)
+    send_mail(subject, message, from_email, client_email, recipient_list)
 
 
 @formmodel_action(_('Store in database'))
