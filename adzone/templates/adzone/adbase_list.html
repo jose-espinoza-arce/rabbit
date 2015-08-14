@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% load adzone_tags %}
+{% load mptt_tags %}
+
+
+{% block content %}
+<section>
+    <div>
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                    {% if object.videoad %}
+                    <a href="/categorias/{{ object.videoad.get_path }}">
+                        <img class="img-responsive" src="{% get_video_img object.videoad.content %}" alt="{{ object.videoad.title }}"></img>
+                    </a>
+                    {% elif object.bannerad %}
+                    <a href="/categorias/{{ object.bannerad.get_path }}">
+                        <img src="{{ object.bannerad.content.url }}" alt="{{ object.bannerad.title }}" class="img-responsive">
+                    </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+

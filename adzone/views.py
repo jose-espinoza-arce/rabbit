@@ -6,22 +6,21 @@
 # If this script is distributed, it must be accompanied by the Licence
 
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
 
-from adzone.models import AdBase, AdClick, BannerAd, AdImpression
+from adzone.models import AdBase, AdClick, AdBase, AdImpression, AdPhoneView
 from django.shortcuts import get_object_or_404, redirect
 
 
 
 
-class ListBannersView(ListView):
-    template_name = 'layout.html'
-    model = BannerAd
+class AdListView(ListView):
+    model = AdBase
 
     def get_queryset(self):
-        qs = super(ListBannersView, self).get_queryset()
+        qs = super(AdListView, self).get_queryset()
         qs = qs.filter(start_showing__lte=timezone.now(),
                        stop_showing__gte=timezone.now(),)
 
@@ -35,18 +34,18 @@ class ListBannersView(ListView):
                 descendants = kwargs['instance'].get_descendants(include_self=True)
                 self.queryset = queryset.filter(category__in=descendants)
             else:
-                return redirect('adzone:banner_list')
+                return redirect('adzone:ad_list')
 
-        return super(ListBannersView, self).get(request, *args, **kwargs)
+        return super(AdListView, self).get(request, *args, **kwargs)
 
 
-class DetailBannerView(DetailView):
-    model = BannerAd
+class AdDetailView(DetailView):
+    model = AdBase
 
     def get(self, request, *args, **kwargs):
 
         if not kwargs['instance']:
-            return redirect('adzone:banner_list')
+            return redirect('adzone:ad_list')
 
         try:
             impression = AdImpression(
@@ -58,8 +57,7 @@ class DetailBannerView(DetailView):
         except:
             pass
 
-        return super(DetailBannerView, self).get(request, *args, **kwargs)
-
+        return super(AdDetailView, self).get(request, *args, **kwargs)
 
 
 def ad_view(request, pk):
@@ -79,3 +77,23 @@ def ad_view(request, pk):
         redirect_url = 'http://' + redirect_url
 
     return HttpResponseRedirect(redirect_url)
+
+
+def ad_phone_view(request):
+    if request.is_ajax():
+        if request.method == 'POST':
+
+            pk = request.POST['pk']
+            ad = get_object_or_404(AdBase, id=pk)
+
+            phone_view = AdPhoneView.objects.create(
+                ad=ad,
+                view_date=timezone.now(),
+                source_ip=request.META.get('REMOTE_ADDR', ''),
+            )
+
+            phone_view.save()
+        message = "Yes, AJAX!"
+    else:
+        message = "Not Ajax"
+    return HttpResponse(message)

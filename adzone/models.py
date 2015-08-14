@@ -158,10 +158,14 @@ class AdBase(models.Model):
     def get_absolute_url(self):
         return ('adzone_ad_view', [self.id])
 
+    def get_ad_content(self):
+        return self.content
+
+
 
 class AdImpression(models.Model):
     """
-    The AdImpression Model will record every time the ad is loaded on a page
+    The AdImpression Model will record every time the ad detail is loaded
     """
     impression_date = models.DateTimeField(
         verbose_name=_(u'When'), auto_now_add=True)
@@ -176,7 +180,7 @@ class AdImpression(models.Model):
 
 class AdClick(models.Model):
     """
-    The AdClick model will record every click that a add gets
+    The AdClick model will record every click that an ad gets
     """
     click_date = models.DateTimeField(
         verbose_name=_(u'When'), auto_now_add=True)
@@ -189,6 +193,21 @@ class AdClick(models.Model):
         verbose_name_plural = _('Ad Clicks')
 
 
+class AdPhoneView(models.Model):
+    """
+    The AdPhoneView model will record every phone view that an ad gets
+    """
+    view_date = models.DateTimeField(
+        verbose_name=_(u'When'), auto_now_add=True)
+    source_ip = models.GenericIPAddressField(
+        verbose_name=_(u'Who'), null=True, blank=True)
+    ad = models.ForeignKey(AdBase)
+
+    class Meta:
+        verbose_name = _('Ad Phone View')
+        verbose_name_plural = _('Ad Phone Views')
+
+
 # Example Ad Types
 class TextAd(AdBase):
     """ A most basic, text based advert """
@@ -199,3 +218,17 @@ class BannerAd(AdBase):
     """ A standard banner Ad """
     content = models.ImageField(
         verbose_name=_(u'Content'), upload_to="adzone/bannerads/")
+
+class VideoAd(AdBase):
+    """ A standard video ad """
+    content = models.URLField(verbose_name=_(u'Content'))
+
+    #def __unicode__(self):
+    #    return self.link
+
+    def save(self, *args, **kwargs):
+        if 'youtube' in self.content:
+            self.content = self.content.replace('watch?v=', 'embed/')
+        if 'vimeo' in self.content:
+            self.content = 'https://player.vimeo.com/video/' + self.content.split('/')[-1]
+        super(VideoAd, self).save(*args, **kwargs)

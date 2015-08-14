@@ -41,13 +41,21 @@ class AdBaseAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """
-        Overrides the widget for descruption so it desplays has a textarea.
-        The original field is a CharField because of the 450 max_length limit;
+        Overrides the widget for description so it displays as a textarea.
+        The original field is a CharField because of the 450 max_length requirement;
         textarea field don't have max_length attribute.
         """
         form = super(AdBaseAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['description'].widget = admin.widgets.AdminTextareaWidget()
         return form
+
+
+class AdPhoneViewAdmin(admin.ModelAdmin):
+    search_fields = ['ad', 'source_ip']
+    list_display = ['ad', 'view_date', 'source_ip']
+    list_filter = ['view_date']
+    date_hierarchy = 'view_date'
+    #actions = ['download_clicks']
 
 
 class AdClickAdmin(admin.ModelAdmin):
@@ -127,6 +135,8 @@ class AdImpressionAdmin(admin.ModelAdmin):
 class TextAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'url', 'content']
 
+class VideoAdAdmin(AdBaseAdmin):
+    search_fields = ['title', 'url', 'content']
 
 admin.site.register(Advertiser, AdvertiserAdmin)
 
@@ -136,5 +146,7 @@ admin.site.register(AdCategory, AdCategoryAdmin)
 admin.site.register(AdZone, AdZoneAdmin)
 admin.site.register(TextAd, TextAdAdmin)
 admin.site.register(BannerAd, AdBaseAdmin)
+admin.site.register(VideoAd, VideoAdAdmin)
+admin.site.register(AdPhoneView, AdPhoneViewAdmin)
 admin.site.register(AdClick, AdClickAdmin)
 admin.site.register(AdImpression, AdImpressionAdmin)

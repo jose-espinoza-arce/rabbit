@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+
+
+{% load staticfiles %}
+{% load thumbnail %}
+
+
+
+{% block content %}
+<div class="col-lg-6">
+<article>
+    {% if object.videoad %}
+        <iframe width="500" height="300" src="{{ object.videoad.content }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    {% elif object.bannerad %}
+        <a href="{% url 'adzone:ad_view' pk=object.id %}">
+        {% thumbnail object.bannerad.content "500"  as im %}
+            <img src="{{ im.url }}">
+        {% endthumbnail %}
+        </a>
+    {% endif %}
+</article>
+
+    <p>Título: {{ object.title }}</p>
+    <p>Descripción: {{ object.description }}</p>
+    <p>Empresa: {{ object.advertiser }}</p>
+    <p>Nombre del anunciante: {{ object.advertiser.user.first_name }} {{ object.advertiser.user.last_name }}</p>
+    <p>Sitio de anunciante: {{ object.advertiser.website }}</p>
+    <p>Correo de anunciante: {{ object.advertiser.email }}</p>
+    <p>Teléfono: <a id="phone" href="#"> {{ object.advertiser.phone_number }}</a></p>
+
+
+    <form target="_blank" action="{{ object.actionform.submit_url }}" method="get" >
+        <input type="hidden" value="{{ object.id }}" name="advert" />
+        <button type="submit">Llamado a la accion </button>
+
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+   function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = jQuery.trim(cookies[i]);
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+   $(document).ready(function() {
+       $("#phone").click(function(event){
+       event.preventDefault();
+           console.log('en el click');
+            $.ajax({
+                 type:"POST",
+                 url:"/phone/",
+                 data: {
+                        'pk': {{ object.id }} // from form
+                        },
+                 success: function(response){
+                     console.log(response);
+                    }
+            });
+            return false;
+       });
+
+    });
+</script>
+{% endblock %}
