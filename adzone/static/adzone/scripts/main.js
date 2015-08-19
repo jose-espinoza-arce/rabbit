@@ -65,7 +65,7 @@ var Header = (function(){
   return h.init();
 })();
 
-var $container = $(".wall");
+var $container = $(".container");
 
 
 $(function () {
@@ -95,10 +95,10 @@ $(function () {
     $container.infinitescroll(
         {
             navSelector: ".pagination",
-            nextSelector: ".next",
-            itemSelector: ".wall .brick",
+            nextSelector: ".pagination .next",
+            itemSelector: ".brick",
             loading: {
-                finishedMsg: "",
+                finishedMsg: "The End",
                 img: "http://pathtoyour.com/loading.gif",
                 msg: null,
                 msgText: ""
@@ -113,9 +113,9 @@ $(function () {
             });
         }
     );
-    $container.infinitescroll('unbind');
+    /*$container.infinitescroll('unbind');
     $('#next').on('click', function(e) {
         e.preventDefault();
         $container.infinitescroll('retrieve');
-    });
+    });*/
 });
