@@ -18,11 +18,12 @@ from django.shortcuts import get_object_or_404, redirect
 
 class AdListView(ListView):
     model = AdBase
+    paginate_by = 5
 
     def get_queryset(self):
         qs = super(AdListView, self).get_queryset()
         qs = qs.filter(start_showing__lte=timezone.now(),
-                       stop_showing__gte=timezone.now(),)
+                       stop_showing__gte=timezone.now(),).order_by('-pk')
 
         return qs
 
@@ -58,6 +59,10 @@ class AdDetailView(DetailView):
             pass
 
         return super(AdDetailView, self).get(request, *args, **kwargs)
+
+
+#def get_ads(request):
+#    if request
 
 
 def ad_view(request, pk):

@@ -18,6 +18,8 @@ from adzone.managers import AdManager
 
 from dynamic_forms.models import FormModel
 
+from taggit.managers import TaggableManager
+
 from django.contrib.sites.models import Site
 
 # Use a datetime a few days before the max to that timezone changes don't
@@ -70,8 +72,12 @@ class AdType(models.Model):
         return self.title
 
 
+
+
+
+
 class AdCategory(MPTTModel):
-    """ a Model to hold the different Categories for adverts """
+    """ a Model to hold the from taggit.managers import TaggableManagerdifferent Categories for adverts """
     name = models.CharField(verbose_name=_(u'Name'), max_length=255)
     slug = models.SlugField(verbose_name=_(u'Slug'), unique=True)
     description = models.TextField(verbose_name=_(u'Description'))
@@ -142,6 +148,10 @@ class AdBase(models.Model):
     # Our Custom Manager
     objects = AdManager()
 
+    tags = TaggableManager()
+
+
+
     #sites = models.ManyToManyField(Site, verbose_name=(u"Sites"))
 
     class Meta:
@@ -160,7 +170,6 @@ class AdBase(models.Model):
 
     def get_ad_content(self):
         return self.content
-
 
 
 class AdImpression(models.Model):
@@ -218,13 +227,17 @@ class BannerAd(AdBase):
     """ A standard banner Ad """
     content = models.ImageField(
         verbose_name=_(u'Content'), upload_to="adzone/bannerads/")
+    content_mobile = models.ImageField(
+        verbose_name=_(u'Mobile Content'), upload_to="adzone/bannerads/mobile", blank=True, default='')
+
 
 class VideoAd(AdBase):
     """ A standard video ad """
-    content = models.URLField(verbose_name=_(u'Content'))
-
-    #def __unicode__(self):
-    #    return self.link
+    video_url = models.URLField(verbose_name=_(u'Url'))
+    content = models.ImageField(
+        verbose_name=_(u'Content'), upload_to="adzone/videoads/", default='')
+    content_mobile = models.ImageField(
+        verbose_name=_(u'Mobile Content'), upload_to="adzone/videoads/mobile", blank=True, default='')
 
     def save(self, *args, **kwargs):
         if 'youtube' in self.content:

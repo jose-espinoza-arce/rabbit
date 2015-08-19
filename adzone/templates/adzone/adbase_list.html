@@ -1,28 +1,37 @@
 {% extends 'layout.html' %}
 {% load adzone_tags %}
 {% load mptt_tags %}
+{% load thumbnail %}
 
 
 {% block content %}
 <section>
-    <div>
-        <div class="row">
+    <ul class="wall">
+
             {% for object in object_list %}
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    {% if object.videoad %}
+
+                <li class="brick">
+                  <div class="thumbnail">
+                    {% if object.videoad %}{{ object.id }}
+                    {% thumbnail object.videoad.content "400" as im %}
                     <a href="/categorias/{{ object.videoad.get_path }}">
-                        <img class="img-responsive" src="{% get_video_img object.videoad.content %}" alt="{{ object.videoad.title }}"></img>
+                        <img class="" src="{{ im.url }}" alt="{{ object.videoad.title }}">
                     </a>
-                    {% elif object.bannerad %}
+                    {% endthumbnail %}
+                    {% elif object.bannerad %}{{ object.id }}
+                    {% thumbnail object.bannerad.content "400" as im %}
                     <a href="/categorias/{{ object.bannerad.get_path }}">
-                        <img src="{{ object.bannerad.content.url }}" alt="{{ object.bannerad.title }}" class="img-responsive">
+                        <img src="{{ im.url }}" alt="{{ object.bannerad.title }}" class="">
                     </a>
+                    {% endthumbnail %}
                     {% endif %}
-                </div>
+                  </div>
+                </li>
             {% endfor %}
 
-        </div>
-    </div>
+
+    </ul>
+{% include 'partials/pagination.html' %}
 </section>
 {% endblock %}
 

@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'dynamic_forms',
     'widget_tweaks',
+    'taggit',
 )
 
 MIDDLEWARE_CLASSES = (
