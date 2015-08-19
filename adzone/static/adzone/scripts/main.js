@@ -73,8 +73,9 @@ $(function () {
         console.log('en el imageslodwed');
         $container.masonry({
             itemSelector : '.brick',
-            //gutterWidth: 25,
-            columnWidth: 50/* function () {
+            gutter: 50,
+            //columnWidth: 50
+            /* function () {
                 var screenWidth = parseInt(
                     document.documentElement.getBoundingClientRect().width,
                     10

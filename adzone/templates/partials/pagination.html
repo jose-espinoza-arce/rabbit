@@ -3,7 +3,7 @@
 
 {% if paginator.num_pages > 1 %}
     <div>
-        <ul class="pagination" >
+        <ul class="pagination" style="display: none;" >
             {% if page_obj.has_previous %}
                 <li class="previous"><a href="?{% get_parameters page %}page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a></li>
             {% endif %}
@@ -13,7 +13,7 @@
             {% endblocktrans %}
             </li>
             {% if page_obj.has_next %}
-                <li class="" ><a style="display: none;" id="next" class="next" href="/?{% get_parameters page %}page={{ page_obj.next_page_number }}">{% trans "more" %}</a></li>
+                <li class="" ><a  id="next" class="next" href="?{% get_parameters page %}page={{ page_obj.next_page_number }}">{% trans "more" %}</a></li>
             {% endif %}
         </ul>
     </div>

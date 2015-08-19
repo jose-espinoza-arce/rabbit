@@ -12,13 +12,13 @@
 
                 <li class="brick">
                   <div class="thumbnail">
-                    {% if object.videoad %}{{ object.id }}
+                    {% if object.videoad %}{{ object.id }} eco {{ object.category }}
                     {% thumbnail object.videoad.content "400" as im %}
                     <a href="/categorias/{{ object.videoad.get_path }}">
                         <img class="" src="{{ im.url }}" alt="{{ object.videoad.title }}">
                     </a>
                     {% endthumbnail %}
-                    {% elif object.bannerad %}{{ object.id }}
+                    {% elif object.bannerad %}{{ object.id }} eco {{ object.category }}
                     {% thumbnail object.bannerad.content "400" as im %}
                     <a href="/categorias/{{ object.bannerad.get_path }}">
                         <img src="{{ im.url }}" alt="{{ object.bannerad.title }}" class="">

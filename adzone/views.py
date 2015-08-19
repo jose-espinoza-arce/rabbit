@@ -18,7 +18,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 class AdListView(ListView):
     model = AdBase
-    paginate_by = 5
+    paginate_by = 4
 
     def get_queryset(self):
         qs = super(AdListView, self).get_queryset()
