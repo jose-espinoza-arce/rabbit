@@ -46,11 +46,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     #'advert',
+    'captcha',
     'adzone',
     'mptt',
     'django_mptt_admin',
     'sorl.thumbnail',
     'dynamic_forms',
+    'dynamic_forms.contrib.simple_captcha',
     'widget_tweaks',
     'taggit',
 )

@@ -88,10 +88,6 @@ class AdDetailView(DetailView):
         return super(AdDetailView, self).get(request, *args, **kwargs)
 
 
-#def get_ads(request):
-#    if request
-
-
 def ad_view(request, pk):
     """ Record the click in the database, then redirect to ad url """
     ad = get_object_or_404(AdBase, id=pk)

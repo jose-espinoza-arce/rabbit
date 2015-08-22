@@ -27,6 +27,7 @@ class tagview():
         if 'path' not in kwargs:
             raise ValueError('Path was not captured! Please capture it in your urlconf. Example: url(r\'^tags/(?P<path>.*)\', mptt_urls.view(...), ...)')
 
+        print 'tagview'
         path = kwargs['path']
         path_slugs = path.split('/')
         tag_slugs = [tag.slug for tag in self.tagmodel.objects.all()]

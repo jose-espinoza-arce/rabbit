@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.shortcuts import render
 from django.contrib import messages
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
@@ -23,6 +24,15 @@ class DynamicFormView(FormView):
             self.initial['advert'] = self.request.GET['advert']
         self.form_model = self.kwargs.pop('model')
         return super(DynamicFormView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates a blank version of the form.
+        """
+        form = self.get_form()
+        context = self.get_context_data(form=form)
+        #print data
+        return render(request, self.get_template_names(), context)
 
     def get_context_data(self, **kwargs):
         print 'dynforms.views.dynformview.getcontextdata'
