@@ -1,4 +1,5 @@
 from adzone.models import AdCategory
+from adzone.forms import AdSearchForm
 
 def get_source_ip(request):
 
@@ -8,7 +9,15 @@ def get_source_ip(request):
     else:
         return {}
 
+
 def get_category_nodes(request):
 
-    return {'nodes':AdCategory.objects.all()}
+    return {'nodes': AdCategory.objects.all()}
+
+
+def search_form(request):
+    """
+    Ensure that the search form is available site wide
+    """
+    return {'search_form': AdSearchForm(request.GET)}
 

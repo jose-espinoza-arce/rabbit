@@ -5,20 +5,39 @@
 # Please see the text file LICENCE for more information
 # If this script is distributed, it must be accompanied by the Licence
 
-
-from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Count
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import ListView, DetailView
+
+from django.contrib import messages
 from django.utils import timezone
+import json
 
 from adzone.models import AdBase, AdClick, AdBase, AdImpression, AdPhoneView
 from django.shortcuts import get_object_or_404, redirect
 
+from taggit.models import Tag
 
+from adzone.forms import AdSearchForm
 
 
 class AdListView(ListView):
     model = AdBase
     paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        ctx = super(AdListView, self).get_context_data(**kwargs)
+        slugs = self.request.path.split('/')
+        q = ''
+
+        if 'tags' in slugs:
+            slugs.pop(0)
+            slugs.pop(0)
+            names = [tag.name for tag in [Tag.objects.get(slug=slug) for slug in slugs]]
+            q = (', ').join(names) + ', '
+
+        ctx['search_form'] = AdSearchForm(initial={'q': q})
+        return ctx
 
     def get_queryset(self):
         qs = super(AdListView, self).get_queryset()
@@ -30,11 +49,14 @@ class AdListView(ListView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
 
-        if 'instance' and 'path' in kwargs.keys():
-            if kwargs['instance']:
+        if 'path' in kwargs.keys():
+            if 'instance' in kwargs.keys():
                 descendants = kwargs['instance'].get_descendants(include_self=True)
                 self.queryset = queryset.filter(category__in=descendants)
+            elif 'slugs' in kwargs.keys():
+                self.queryset = queryset.filter(tags__slug__in=kwargs.pop('slugs')).distinct()
             else:
+                print 'adlisview.get.else'
                 return redirect('adzone:ad_list')
 
         return super(AdListView, self).get(request, *args, **kwargs)
@@ -42,6 +64,11 @@ class AdListView(ListView):
 
 class AdDetailView(DetailView):
     model = AdBase
+
+    def get_context_data(self, **kwargs):
+        ctx = super(AdDetailView, self).get_context_data(**kwargs)
+        ctx['search_form'] = AdSearchForm()
+        return ctx
 
     def get(self, request, *args, **kwargs):
 
@@ -102,3 +129,21 @@ def ad_phone_view(request):
     else:
         message = "Not Ajax"
     return HttpResponse(message)
+
+def tag_hint(request):
+
+    q = request.GET['q']
+
+    results = []
+    if len(q) > 2:
+        tag_qs = Tag.objects.filter(name__startswith=q)
+
+        annotated_qs = tag_qs.annotate(count=Count('taggit_taggeditem_items__id'))
+
+        for obj in annotated_qs.order_by('-count', 'slug')[:10]:
+            results.append({
+                'tag': obj.name,
+                'count': obj.count,
+            })
+
+    return JsonResponse(results, safe=False)

@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
 {% load mptt_tags %}
+{% load widget_tweaks %}
 
 {% block layout %}
     <div class="wrapper">
         <div class="wrapper__scroller">
             <header class="header">
+                <form action="{% url 'adzone:search' %}" method="get" style="display: block;">
+                        {% render_field search_form.q id="id_tags" %}
+                        <input type="submit" value="{% trans "Search" %}" class="btn btn-default" />
+                    </form>
                 <div class="header__brand">
                     <a href="/" class="logo">Roof Media</a>
                         <a href="#" class="pull-right trigger-nav">
@@ -17,6 +23,14 @@
             </header>
             <main class="main">
                 <div class="container">
+                    {% if messages %}
+                        <ul class="messages" style="position: absolute;">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
                     {% block content %}
 
                     {% endblock %}

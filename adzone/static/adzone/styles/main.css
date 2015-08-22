@@ -8036,7 +8036,11 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
 }
 
 .main {
-  padding-top: 148px;
+  padding-top: 248px;
+}
+
+.main .brick{
+    padding-top: 30px;
 }
 
 .pink {

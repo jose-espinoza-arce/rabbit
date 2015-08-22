@@ -23,6 +23,7 @@
     <script src="{% static 'adzone/libs/modernizr/modernizr.js' %}"></script>
     <!-- endbuild -->
      <link rel="stylesheet" type="text/css" href="{% static "adzone/libs/bootstrap/css/bootstrap.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "adzone/libs/jquery-ui/jquery-ui.css" %}" />
 </head>
 <body>
 {% block layout %}
@@ -43,9 +44,11 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="{% static 'adzone/libs/jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'adzone/libs/jquery-ui/jquery-ui.js' %}"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.js"></script>-->
+    <script src="{% static 'adzone/libs/jquery-masonry/dist/masonry.pkgd.js' %}"></script>
     <script src="{% static 'adzone/libs/imagesloaded/imagesloaded.js' %}"></script>
 
     <script src="{% static 'adzone/libs/jquery-infinitescroll/jquery.infinitescroll.js' %}"></script>
@@ -69,10 +72,23 @@
     <script src="{% static 'adzone/scripts/main.js' %}"></script>
     <!-- endbuild -->
 
+{% block autocomplete_scripts %}
+<script type="text/javascript">
+  $(function() {
+    var tag_completion = new Snippets.TagCompletion();
+    // additional initialization happens here
+  });
 
+  $(function() {
+    if ($('#id_tags').length > 0) {
+      var tag_completion = new Snippets.TagCompletion();
+      tag_completion.bind_listener('#id_tags');
+    }
+  });
+</script>
+{% endblock %}
 {% block scripts %}
 
 {% endblock %}
-
 </body>
 </html>

@@ -55,6 +55,13 @@ INSTALLED_APPS = (
     'taggit',
 )
 
+# App configs
+
+#taggit
+TAGGIT_CASE_INSENSITIVE = True
+
+
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'adzone.context_processors.get_category_nodes',
+                #'adzone.context_processors.search_form',
                 "django.core.context_processors.media",
                 "django.core.context_processors.static",
 
