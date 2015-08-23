@@ -7,6 +7,100 @@
 
 
 {% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="detail">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="detail__media">
+
+                            {% if object.videoad %}
+                                <iframe width="500" height="300" src="{{ object.videoad.content }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+                            {% elif object.bannerad %}
+                                <ul class="list-unstyled stadistic">
+                                    <li class="stadistic__item">
+                                        <a href=""><span><i class="fa fa-eye"></i></span>12<span></span></a>
+                                    </li>
+                                    <li class="stadistic__item">
+                                        <a href=""><span><i class="fa fa-heart"></i></span><span>18</span></a>
+                                    </li>
+                                </ul>
+
+                                <a href="{% url 'adzone:ad_view' pk=object.id %}">
+                                {% thumbnail object.bannerad.content "640"  as im %}
+                                    <img src="{{ im.url }}" alt="" class="img-responsive">
+                                {% endthumbnail %}
+                                </a>
+                            {% endif %}
+                            <!--<img src="images/detail.jpg" alt="" class="img-responsive">-->
+                            <!-- Or Video -->
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="detail__wrapper">
+                            <div class="detail__about">
+                                <h1 class="detail__title">{{ object.title }}</h1>
+
+                                <a href="{{ object.advertiser.website }}"><p class="detail__company">{{ object.advertiser }}</p></a>
+
+                                <p class="detail__description">
+                                    {{ object.description }}
+                                </p>
+
+                                <div class="detail__actions">
+                                    <a href="" class="simple-button">Call us</a>
+                                    <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}" class="action-button">Call form</a>
+                                    <a href="" class="email-button">{{ object.advertiser.email }}</a>
+                                </div>
+
+                                <hr>
+
+                                <ul class="list-unstyled tag-list">
+                                    {% if object.videoad %}
+                                        {% for tag in object.videoad.tags.all %}
+                                            <li class="tag-list__item">
+                                                <a href="{% url 'adzone:tagged_ads' path=tag.slug %}">{{ tag.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% elif object.bannerad %}
+                                        {% for tag in object.bannerad.tags.all %}
+                                            <li class="tag-list__item">
+                                                <a href="{% url 'adzone:tagged_ads' path=tag.slug %}">{{ tag.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                </ul>
+                                <hr>
+                                <h5 class="detail__share-title">Compartir:</h5>
+                                <ul class="list-unstyled sharer">
+                                    <li class="sharer__item sharer__item--fb">
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li class="sharer__item sharer__item--tw">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li class="sharer__item sharer__item--pin">
+                                        <a href=""><i class="fa fa-pinterest"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="detail__form">
+                                <a href="#" class="detail__back">
+                                    <i class="fa fa-times"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{# ----------------------------------------------------------------------------------------------------- #}
 <div class="col-lg-6">
 <article>
     {% if object.videoad %}

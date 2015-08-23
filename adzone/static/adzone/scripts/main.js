@@ -65,6 +65,58 @@ var Header = (function(){
   return h.init();
 })();
 
+var Detail = (function () {
+  var d = {
+    init: function(){
+
+      this.cache();
+      this.bind();
+      console.log(this.trigger.length > 0);
+      return this;
+    },
+    cache: function(){
+      this.el = $('div.detail');
+      this.trigger = $('.detail a.action-button');
+      this.back = $('.detail a.detail__back');
+    },
+    bind: function() {
+
+      var self = this;
+
+      this.trigger.on('click', function (ev) {
+        ev.preventDefault();
+        var url = $(this).attr('href');
+        $.get(url, function(response) {
+          var markup = $.parseHTML(response);
+          var form = null;
+          $.each(markup, function (i, el) {
+            if ($(el).hasClass('main-form')) {
+              form = $(el);
+              return
+            };
+          });
+
+          self.el.find('.detail__form').append(form);
+        });
+        self.openForm();
+      });
+
+      this.back.on('click', function (ev) {
+        ev.preventDefault();
+        self.closeForm();
+      });
+
+    },
+    openForm: function(){
+      this.el.addClass('detail--open');
+    },
+    closeForm: function(){
+      this.el.removeClass('detail--open');
+    },
+  }
+
+  return d.init()
+})();
 
 
 // Autor: Jose
