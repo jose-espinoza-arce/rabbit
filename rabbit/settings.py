@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'dynamic_forms.contrib.simple_captcha',
     'widget_tweaks',
     'taggit',
+    'nocaptcha_recaptcha',
 )
 
 # App configs
@@ -62,6 +63,13 @@ INSTALLED_APPS = (
 #taggit
 TAGGIT_CASE_INSENSITIVE = True
 
+NORECAPTCHA_SITE_KEY = '6LeptgsTAAAAACAC2Qpdyep_I9gTy1S-K0G10VzK'
+
+NORECAPTCHA_SECRET_KEY = '6LeptgsTAAAAAFHCHMmgqCH-62kigxG2BF_rhKxS'
+
+#RECAPTCHA_PUBLIC_KEY = '6LeptgsTAAAAACAC2Qpdyep_I9gTy1S-K0G10VzK'
+
+#RECAPTCHA_PRIVATE_KEY = '6LeptgsTAAAAAFHCHMmgqCH-62kigxG2BF_rhKxS'
 
 
 MIDDLEWARE_CLASSES = (

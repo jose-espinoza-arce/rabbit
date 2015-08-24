@@ -5,37 +5,24 @@
 
 
 {% block content %}
-
     <ul class="list-unstyled wall">
-
-           <div class="row"> {% for object in object_list %}
-
-                <li class="brick col-sm-6 col-md-4">
-                  <div class="thumbnail">
-                    {% if object.videoad %}{{ object.id }} eco {{ object.category }} eco
-                        {% for tag in object.videoad.tags.all %}{{ tag.slug }} {% endfor %}
-                    {% thumbnail object.videoad.content "640" as im %}
-                    <a href="/categorias/{{ object.videoad.get_path }}">
-                        <img class="img-responsive" src="{{ im.url }}" alt="{{ object.videoad.title }}" >
-                    </a>
+        <div class="row">
+            {# .grid-sizer configura el columnWidth de masonry, en otro caso, se toma el ancho del primer item #}
+            <div class="grid-sizer" style="width: 25%;"></div>
+            {% for object in object_list %}
+                {% if object.videoad %}
+                    {% thumbnail object.videoad.content "740" as im %}
+                        {% include 'partials/image.html' with im=im object=object.videoad %}
                     {% endthumbnail %}
-                    {% elif object.bannerad %}{{ object.id }} eco {{ object.category }} eco
-                        {% for tag in object.bannerad.tags.all %}{{ tag.slug }} {% endfor %}
-                    {% thumbnail object.bannerad.content "640" as im %}
-                    <a href="/categorias/{{ object.bannerad.get_path }}">
-                        <img src="{{ im.url }}" alt="{{ object.bannerad.title }}" class="img-responsive">
-                    </a>
+                {% elif object.bannerad %}
+                    {% thumbnail object.bannerad.content "740" as im %}
+                        {% include 'partials/image.html' with im=im object=object.bannerad %}
                     {% endthumbnail %}
-                    {% endif %}
-                  </div>
-                </li>
-            {% endfor %}</div>
-
-
-
+                {% endif %}
+            {% endfor %}
+        </div>
     </ul>
-{% include 'partials/pagination.html' %}
-
+    {% include 'partials/pagination.html' %}
 {% endblock %}
 
 

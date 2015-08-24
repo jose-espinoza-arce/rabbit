@@ -215,7 +215,8 @@ $(function () {
     $container.imagesLoaded(function () {
         console.log('en el imageslodwed');
         $container.masonry({
-            itemSelector : '.brick'
+            itemSelector : '.brick',
+            columnWidth: '.grid-sizer'
         });
         console.log($container.masonry);
     });

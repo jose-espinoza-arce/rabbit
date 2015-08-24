@@ -19,3 +19,17 @@ class CaptchaField(BaseDynamicFormField):
     @classonlymethod
     def do_display_data(self):
         return False
+
+
+@dynamic_form_field
+class NoReCaptchaField(BaseDynamicFormField):
+
+    cls = 'nocaptcha_recaptcha.fields.NoReCaptchaField'
+    display_label = _('NoCreCAPTCHA')
+
+    class Meta:
+        _exclude = ('required',)
+
+    @classonlymethod
+    def do_display_data(self):
+        return False

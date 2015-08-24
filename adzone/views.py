@@ -23,7 +23,7 @@ from adzone.forms import AdSearchForm
 
 class AdListView(ListView):
     model = AdBase
-    paginate_by = 4
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         ctx = super(AdListView, self).get_context_data(**kwargs)

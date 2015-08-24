@@ -1,0 +1,7 @@
+<li class="brick {% if im.x < im.y %}col-sm-6 col-md-3{% else %}col-sm-12 col-md-6{% endif %}">
+    <div class="thumbnail">
+        <a href="/categorias/{{ object.get_path }}">
+            <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
+        </a>
+    </div>
+</li>
