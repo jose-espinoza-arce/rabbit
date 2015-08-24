@@ -1,6 +1,67 @@
-var Header = (function(){
+/**
+ *
+ * Author: Noe Sanchez
+ * Module: Cookie
+ * Task: Get the CSRF required by Django
+ *
+ */
 
-  var h = {
+ var Cookie = (function ($) {
+   var cookie = {
+      init: function(){
+        this.csrftoken = this.getCookie("csrftoken");
+        this.inject();
+        return this;
+      },
+
+      inject: function() {
+        var self = this;
+
+        $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+            if (!self.csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", self.csrftoken);
+            }
+          }
+        });
+      },
+
+      csrfSafeMethod: function(method){
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      },
+
+      getCookie: function(name){
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+   };
+
+   return cookie.init();
+ })(jQuery);
+
+/**
+ *
+ * Author: Noe Sanchez
+ * Module: Header
+ * Task: Update logo position and open the menu.
+ *
+ */
+
+var Header = (function($){
+
+  var header = {
     init: function() {
 
       this.open = false;
@@ -38,8 +99,6 @@ var Header = (function(){
           'right' : offsetLeft + 40
         });
 
-        console.log('offsetLeft', offsetLeft);
-
       });
 
       this.elements.trigger.on('click', function (ev) {
@@ -62,21 +121,31 @@ var Header = (function(){
     }
   };
 
-  return h.init();
-})();
+  return header.init();
+})(jQuery);
 
-var Detail = (function () {
-  var d = {
+/**
+ *
+ * Author: Noe Sanchez
+ * Module: Detail
+ * Task: Handler action like phone button and form side
+ *
+ */
+
+var Detail = (function ($) {
+  var detail = {
     init: function(){
 
       this.cache();
       this.bind();
-      console.log(this.trigger.length > 0);
+
       return this;
     },
     cache: function(){
       this.el = $('div.detail');
       this.trigger = $('.detail a.action-button');
+      this.phone = $('.detail a.simple-button');
+
       this.back = $('.detail a.detail__back');
     },
     bind: function() {
@@ -106,6 +175,21 @@ var Detail = (function () {
         self.closeForm();
       });
 
+      this.phone.on('click', function(ev){
+        ev.preventDefault();
+
+        self.phone.addClass('simple-button--active');
+        var that = $(this);
+        var pk = that.attr('data-pk');
+        var url = '/phone/';
+
+        $.post( url , { pk : pk }, function (response) {
+          console.log('response:', response);
+          that.off('click');
+        });
+
+      });
+
     },
     openForm: function(){
       this.el.addClass('detail--open');
@@ -115,36 +199,23 @@ var Detail = (function () {
     },
   }
 
-  return d.init()
-})();
+  return detail.init()
+})(jQuery);
+
 
 
 // Autor: Jose
 
-var $container = $(".container");
+
 
 
 $(function () {
+    var $container = $("ul.wall .row");
+
     $container.imagesLoaded(function () {
         console.log('en el imageslodwed');
         $container.masonry({
-            itemSelector : '.brick',
-            gutter: 50,
-            //columnWidth: 50
-            /* function () {
-                var screenWidth = parseInt(
-                    document.documentElement.getBoundingClientRect().width,
-                    10
-                ) || parseInt(screen.width, 10);
-
-                if (screenWidth < 768) {
-                    return $container.width();
-                } else if (screenWidth > 768 && screenWidth < 980) {
-                    return ($container.width() / 2) - 20;
-                }
-                console.log($container.width());
-                return ($container.width() / 3) - 20;
-            }*/
+            itemSelector : '.brick'
         });
         console.log($container.masonry);
     });
@@ -156,11 +227,11 @@ $(function () {
             itemSelector: ".brick",
             loading: {
                 finishedMsg: "The End",
-                img: "http://pathtoyour.com/loading.gif",
+                img: "/static/adzone/images/roof-loader.gif",
                 msg: null,
                 msgText: ""
             },
-            debug: true,
+            debug: true
         },
         function (newProducts) {
             var $newProds = $(newProducts).css({"opacity": 0});

@@ -48,6 +48,7 @@ class AdListView(ListView):
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
+        request.META["CSRF_COOKIE_USED"] = True
 
         if 'path' in kwargs.keys():
             if 'instance' in kwargs.keys():
@@ -71,6 +72,7 @@ class AdDetailView(DetailView):
         return ctx
 
     def get(self, request, *args, **kwargs):
+        request.META["CSRF_COOKIE_USED"] = True
 
         if not kwargs['instance']:
             return redirect('adzone:ad_list')

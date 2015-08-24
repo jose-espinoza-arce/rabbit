@@ -15,7 +15,7 @@
                         <div class="detail__media">
 
                             {% if object.videoad %}
-                                <iframe width="500" height="300" src="{{ object.videoad.content }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                <iframe width="500" height="300" src="{{ object.videoad.url }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
                             {% elif object.bannerad %}
                                 <ul class="list-unstyled stadistic">
@@ -50,7 +50,10 @@
                                 </p>
 
                                 <div class="detail__actions">
-                                    <a href="" class="simple-button">Call us</a>
+                                    <a href="javascript:;" class="simple-button" data-pk="{{ object.id }}">
+                                        <span class="simple-button__label">Call us</span>
+                                        <span class="simple-button__number">{{ object.advertiser.phone_number }}</span>
+                                    </a>
                                     <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}" class="action-button">Call form</a>
                                     <a href="" class="email-button">{{ object.advertiser.email }}</a>
                                 </div>
@@ -99,96 +102,4 @@
             </div>
         </div>
     </div>
-
-{# ----------------------------------------------------------------------------------------------------- #}
-<div class="col-lg-6">
-<article>
-    {% if object.videoad %}
-        <iframe width="500" height="300" src="{{ object.videoad.content }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        <p>Tags: {% for tag in object.videoad.tags.all %}
-                    <a href="{% url 'adzone:tagged_ads' path=tag.slug %}">{{ tag.name }}</a>
-                 {% endfor %}
-        </p>
-    {% elif object.bannerad %}
-        <a href="{% url 'adzone:ad_view' pk=object.id %}">
-        {% thumbnail object.bannerad.content "500"  as im %}
-            <img src="{{ im.url }}">
-        {% endthumbnail %}
-        </a>
-        <p>Tags: {% for tag in object.bannerad.tags.all %}
-                  <a href="{% url 'adzone:tagged_ads' path=tag.slug %}">{{ tag.name }}</a>
-                 {% endfor %}
-        </p>
-    {% endif %}
-</article>
-
-    <p>Título: {{ object.title }}</p>
-    <p>Descripción: {{ object.description }}</p>
-    <p>Empresa: {{ object.advertiser }}</p>
-    <p>Nombre del anunciante: {{ object.advertiser.user.first_name }} {{ object.advertiser.user.last_name }}</p>
-    <p>Sitio de anunciante: {{ object.advertiser.website }}</p>
-    <p>Correo de anunciante: {{ object.advertiser.email }}</p>
-    <p>Teléfono: <a id="phone" href="#"> {{ object.advertiser.phone_number }}</a></p>
-
-
-
-    <form target="_blank" action="{{ object.actionform.submit_url }}" method="get" >
-        <input type="hidden" value="{{ object.id }}" name="advert" />
-        <button type="submit">Llamado a la accion </button>
-
-    </form>
-</div>
-
-{% endblock %}
-
-{% block scripts %}
-<script type="text/javascript">
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = jQuery.trim(cookies[i]);
-        // Does this cookie string begin with the name we want?
-        if (cookie.substring(0, name.length + 1) == (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
-  var csrftoken = getCookie('csrftoken');
-
-  function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-  }
-  $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-      }
-    }
-  });
-
-   $(document).ready(function() {
-       $("#phone").click(function(event){
-       event.preventDefault();
-           console.log('en el click');
-            $.ajax({
-                 type:"POST",
-                 url:"/phone/",
-                 data: {
-                        'pk': {{ object.id }} // from form
-                        },
-                 success: function(response){
-                     console.log(response);
-                    }
-            });
-            return false;
-       });
-
-    });
-</script>
 {% endblock %}

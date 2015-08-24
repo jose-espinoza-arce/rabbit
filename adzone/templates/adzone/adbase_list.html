@@ -5,38 +5,37 @@
 
 
 {% block content %}
-<section>
-    <ul class="wall">
 
-            {% for object in object_list %}
+    <ul class="list-unstyled wall">
 
-                <li class="brick">
+           <div class="row"> {% for object in object_list %}
+
+                <li class="brick col-sm-6 col-md-4">
                   <div class="thumbnail">
                     {% if object.videoad %}{{ object.id }} eco {{ object.category }} eco
                         {% for tag in object.videoad.tags.all %}{{ tag.slug }} {% endfor %}
-                    {% thumbnail object.videoad.content "400" as im %}
+                    {% thumbnail object.videoad.content "640" as im %}
                     <a href="/categorias/{{ object.videoad.get_path }}">
-                        <img class="" src="{{ im.url }}" alt="{{ object.videoad.title }}">
+                        <img class="img-responsive" src="{{ im.url }}" alt="{{ object.videoad.title }}" >
                     </a>
                     {% endthumbnail %}
                     {% elif object.bannerad %}{{ object.id }} eco {{ object.category }} eco
                         {% for tag in object.bannerad.tags.all %}{{ tag.slug }} {% endfor %}
-                    {% thumbnail object.bannerad.content "400" as im %}
+                    {% thumbnail object.bannerad.content "640" as im %}
                     <a href="/categorias/{{ object.bannerad.get_path }}">
-                        <img src="{{ im.url }}" alt="{{ object.bannerad.title }}" class="">
+                        <img src="{{ im.url }}" alt="{{ object.bannerad.title }}" class="img-responsive">
                     </a>
                     {% endthumbnail %}
                     {% endif %}
                   </div>
                 </li>
-            {% endfor %}
+            {% endfor %}</div>
 
 
 
     </ul>
 {% include 'partials/pagination.html' %}
 
-</section>
 {% endblock %}
 
 
