@@ -61,7 +61,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     mapped_data = form.get_mapped_data()
 
     subject = _('Form “%(formname)s” submitted') % {'formname': form_model}
-    #print subject
+    print subject
     message = render_to_string('dynamic_forms/email.txt', {
         'form': form_model,
         'data': sorted(mapped_data.items()),
@@ -76,7 +76,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     client_email = [advert.advertiser.email]
 
     send_mail(subject, message, from_email, client_email, recipient_list)
-    
+
 
 
 @formmodel_action(_('Store in database'))
