@@ -106,7 +106,7 @@ class DynamicFormView(FormView):
 
         messages.success(self.request,
             _('Thank you for submitting this form.'))
-        #assert False, 'corriendo'
+
         return render(self.request, 'dynamic_forms/myform_succes.html')#super(DynamicFormView, self).form_valid(form)
 
     def form_invalid(self, form):
