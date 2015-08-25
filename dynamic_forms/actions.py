@@ -59,7 +59,7 @@ def formmodel_action(label):
 @formmodel_action(_('Send via email'))
 def dynamic_form_send_email(form_model, form, advert, request):
     mapped_data = form.get_mapped_data()
-    assert False, 'sending mail'
+
     subject = _('Form “%(formname)s” submitted') % {'formname': form_model}
     print subject
     message = render_to_string('dynamic_forms/email.txt', {
@@ -72,6 +72,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     else:
         recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
     client_email = [advert.advertiser.email]
+    assert False, 'sending mail'
     send_mail(subject, message, from_email, client_email, recipient_list)
 
 
