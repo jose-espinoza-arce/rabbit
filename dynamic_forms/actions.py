@@ -76,7 +76,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     client_email = [advert.advertiser.email]
 
     send_mail(subject, message, from_email, client_email, recipient_list)
-    assert False, 'sending mail'
+    
 
 
 @formmodel_action(_('Store in database'))
