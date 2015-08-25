@@ -85,6 +85,7 @@ class DynamicFormView(FormView):
         return values of every action that is called, unless the return value
         of that action is ``None``.
         """
+        import pdb; pdb.set_trace()
         print 'in dynformview.form_valid'
         self.action_results = {}
         advert = AdBase.objects.get(id=form.cleaned_data['advert'])
