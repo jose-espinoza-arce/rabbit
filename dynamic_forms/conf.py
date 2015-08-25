@@ -22,5 +22,6 @@ settings.DYNAMIC_FORMS_SUCCESS_TEMPLATES = getattr(
     'DYNAMIC_FORMS_SUCCESS_TEMPLATES',
     [
         ('dynamic_forms/form_success.html', _('Default success template')),
+        ('dynamic_forms/myform_success.html', _('My success template')),
     ]
 )

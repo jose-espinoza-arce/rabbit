@@ -147,27 +147,63 @@ var Detail = (function ($) {
       this.phone = $('.detail a.simple-button');
 
       this.back = $('.detail a.detail__back');
+      this.submit = $('.detail :submit');
     },
     bind: function() {
 
       var self = this;
 
+      function loadsuccess(response) {
+              var markup = $.parseHTML(response);
+              var form = null;
+              if ( $('.form-wrapper').length ) {
+                  self.el.find('.form-wrapper').remove();
+              }
+              if ( $('.success-wrapper').length ) {
+                  self.el.find('.success-wrapper').remove();
+              }
+              $.each(markup, function (i, el) {
+                if ($(el).hasClass('form-wrapper')) {
+                  form = $(el);
+                  self.el.find('.detail__form').append(form);
+                  $.getScript("https://www.google.com/recaptcha/api.js?hl=es-419");
+                  setTimeout(bindsubmit, 2000);
+                  return
+                };
+                if ($(el).hasClass('success-wrapper')) {
+                  exito = $(el);
+                  self.el.find('.detail__form').append(exito);
+                  return
+                };
+              });
+      }
+
+      function bindsubmit(){
+                $('#action-call-form').submit(function() { // catch the form's submit event
+                    var that=$(this);
+                    console.log('submitting');
+                    console.log(that);
+                    $.ajax({ // create an AJAX call...
+                        data: that.serialize(), // get the form data
+                        type: $(this).attr('method'), // GET or POST
+                        url: $(this).attr('action'), // the file to call
+                        success: loadsuccess,
+                        error: function(){console.log('error')}
+                    });
+                    return false;
+                });
+      }
+
       this.trigger.on('click', function (ev) {
         ev.preventDefault();
         var url = $(this).attr('href');
-        $.get(url, function(response) {
-          var markup = $.parseHTML(response);
-          var form = null;
-          $.each(markup, function (i, el) {
-            if ($(el).hasClass('main-form')) {
-              form = $(el);
-              return
-            };
-          });
-
-          self.el.find('.detail__form').append(form);
-        });
-        self.openForm();
+        if ( !$('.form-wrapper').length  ) {
+            $.get(url, loadsuccess);
+            self.openForm();
+        }
+        else {
+            self.openForm();
+        }
       });
 
       this.back.on('click', function (ev) {
@@ -189,7 +225,6 @@ var Detail = (function ($) {
         });
 
       });
-
     },
     openForm: function(){
       this.el.addClass('detail--open');

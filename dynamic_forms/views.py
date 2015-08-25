@@ -34,6 +34,18 @@ class DynamicFormView(FormView):
         #print data
         return render(request, self.get_template_names(), context)
 
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance with the passed
+        POST variables and then checked for validity.
+        """
+        form = self.get_form()
+        print request.POST
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def get_context_data(self, **kwargs):
         print 'dynforms.views.dynformview.getcontextdata'
         context = super(DynamicFormView, self).get_context_data(**kwargs)
@@ -90,7 +102,7 @@ class DynamicFormView(FormView):
             self.action_results[actionkey] = action(*args)
         messages.success(self.request,
             _('Thank you for submitting this form.'))
-        return super(DynamicFormView, self).form_valid(form)
+        return render(self.request, 'dynamic_forms/myform_succes.html')#super(DynamicFormView, self).form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request,

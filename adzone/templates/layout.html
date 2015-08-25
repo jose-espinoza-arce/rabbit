@@ -25,13 +25,13 @@
             </header>
             <main class="main">
                 <div class="container">
-                    {% if messages %}
+                    {% comment %}{% if messages %}
                         <ul class="messages" style="position: absolute;">
                             {% for message in messages %}
                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                             {% endfor %}
                         </ul>
-                    {% endif %}
+                    {% endif %}{% endcomment %}
 
                     {% block content %}
 

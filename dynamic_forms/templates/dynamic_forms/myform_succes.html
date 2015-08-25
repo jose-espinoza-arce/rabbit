@@ -1,0 +1,13 @@
+{% load i18n %}
+{% if messages %}
+        <ul class="messages" style="position: absolute;">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<div class="success-wrapper">
+<h2>{% trans "Success" %}</h2>
+
+<p>{% trans "Form submitted successfully" %}</p>
+</div>
