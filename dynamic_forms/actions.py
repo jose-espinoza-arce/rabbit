@@ -66,12 +66,13 @@ def dynamic_form_send_email(form_model, form, advert, request):
         'form': form_model,
         'data': sorted(mapped_data.items()),
     })
-    assert False, 'sending mail'
+
     from_email = settings.DEFAULT_FROM_EMAIL
     if form_model.recipient_email:
         recipient_list = [form_model.recipient_email]
     else:
         recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
+    assert False, 'sending mail'
     client_email = [advert.advertiser.email]
 
     send_mail(subject, message, from_email, client_email, recipient_list)
