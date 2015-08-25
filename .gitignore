@@ -12,4 +12,6 @@ bower_components/
 
 frontend/
 
+rabbit/settings_local.py
+
 adzone/static/adzone/libs/

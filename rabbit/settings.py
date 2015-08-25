@@ -31,8 +31,7 @@ DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['backups@haushaus.mx']
 
 DEFAULT_FROM_EMAIL = 'admin@haushaus.mx'
 
-# Test email in localhost, mail is showed in console, remove it in production!
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 
 # Application definition
@@ -144,3 +143,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+try:
+    from settings_local import *
+except ImportError:
+    pass
