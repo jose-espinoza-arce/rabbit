@@ -85,11 +85,12 @@ class DynamicFormView(FormView):
         return values of every action that is called, unless the return value
         of that action is ``None``.
         """
-        import pdb; pdb.set_trace()
-        print 'in dynformview.form_valid'
+
+        #print 'in dynformview.form_valid'
         self.action_results = {}
         advert = AdBase.objects.get(id=form.cleaned_data['advert'])
-        print advert.advertiser
+        #print advert.advertiser
+
 
         for actionkey in self.form_model.actions:
             action = action_registry.get(actionkey)
@@ -101,6 +102,8 @@ class DynamicFormView(FormView):
                 args = args + (self.request,)
 
             self.action_results[actionkey] = action(*args)
+        assert False, 'corriendo'
+
         messages.success(self.request,
             _('Thank you for submitting this form.'))
         return render(self.request, 'dynamic_forms/myform_succes.html')#super(DynamicFormView, self).form_valid(form)
