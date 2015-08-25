@@ -8,6 +8,8 @@ db.*
 
 media/
 
+static/
+
 bower_components/
 
 frontend/
