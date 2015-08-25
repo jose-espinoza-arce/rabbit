@@ -72,9 +72,9 @@ def dynamic_form_send_email(form_model, form, advert, request):
         recipient_list = [form_model.recipient_email]
     else:
         recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
-    assert False, 'sending mail'
-    client_email = [advert.advertiser.email]
 
+    client_email = [advert.advertiser.email]
+    assert False, 'sending mail'
     send_mail(subject, message, from_email, client_email, recipient_list)
 
 
