@@ -19,6 +19,5 @@ class Command(BaseCommand):
         print now
         for link in DownloadLink.objects.all():
             if (now - link.since) > maxage:
-                #print now
                 print link.since
                 link.delete()

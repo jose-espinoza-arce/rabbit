@@ -206,13 +206,13 @@ var Detail = (function ($) {
                   step: 20
               });
               $('#id_fecha').datetimepicker({
-                  yearOffset: 2,
+                  yearOffset: 0,
                   lang: 'es',
                   timepicker: false,
                   format: 'd/m/Y',
                   formatDate: 'Y/m/d',
-                  minDate: '-1970/01/02', // yesterday is minimum date
-                  maxDate: '+1970/01/02' // and tommorow is maximum date calendar
+                  minDate: '0', // yesterday is minimum date
+                  maxDate: '2020/09/01' // and tommorow is maximum date calendar
               });
           }
       }
