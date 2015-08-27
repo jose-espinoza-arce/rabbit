@@ -159,15 +159,20 @@ var Detail = (function ($) {
               if ( $('.form-wrapper').length ) {
                   self.el.find('.form-wrapper').remove();
               }
+
               if ( $('.success-wrapper').length ) {
+                  /*  Uncomment to reload form after sunmit
                   self.el.find('.success-wrapper').remove();
+                  */
+                  /* Comment to reload form after submit*/
+                  return
               }
               $.each(markup, function (i, el) {
                 if ($(el).hasClass('form-wrapper')) {
                   form = $(el);
                   self.el.find('.detail__form').append(form);
                   $.getScript("https://www.google.com/recaptcha/api.js?hl=es-419");
-                  setTimeout(bindsubmit, 2000);
+                  setTimeout(bindform, 500);
                   return
                 };
                 if ($(el).hasClass('success-wrapper')) {
@@ -178,26 +183,44 @@ var Detail = (function ($) {
               });
       }
 
-      function bindsubmit(){
-                $('#action-call-form').submit(function() { // catch the form's submit event
-                    var that=$(this);
-                    console.log('submitting');
-                    console.log(that);
-                    $.ajax({ // create an AJAX call...
-                        data: that.serialize(), // get the form data
-                        type: $(this).attr('method'), // GET or POST
-                        url: $(this).attr('action'), // the file to call
-                        success: loadsuccess,
-                        error: function(){console.log('error')}
-                    });
-                    return false;
-                });
+      function bindform(){
+          $('#action-call-form').submit(function () { // catch the form's submit event
+              var that = $(this);
+
+              $.ajax({ // create an AJAX call...
+                  data: that.serialize(), // get the form data
+                  type: $(this).attr('method'), // GET or POST
+                  url: $(this).attr('action'), // the file to call
+                  success: loadsuccess,
+                  error: function () {
+                      console.log('error')
+                  }
+              });
+              return false;
+          });
+          if ($('#id_fecha').length) {
+              console.log('hay fecha');
+              $('#id_hora').datetimepicker({
+                  datepicker: false,
+                  format: 'H:i',
+                  step: 20
+              });
+              $('#id_fecha').datetimepicker({
+                  yearOffset: 2,
+                  lang: 'es',
+                  timepicker: false,
+                  format: 'd/m/Y',
+                  formatDate: 'Y/m/d',
+                  minDate: '-1970/01/02', // yesterday is minimum date
+                  maxDate: '+1970/01/02' // and tommorow is maximum date calendar
+              });
+          }
       }
 
       this.trigger.on('click', function (ev) {
         ev.preventDefault();
         var url = $(this).attr('href');
-        if ( !$('.form-wrapper').length  ) {
+        if ( !$('.form-wrapper').length && !$('.success-wrapper').length ) {
             $.get(url, loadsuccess);
             self.openForm();
         }

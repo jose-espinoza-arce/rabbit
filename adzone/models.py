@@ -131,6 +131,7 @@ class AdBase(models.Model):
     description = models.CharField(verbose_name=_('Description'), blank=True, max_length=450)
     since = models.DateTimeField(verbose_name=_(u'Since'), auto_now_add=True)
     updated = models.DateTimeField(verbose_name=_(u'Updated'), auto_now=True)
+    file = models.FileField(verbose_name=_(u'File'), upload_to='adzone/uploads/', blank=True, default='')
 
     start_showing = models.DateTimeField(verbose_name=_(u'Start showing'),
                                          default=now)
@@ -245,3 +246,19 @@ class VideoAd(AdBase):
         if 'vimeo' in self.content:
             self.content = 'https://player.vimeo.com/video/' + self.content.split('/')[-1]
         super(VideoAd, self).save(*args, **kwargs)
+
+
+class DownloadLink(models.Model):
+    key = models.CharField(verbose_name=_(u'Key'), max_length=255)
+    filepath = models.FilePathField(verbose_name=_(u'Link Path'))
+    since = models.DateTimeField(verbose_name=_(u'Since'), auto_now_add=True)
+    url = models.URLField(verbose_name=_(u'Url Path'))
+    ad = models.ForeignKey(AdBase, related_name='links')
+
+    def delete(self, using=None):
+        import os
+        try:
+            os.remove(self.filepath)
+        except OSError:
+            pass
+        super(DownloadLink, self).delete(using)

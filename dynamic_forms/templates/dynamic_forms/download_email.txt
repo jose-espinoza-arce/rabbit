@@ -1,0 +1,8 @@
+{% load i18n %}Hola,
+
+El siguieente archivo estará disponible por un tiempo limitado
+
+{{ dl_url}}
+
+El enlace estará disponible por un periodo de tres dias.
+Gracias por su interés.

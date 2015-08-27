@@ -23,7 +23,7 @@ from adzone.forms import AdSearchForm
 
 class AdListView(ListView):
     model = AdBase
-    paginate_by = 3
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         ctx = super(AdListView, self).get_context_data(**kwargs)
@@ -134,9 +134,11 @@ def tag_hint(request):
 
     results = []
     if len(q) > 2:
-        tag_qs = Tag.objects.filter(name__startswith=q)
+        tag_qs = Tag.objects.filter(name__icontains=q)
 
-        annotated_qs = tag_qs.annotate(count=Count('taggit_taggeditem_items__id'))
+        annotated_qs = tag_qs.filter(adbase__start_showing__lte=timezone.now(),
+                                     adbase__stop_showing__gte=timezone.now())\
+                             .annotate(count=Count('taggit_taggeditem_items__id', distinct=True))
 
         for obj in annotated_qs.order_by('-count', 'slug')[:10]:
             results.append({

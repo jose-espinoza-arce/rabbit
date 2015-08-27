@@ -15,8 +15,9 @@
                         <div class="detail__media">
 
                             {% if object.videoad %}
-                                <iframe width="500" height="300" src="{{ object.videoad.url }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
+                                <div class="videoad">
+                                    <iframe width="640" height="360"  src="{{ object.videoad.video_url }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
                             {% elif object.bannerad %}
                                 <ul class="list-unstyled stadistic">
                                     <li class="stadistic__item">
@@ -51,10 +52,10 @@
 
                                 <div class="detail__actions">
                                     <a href="javascript:;" class="simple-button" data-pk="{{ object.id }}">
-                                        <span class="simple-button__label">Call us</span>
+                                        <span class="simple-button__label">Llámanos</span>
                                         <span class="simple-button__number">{{ object.advertiser.phone_number }}</span>
                                     </a>
-                                    <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}" class="action-button">Call form</a>
+                                    <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}" class="action-button">{{ object.actionform.name }}</a>
                                     <a href="" class="email-button">{{ object.advertiser.email }}</a>
                                 </div>
 
@@ -94,8 +95,6 @@
                                 <a href="#" class="detail__back">
                                     <i class="fa fa-times"></i>
                                 </a>
-                                <!--<div id="reCaptcha" class="g-recaptcha" data-sitekey="6LeptgsTAAAAACAC2Qpdyep_I9gTy1S-K0G10VzK"></div>-->
-
                             </div>
                         </div>
                     </div>

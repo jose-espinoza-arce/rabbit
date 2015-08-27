@@ -12,7 +12,7 @@ from dynamic_forms.forms import FormModelForm
 from dynamic_forms.models import FormModelData
 from dynamic_forms.utils import is_old_style_action
 
-from adzone.models import AdBase
+from adzone.models import AdBase, DownloadLink
 
 
 class DynamicFormView(FormView):
@@ -34,18 +34,6 @@ class DynamicFormView(FormView):
         #print data
         return render(request, self.get_template_names(), context)
 
-    def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests, instantiating a form instance with the passed
-        POST variables and then checked for validity.
-        """
-        form = self.get_form()
-        print request.POST
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
     def get_context_data(self, **kwargs):
         print 'dynforms.views.dynformview.getcontextdata'
         context = super(DynamicFormView, self).get_context_data(**kwargs)
@@ -55,6 +43,10 @@ class DynamicFormView(FormView):
             'name': self.form_model.name,
             'submit_url': self.form_model.submit_url,
         })
+        if 'DL_URL' in self.request.META:
+            print 'in if context'
+            context.update({'dl_url': self.request.META['DL_URL']})
+        print context
         return context
 
     def get_form_kwargs(self):
@@ -79,6 +71,9 @@ class DynamicFormView(FormView):
     def get_template_names(self):
         return self.form_model.form_template
 
+    def get_success_template(self):
+        return self.form_model.success_template
+
     def form_valid(self, form):
         """
         Instantiates an empty dict ``self.action_results`` that takes the
@@ -102,12 +97,17 @@ class DynamicFormView(FormView):
                 args = args + (self.request,)
 
             self.action_results[actionkey] = action(*args)
-
+        print 'Meta_url'
+        try:
+            dl_url = self.request.META['DL_URL']
+        except:
+            dl_url = ''
 
         messages.success(self.request,
             _('Thank you for submitting this form.'))
 
-        return render(self.request, 'dynamic_forms/myform_succes.html')#super(DynamicFormView, self).form_valid(form)
+        return render(self.request, self.get_success_template(), {'dl_url': dl_url})
+        #super(DynamicFormView, self).form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request,

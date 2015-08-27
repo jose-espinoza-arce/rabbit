@@ -1,0 +1,15 @@
+{% load i18n %}Hola,
+{% if messages %}
+        <ul class="messages" style="position: absolute;">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<div class="success-wrapper">
+<p>El siguiente enlace estará disponible por un tiempo limitado de tres días:</p>
+<p>
+    <a href="{{ dl_url }}">Archivo</a>
+</p>
+<p>Gracias por su interés.</p>
+</div>

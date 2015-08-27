@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import json
 import warnings
+import os
 
 import six
 #from django.core.mail import send_mail
@@ -14,6 +15,7 @@ from dynamic_forms.conf import settings
 from dynamic_forms.utils import is_old_style_action
 
 from adzone.mail import send_mail
+
 
 class ActionRegistry(object):
 
@@ -56,7 +58,7 @@ def formmodel_action(label):
     return decorator
 
 
-@formmodel_action(_('Send via email'))
+@formmodel_action(_('Send email to client'))
 def dynamic_form_send_email(form_model, form, advert, request):
     mapped_data = form.get_mapped_data()
 
@@ -69,13 +71,13 @@ def dynamic_form_send_email(form_model, form, advert, request):
 
     from_email = settings.DEFAULT_FROM_EMAIL
     if form_model.recipient_email:
-        recipient_list = [form_model.recipient_email]
+        hidden_recipient_list = [form_model.recipient_email]
     else:
-        recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
+        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
 
     client_email = [advert.advertiser.email]
 
-    send_mail(subject, message, from_email, client_email, recipient_list)
+    send_mail(subject, message, from_email, client_email, hidden_recipient_list)
 
 
 
@@ -86,3 +88,46 @@ def dynamic_form_store_database(form_model, form, advert, request):
     value = json.dumps(mapped_data, cls=DjangoJSONEncoder)
     data = FormModelData.objects.create(form=form_model, value=value, advert=advert)
     return data
+
+
+@formmodel_action(_('Send download email'))
+def dynamic_form_send_download_email(form_model, form, advert, request):
+    from adzone.models import DownloadLink
+    import hashlib, random
+    #print form.cleaned_data
+    #salt1 = ''.join([str(random.randrange(10)) for i in range(10)])
+    salt2 = ''.join(['{0}'.format(random.randrange(10)) for i in range(10)])
+    key = hashlib.md5('{0}{1}'.format(salt2, advert.file.name)).hexdigest()
+
+    src = '/'.join([settings.MEDIA_ROOT, advert.file.name])
+
+    download_root = os.path.join(settings.MEDIA_ROOT, 'downloads')
+    download_url = os.path.join(settings.MEDIA_URL, 'downloads')
+
+    dst = os.path.join(download_root, key+'.pdf')
+    dst_url = os.path.join(download_url, key+'.pdf')
+    link = DownloadLink(key=key, ad=advert, url=dst_url, filepath=dst)
+    site_url = request.build_absolute_uri('/')
+    dl_url = site_url[:-1] + dst_url
+    request.META['DL_URL'] = dl_url
+
+    subject = _('Descarga de archivo del anuncio “%(advert)s” submitted') % {'advert': advert.title}
+
+    message = render_to_string('dynamic_forms/download_email.txt', {
+        'dl_url': dl_url,
+    })
+
+    from_email = settings.DEFAULT_FROM_EMAIL
+    if form_model.recipient_email:
+        hidden_recipient_list = [form_model.recipient_email]
+    else:
+        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
+
+    interested_email = [form.cleaned_data['correo']]
+
+    send_mail(subject, message, from_email, interested_email, hidden_recipient_list)
+
+    link.save()
+    if not os.path.isdir(os.path.dirname(dst)):
+        os.makedirs(os.path.dirname(dst))
+    os.symlink(src, dst)
