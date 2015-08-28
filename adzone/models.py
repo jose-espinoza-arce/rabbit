@@ -131,7 +131,8 @@ class AdBase(models.Model):
     description = models.CharField(verbose_name=_('Description'), blank=True, max_length=450)
     since = models.DateTimeField(verbose_name=_(u'Since'), auto_now_add=True)
     updated = models.DateTimeField(verbose_name=_(u'Updated'), auto_now=True)
-    file = models.FileField(verbose_name=_(u'File'), upload_to='adzone/uploads/', blank=True, default='')
+    file = models.FileField(verbose_name=_(u'File'), upload_to='adzone/uploads/',
+                             blank=True, default='')
 
     start_showing = models.DateTimeField(verbose_name=_(u'Start showing'),
                                          default=now)

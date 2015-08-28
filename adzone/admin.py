@@ -10,7 +10,27 @@ import csv
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from django.http import HttpResponse
+
 from adzone.models import *
+
+from django import forms
+
+
+class AdBaseForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(AdBaseForm, self).clean()
+        file = cleaned_data.get('file')
+        actionform = cleaned_data.get('actionform')
+
+        download_action_list = [u'dynamic_forms.actions.dynamic_form_send_download_email']
+        download_actionform = set(actionform.actions).intersection(download_action_list)
+
+        if download_actionform and not file:
+            msg = 'Seleccionó un formulario de descarga pero no asigno ningún archivo'
+            self.add_error('file', msg)
+            self.add_error('actionform', msg)
+
+        return self.cleaned_data
 
 
 class AdvertiserAdmin(admin.ModelAdmin):
@@ -38,6 +58,7 @@ class AdBaseAdmin(admin.ModelAdmin):
     list_filter = ['updated', 'start_showing', 'stop_showing', 'since', 'updated']
     search_fields = ['title', 'url']
     raw_id_fields = ['advertiser']
+    form = AdBaseForm
 
     def get_form(self, request, obj=None, **kwargs):
         """
