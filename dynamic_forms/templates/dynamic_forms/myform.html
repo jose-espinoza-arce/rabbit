@@ -1,14 +1,15 @@
 {% load i18n %}
 {% load widget_tweaks %}
-
-<div class="form-wrapper">
-    {% if messages %}
+{% if messages %}
         <ul class="messages" style="position: absolute;">
             {% for message in messages %}
                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
         </ul>
     {% endif %}
+
+<div class="form-wrapper">
+
 <h2>{{ name }}</h2>
 <form id="action-call-form" method="post" action="{{ submit_url }}">
     {% csrf_token %}
