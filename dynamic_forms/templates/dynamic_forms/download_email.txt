@@ -1,5 +1,5 @@
 <p>
-Hola, <a href="http://roof.haushaus.mx/categorias/tecnologia/ad/banner15">Archivo</a>
+Hola, <a href="https://docs.djangoproject.com/en/1.7/ref/templates/api/">Archivo</a>
 </p>
 <p>
 Gracias por su interés.
