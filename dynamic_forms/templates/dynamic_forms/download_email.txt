@@ -1,5 +1,5 @@
 <p>
-Hola, <a href="{{ dl_url }}">Archivo</a>
+Hola, <a href="http://roof.haushaus.mx/categorias/tecnologia/ad/banner15">Archivo</a>
 </p>
 <p>
 Gracias por su interés.
