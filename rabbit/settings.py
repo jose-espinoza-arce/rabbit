@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['backups@haushaus.mx']
+DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['backup@haushaus.mx']
 
 DEFAULT_FROM_EMAIL = 'admin@haushaus.mx'
 
