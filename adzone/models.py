@@ -182,7 +182,7 @@ class AdImpression(models.Model):
         verbose_name=_(u'When'), auto_now_add=True)
     source_ip = models.GenericIPAddressField(
         verbose_name=_(u'Who'), null=True, blank=True)
-    ad = models.ForeignKey(AdBase, related_name='impresions')
+    ad = models.ForeignKey(AdBase, related_name='impressions')
 
     class Meta:
         verbose_name = _('Ad Impression')
