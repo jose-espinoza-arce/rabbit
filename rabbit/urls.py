@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^captcha/', include('captcha.urls')),
     url(r'^dynamic_forms/',
         include('dynamic_forms.urls', namespace='dynamic_forms')),
+    url(r'^likes/', include('likes.urls')),
 ]
 
 if settings.DEBUG:

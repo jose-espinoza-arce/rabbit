@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% load likes_inclusion_tags %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
@@ -36,7 +37,8 @@
                                         <a href=""><span><i class="fa fa-eye"></i></span>{{ object.impressions.count }}<span></span></a>
                                     </li>
                                     <li class="stadistic__item">
-                                        <a href=""><span><i class="fa fa-heart"></i></span><span>18</span></a>
+                                        <a href=""><span><i class="fa fa-heart"></i></span><span>{{ object.vote_total }}</span></a>
+                                        {% likes object %}
                                     </li>
                                 </ul>
 

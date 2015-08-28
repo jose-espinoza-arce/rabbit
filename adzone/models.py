@@ -6,6 +6,7 @@
 # If this script is distributed, it must be accompanied by the Licence
 
 import datetime
+import secretballot
 
 from django.db import models
 from django.conf import settings
@@ -263,3 +264,6 @@ class DownloadLink(models.Model):
         except OSError:
             pass
         super(DownloadLink, self).delete(using)
+
+
+secretballot.enable_voting_on(AdBase)

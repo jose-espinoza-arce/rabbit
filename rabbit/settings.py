@@ -55,6 +55,8 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'taggit',
     'nocaptcha_recaptcha',
+    'secretballot',
+    'likes',
 )
 
 # App configs
@@ -81,6 +83,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'dynamic_forms.middlewares.FormModelMiddleware',
+    'secretballot.middleware.SecretBallotIpUseragentMiddleware',
+    'likes.middleware.SecretBallotUserIpUseragentMiddleware',
 )
 
 ROOT_URLCONF = 'rabbit.urls'
@@ -100,6 +104,7 @@ TEMPLATES = [
                 #'adzone.context_processors.search_form',
                 "django.core.context_processors.media",
                 "django.core.context_processors.static",
+                'django.core.context_processors.request',
 
             ],
         },
