@@ -13,8 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from dynamic_forms.conf import settings
 from dynamic_forms.utils import is_old_style_action
-
-from adzone.mail import send_mail
+from dynamic_forms.mail import send_mail
 
 
 class ActionRegistry(object):
@@ -77,7 +76,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
 
     client_email = [advert.advertiser.email]
 
-    send_mail(subject, message, from_email, client_email, hidden_recipient_list)
+    send_mail(subject, '', from_email, client_email, hidden_recipient_list, html_message=message)
 
 
 
@@ -125,7 +124,7 @@ def dynamic_form_send_download_email(form_model, form, advert, request):
 
     interested_email = [form.cleaned_data['correo']]
 
-    send_mail(subject, message, from_email, interested_email, hidden_recipient_list)
+    send_mail(subject, '', from_email, interested_email, hidden_recipient_list, html_message=message)
 
     link.save()
     if not os.path.isdir(os.path.dirname(dst)):
