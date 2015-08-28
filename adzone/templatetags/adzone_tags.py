@@ -9,14 +9,39 @@ from datetime import datetime
 from django import template
 from adzone.models import AdBase, AdImpression
 
+#-----------------Fix likes templte tag (module->model)-------------------------
+from secretballot.models import Vote
 
+from django import template
 
-
-
-
-
+from likes.utils import can_vote, likes_enabled
 
 register = template.Library()
+
+
+@register.inclusion_tag('likes/inclusion_tags/likes_extender.html', takes_context=True)
+def adlikes(context, obj, template=None):
+    if template is None:
+        template = 'likes/inclusion_tags/likes.html'
+    request = context['request']
+    import_js = False
+    if not hasattr(request, '_django_likes_js_imported'):
+        setattr(request, '_django_likes_js_imported', 1)
+        import_js = True
+    print 'likes_tags'
+    print obj._meta.__dict__
+    context.update({
+        'template': template,
+        'content_obj': obj,
+        'likes_enabled': likes_enabled(obj, request),
+        'can_vote': can_vote(obj, request.user, request),
+        'content_type': "-".join((obj._meta.app_label, obj._meta.model_name)),
+        'import_js': import_js
+    })
+    return context
+
+
+#------------------------------------------------------------------------------
 
 @register.tag(name='get_parameters')
 def get_parameters(parser, token):
