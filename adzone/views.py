@@ -8,6 +8,7 @@
 from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import ListView, DetailView
+from django.http import Http404
 
 from django.contrib import messages
 from django.utils import timezone
@@ -29,6 +30,9 @@ class AdListView(ListView):
         ctx = super(AdListView, self).get_context_data(**kwargs)
         slugs = self.request.path.split('/')
         q = ''
+
+        if 'instance' in kwargs.keys():
+            ctx['category'] = kwargs['instance']
 
         if 'tags' in slugs:
             slugs.pop(0)
@@ -57,10 +61,26 @@ class AdListView(ListView):
             elif 'slugs' in kwargs.keys():
                 self.queryset = queryset.filter(tags__slug__in=kwargs.pop('slugs')).distinct()
             else:
-                print 'adlisview.get.else'
                 return redirect('adzone:ad_list')
 
-        return super(AdListView, self).get(request, *args, **kwargs)
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+
+        if not allow_empty:
+            # When pagination is enabled and object_list is a queryset,
+            # it's better to do a cheap query than to load the unpaginated
+            # queryset in memory.
+            if (self.get_paginate_by(self.object_list) is not None
+                    and hasattr(self.object_list, 'exists')):
+                is_empty = not self.object_list.exists()
+            else:
+                is_empty = len(self.object_list) == 0
+            if is_empty:
+                raise Http404(_("Empty list and '%(class_name)s.allow_empty' is False.")
+                        % {'class_name': self.__class__.__name__})
+
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
 
 
 class AdDetailView(DetailView):
@@ -74,7 +94,7 @@ class AdDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         request.META["CSRF_COOKIE_USED"] = True
 
-        if not kwargs['instance']:
+        if 'instance' not in kwargs.keys():
             return redirect('adzone:ad_list')
 
         try:
@@ -87,7 +107,11 @@ class AdDetailView(DetailView):
         except:
             pass
 
-        return super(AdDetailView, self).get(request, *args, **kwargs)
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object, category=self.object.category)
+
+        return self.render_to_response(context)
+
 
 
 def ad_view(request, pk):

@@ -1,9 +1,21 @@
 {% extends 'layout.html' %}
-
-
 {% load staticfiles %}
 {% load thumbnail %}
 
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Inicio</a>
+        </li>
+        {% for category in category.get_ancestors %}
+            <li>
+                <a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+        <li><a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a></li>
+        <li>{{ object.title }}</li>
+    </ul>
+{% endblock %}
 
 
 {% block content %}

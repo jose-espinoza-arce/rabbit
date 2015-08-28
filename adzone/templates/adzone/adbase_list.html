@@ -4,6 +4,20 @@
 {% load thumbnail %}
 
 
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Inicio</a>
+        </li>
+        {% for category in category.get_ancestors %}
+            <li>
+                <a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+        <li class="active">{{ category.name }}</li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <ul class="list-unstyled wall">
         <div class="row">

@@ -35,7 +35,6 @@ class DynamicFormView(FormView):
         return render(request, self.get_template_names(), context)
 
     def get_context_data(self, **kwargs):
-        print 'dynforms.views.dynformview.getcontextdata'
         context = super(DynamicFormView, self).get_context_data(**kwargs)
 
         context.update({
@@ -43,10 +42,7 @@ class DynamicFormView(FormView):
             'name': self.form_model.name,
             'submit_url': self.form_model.submit_url,
         })
-        if 'DL_URL' in self.request.META:
-            print 'in if context'
-            context.update({'dl_url': self.request.META['DL_URL']})
-        print context
+
         return context
 
     def get_form_kwargs(self):

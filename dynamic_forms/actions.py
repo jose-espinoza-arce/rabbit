@@ -68,7 +68,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
         'data': sorted(mapped_data.items()),
     })
 
-    from_email = settings.DEFAULT_FROM_EMAIL
+    from_email = form.cleaned_data['correo']
     if form_model.recipient_email:
         hidden_recipient_list = [form_model.recipient_email]
     else:
@@ -116,7 +116,8 @@ def dynamic_form_send_download_email(form_model, form, advert, request):
         'dl_url': dl_url,
     })
 
-    from_email = settings.DEFAULT_FROM_EMAIL
+    print advert.advertiser.email
+    from_email = advert.advertiser.email
     if form_model.recipient_email:
         hidden_recipient_list = [form_model.recipient_email]
     else:
