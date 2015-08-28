@@ -1,8 +1,7 @@
 {% load i18n %}Hola,
 
-El siguieente archivo estará disponible por un tiempo limitado
-
-
-
-El enlace estará disponible por un periodo de tres dias.
-Gracias por su interés.
+<p>El siguiente enlace estará disponible por un tiempo limitado de tres días:</p>
+<p>
+    <a href="{{ dl_url }}">Archivo</a>
+</p>
+<p>Gracias por su interés.</p>
