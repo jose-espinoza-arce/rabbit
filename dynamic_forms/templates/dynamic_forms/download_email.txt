@@ -1,7 +1,6 @@
-{% load i18n %}Hola,
-
-<p>El siguiente enlace estará disponible por un tiempo limitado de tres días:</p>
 <p>
-    <a href="{{ dl_url }}">Archivo</a>
+Hola, <a href="{{ dl_url }}">Archivo</a>
 </p>
-<p>Gracias por su interés.</p>
+<p>
+Gracias por su interés.
+</p>
