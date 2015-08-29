@@ -5,17 +5,28 @@
 
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="/">Inicio</a>
-        </li>
-        {% for category in category.get_ancestors %}
-            <li>
-                <a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a>
-            </li>
-        {% endfor %}
-        <li class="active">{{ category.name }}</li>
-    </ul>
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <ul class="breadcrumb roof-breadcrumb">
+
+                {% if request.path = '/' %}
+                    <li class="active">Inicio</li>
+                {% else %}
+                    <li>
+                        <a href="/">Inicio</a>
+                    </li>
+                {% endif %}
+                {% for category in category.get_ancestors %}
+                    <li>
+                        <a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+                {% if category %}
+                    <li class="active">{{ category.name }}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}

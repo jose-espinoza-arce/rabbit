@@ -28,8 +28,7 @@ def adlikes(context, obj, template=None):
     if not hasattr(request, '_django_likes_js_imported'):
         setattr(request, '_django_likes_js_imported', 1)
         import_js = True
-    print 'likes_tags'
-    print obj._meta.__dict__
+
     context.update({
         'template': template,
         'content_obj': obj,

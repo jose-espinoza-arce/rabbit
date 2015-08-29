@@ -8,7 +8,7 @@
     <title>roof</title>
 
     <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}"/>
-    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Vollkorn' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic' rel='stylesheet' type='text/css'>
     <!-- Place favicon.ico in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -82,11 +82,6 @@
 
 {% block autocomplete_scripts %}
 <script type="text/javascript">
-  $(function() {
-    var tag_completion = new Snippets.TagCompletion();
-    // additional initialization happens here
-  });
-
   $(function() {
     if ($('#id_tags').length > 0) {
       var tag_completion = new Snippets.TagCompletion();

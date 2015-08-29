@@ -24,15 +24,11 @@
                 </div>
             </header>
             <main class="main">
-                <div class="container">
-                    {% comment %}{% if messages %}
-                        <ul class="messages" style="position: absolute;">
-                            {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}{% endcomment %}
+                <div class="container">                    
+
                     {% block breadcrumbs %}{% endblock %}
+
+                    {% include 'partials/messages.html' %}
 
                     {% block content %}
 
@@ -41,20 +37,38 @@
             </main>
         </div>
         <aside class="wrapper__sidebar">
+
             <nav class="site-nav">
-                <ul class="site-menu">
+
+                    <a  href="/">
+                        <img class="center-block" src="{% static 'adzone/images/roof-logo.png' %}" alt=""/>
+                    </a>
+
+                <ul class="site-menu list-unstyled">
                     <li class="site-menu__item"><a href="/">Inicio</a></li>
                     {% recursetree nodes %}
                         <li class="site-menu__item">
                             <a href="/categorias/{{ node.my_get_path }}">{{ node.name }}</a>
                             {% if not node.is_leaf_node %}
-                                <ul class="children">
+                                <ul class="children list-unstyled">
                                     {{ children }}
                                 </ul>
                             {% endif %}
                         </li>
                     {% endrecursetree %}
                 </ul>
+
+            <h3 class="site-nav__title">Acerca de roof</h3>
+
+            <p class="site-nav__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus autem dolores incidunt, iusto neque
+                repudiandae sunt temporibus veritatis? A amet architecto dicta, eaque facilis fugiat ipsa maxime numquam
+                odit similique?</p>
+            <ul class="list-unstyled site-menu">
+                <li><a href="">¿Cómo funciona?</a></li>
+                <li><a href="">Anúnciate</a></li>
+                <li><a href="">Aviso de privacidad</a></li>
+                <li> <a href="">Desarrollado por Mucha-Web</a></li>
+            </ul>
             </nav>
         </aside>
     </div>

@@ -10,12 +10,11 @@
 
 <div class="form-wrapper">
 
-<h2>{{ name }}</h2>
+<h2 class="detail__title">{{ name }}</h2>
 <form id="action-call-form" method="post" action="{{ submit_url }}">
     {% csrf_token %}
     {% for field in form %}
         <div class="field-group">
-            {{ field.errors }}
             {% if not field.name == 'agree'   %}
                 {% if not field.is_hidden and not field.name == 'captcha' %}
                     <label class="field-label" for="{{ field.auto_id }}">{{ field.label }}</label>
@@ -29,6 +28,12 @@
                 </span>
             {% endif %}
         </div>
+        {% if field.errors %}
+        <div class="alert alert-danger">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>{% with field.errors|first as first_error %}{{ first_error }}{% endwith %}</strong>
+        </div>
+        {% endif %}
     {% endfor %}
     <div class="field-group">
         <button type="submit">{% trans "Submit" %}</button>
