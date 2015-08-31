@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('adzone', '0004_advertiser_email'),
+        ('content', '0004_advertiser_email'),
         ('dynamic_forms', '0008_auto_20150812_1147'),
     ]
 
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='formmodeldata',
             name='advert',
-            field=models.ForeignKey(related_name='sell_opportunities', default=1, to='adzone.AdBase'),
+            field=models.ForeignKey(related_name='sell_opportunities', default=1, to='content.AdBase'),
             preserve_default=False,
         ),
     ]

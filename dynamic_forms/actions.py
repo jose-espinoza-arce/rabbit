@@ -91,7 +91,7 @@ def dynamic_form_store_database(form_model, form, advert, request):
 
 @formmodel_action(_('Send download email'))
 def dynamic_form_send_download_email(form_model, form, advert, request):
-    from adzone.models import DownloadLink
+    from content.models import DownloadLink
     import hashlib, random
     #print form.cleaned_data
     #salt1 = ''.join([str(random.randrange(10)) for i in range(10)])

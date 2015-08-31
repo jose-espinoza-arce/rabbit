@@ -8,14 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('content', '0003_auto_20150811_1549'),
-        ('dynamic_forms', '0006_auto_20150811_1549'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='formmodeldata',
-            name='bannerad',
-            field=models.ForeignKey(related_name='sell_oportunities', default=1, to='content.BannerAd'),
+            model_name='advertiser',
+            name='email',
+            field=models.EmailField(default='cliente@mw.com', max_length=254, verbose_name='Email'),
             preserve_default=False,
         ),
     ]

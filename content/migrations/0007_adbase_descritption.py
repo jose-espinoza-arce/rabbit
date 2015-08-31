@@ -7,15 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('content', '0003_auto_20150811_1549'),
-        ('dynamic_forms', '0006_auto_20150811_1549'),
+        ('content', '0006_auto_20150812_1714'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='formmodeldata',
-            name='bannerad',
-            field=models.ForeignKey(related_name='sell_oportunities', default=1, to='content.BannerAd'),
+            model_name='adbase',
+            name='descritption',
+            field=models.TextField(default='descricpcion', verbose_name='Description'),
             preserve_default=False,
         ),
     ]

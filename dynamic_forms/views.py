@@ -12,7 +12,7 @@ from dynamic_forms.forms import FormModelForm
 from dynamic_forms.models import FormModelData
 from dynamic_forms.utils import is_old_style_action
 
-from adzone.models import AdBase, DownloadLink
+from content.models import AdBase, DownloadLink
 
 
 class DynamicFormView(FormView):

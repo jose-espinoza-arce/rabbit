@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dynamic_forms', '0007_formmodeldata_bannerad'),
+        ('content', '0020_auto_20150815_1159'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='formmodeldata',
-            name='bannerad',
-            field=models.ForeignKey(related_name='sell_opportunities', to='content.BannerAd'),
+            model_name='bannerad',
+            name='content_mobile',
+            field=models.ImageField(default=b'', upload_to=b'adzone/bannerads/mobile', verbose_name='Content', blank=True),
         ),
     ]

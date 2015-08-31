@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dynamic_forms', '0007_formmodeldata_bannerad'),
+        ('content', '0026_downloadlink_filepath'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='formmodeldata',
-            name='bannerad',
-            field=models.ForeignKey(related_name='sell_opportunities', to='content.BannerAd'),
+            model_name='adimpression',
+            name='ad',
+            field=models.ForeignKey(related_name='impresions', to='content.AdBase'),
         ),
     ]

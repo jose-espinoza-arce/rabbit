@@ -32,5 +32,5 @@ if settings.DEBUG:
 
 #Added at the end so 'path' don't interfere with media, admin or any other urls
 urlpatterns += [
-    url(r'^', include('adzone.urls', namespace='adzone')),
+    url(r'^', include('content.urls', namespace='content')),
 ]

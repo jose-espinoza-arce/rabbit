@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dynamic_forms', '0007_formmodeldata_bannerad'),
+        ('content', '0005_adbase_slug'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='formmodeldata',
-            name='bannerad',
-            field=models.ForeignKey(related_name='sell_opportunities', to='content.BannerAd'),
+            model_name='adbase',
+            name='slug',
+            field=models.SlugField(unique=True, verbose_name='Slug'),
         ),
     ]

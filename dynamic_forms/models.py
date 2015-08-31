@@ -157,7 +157,7 @@ class FormFieldModel(models.Model):
 class FormModelData(models.Model):
     form = models.ForeignKey(FormModel, on_delete=models.SET_NULL,
         related_name='data', null=True)
-    advert = models.ForeignKey('adzone.AdBase', related_name='sell_opportunities')
+    advert = models.ForeignKey('content.AdBase', related_name='sell_opportunities')
     value = models.TextField(_('Form data'), blank=True, default='')
     submitted = models.DateTimeField(_('Submitted on'), auto_now_add=True)
     display_key = models.CharField(_('Display key'), max_length=24, null=True,
