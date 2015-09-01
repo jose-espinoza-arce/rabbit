@@ -64,10 +64,20 @@ class AdListView(ListView):
                 return redirect('content:ad_list')
 
         self.object_list = self.get_queryset()
+        count = self.object_list.count()
 
-        if not request.is_ajax():
-            message = 'Se encontaron %d resultados' % self.object_list.count()
-            messages.add_message(request, messages.INFO, message)
+        if not request.is_ajax() and not request.path == '/': #reverse()
+            if count > 1:
+                message = 'Se encontraron %d resultados.' % self.object_list.count()
+                messages.add_message(request, messages.INFO, message)
+            elif count == 1:
+                message = 'Se encontró %d resultado.' % self.object_list.count()
+                messages.add_message(request, messages.INFO, message)
+            elif count == 0:
+                message = 'No se encontraron resultados.'
+                messages.add_message(request, messages.ERROR, message)
+
+
         allow_empty = self.get_allow_empty()
 
         if not allow_empty:

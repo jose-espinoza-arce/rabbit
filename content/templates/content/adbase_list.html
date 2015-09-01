@@ -43,11 +43,14 @@
                 {% endfor %}
             </div>
         </ul>
+        <div class="the-end">The End</div>
     {% else %}
         {% get_tagcloud as tags %}
         <div class="row text-center">
             <div class="col-lg-12">
-                <ul class="list-unstyled tag-list tagcloud">
+                <div class="tagcloud">
+                <h2 class="tagcloud__title">Seleccione algún enlace.</h1>
+                <ul class="list-unstyled tag-list">
                     {% for tag in tags %}
                         <li class="tag-list__item">
                             <a href="{% url 'content:tagged_ads' path=tag.slug %}">
@@ -56,6 +59,7 @@
                         </li>
                     {% endfor %}
                 </ul>
+                </div>
             </div>
         </div>
     {% endif %}

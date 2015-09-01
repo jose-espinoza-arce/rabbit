@@ -29,13 +29,11 @@ class tagview():
         if 'path' not in kwargs:
             raise ValueError('Path was not captured! Please capture it in your urlconf. Example: url(r\'^tags/(?P<path>.*)\', mptt_urls.view(...), ...)')
 
-        print 'tagview'
 
         path = kwargs['path']
         if not path:
-            print 'no path'
-            messages.add_message(request, messages.ERROR, 'No se encontaron resultados')
-            return render(request, 'content/adbase_list.html', {'search_form': AdSearchForm(), 'slugs': []})
+            messages.add_message(request, messages.INFO, 'Podrían interesarle los siguientes enlaces.')
+            return render(request, 'content/adbase_list.html', {'search_form': AdSearchForm(), 'tags': []})
 
         path_slugs = path.split('/')
         tag_slugs = [tag.slug for tag in self.tagmodel.objects.all()]
@@ -43,6 +41,7 @@ class tagview():
 
 
         if not path_tag_slugs:
+            messages.add_message(request, messages.ERROR, 'No se encontraron resultados.')
             return redirect('content:tagged_ads', path='')
         elif set(path_tag_slugs) != set(path_slugs):
             return redirect('content:tagged_ads', path='/'.join(path_tag_slugs))
@@ -57,14 +56,19 @@ class searchview():
         if request.GET:
             q = request.GET['q']
             path = '/'.join([slugify(unidecode(tag)) for tag in parse_tags(q)])
-            print 'search path'
+
+            #Complete the following if a redirect is note required
+
+            #search_slugs = [slugify(unidecode(tag)) for tag in parse_tags(q)]
+            #tag_slugs = [tag.slug for tag in Tag.objects.all()]
+            #search_tag_slugs = list(set(search_slugs).intersection(tag_slugs))
+
+            #print 'search path'
             #print path
             #kwargs['path'] = path
             #kwargs['from_search'] = True
             #return tagview(Tag, AdListView, 'slug')(request, *args, **kwargs)
             return redirect('content:tagged_ads', path=path)
-
-        return redirect('content:ad_list')
 
 
 def _load(module):
