@@ -57,7 +57,6 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'secretballot',
     'likes',
-    'taggit_templatetags',
 )
 
 # App configs
