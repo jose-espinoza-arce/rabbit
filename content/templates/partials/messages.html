@@ -1,24 +1,8 @@
-{% comment %}{% if messages %}
-                        <ul class="messages" style="position: absolute;">
-                            {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}{% endcomment %}
-{{ message.tags }}
-<div class="alert alert-success alert-dismissible" role="alert">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    There was a problem with your network connection.
-</div>
-<div class="alert alert-info alert-dismissible" role="alert">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    There was a problem with your network connection.
-</div>
-<div class="alert alert-warning alert-dismissable" role="alert">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    There was a problem with your network connection.
-</div>
-<div class="alert alert-danger alert-dismissible" role="alert">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    There was a problem with your network connection.
-</div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}

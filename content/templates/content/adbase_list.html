@@ -16,6 +16,11 @@
                         <a href="/">Inicio</a>
                     </li>
                 {% endif %}
+                {% if slugs %}
+                    <l1 class="active">
+                        Tags
+                    </l1>
+                {% endif %}
                 {% for category in category.get_ancestors %}
                     <li>
                         <a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a>

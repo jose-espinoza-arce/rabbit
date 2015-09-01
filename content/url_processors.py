@@ -1,10 +1,12 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+from django.shortcuts import render
 from django.utils.module_loading import import_string
 from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
 from django.contrib import messages
+from content.forms import AdSearchForm
 
 from taggit.utils import parse_tags
 
@@ -28,18 +30,21 @@ class tagview():
             raise ValueError('Path was not captured! Please capture it in your urlconf. Example: url(r\'^tags/(?P<path>.*)\', mptt_urls.view(...), ...)')
 
         print 'tagview'
+
         path = kwargs['path']
+        if not path:
+            print 'no path'
+            messages.add_message(request, messages.ERROR, 'No se encontaron resultados')
+            return render(request, 'content/adbase_list.html', {'search_form': AdSearchForm(), 'slugs': []})
+
         path_slugs = path.split('/')
         tag_slugs = [tag.slug for tag in self.tagmodel.objects.all()]
         path_tag_slugs = list(set(path_slugs).intersection(tag_slugs))
 
         if not path_tag_slugs:
-            messages.add_message(request, messages.INFO, 'No se encontaron resultados')
-            return redirect('content:ad_list')
+            return redirect('content:tagged_ads', path='')
         elif set(path_tag_slugs) != set(path_slugs):
-            return redirect('content:tagged_ads', path=('/').join(path_tag_slugs))
-        elif 'from_search' in kwargs:
-            return redirect('content:tagged_ads', path=path)
+            return redirect('content:tagged_ads', path='/'.join(path_tag_slugs))
 
         kwargs['slugs'] = path_tag_slugs
         return self.view.as_view()(request, *args, **kwargs)
@@ -49,10 +54,13 @@ class searchview():
     def __call__(self, request, *args, **kwargs):
         if request.GET:
             q = request.GET['q']
-            path = ('/').join([slugify(unidecode(tag)) for tag in parse_tags(q)])
-            kwargs['path'] = path
-            kwargs['from_search'] = True
-            return tagview(Tag, AdListView, 'slug')(request, *args, **kwargs)
+            path = '/'.join([slugify(unidecode(tag)) for tag in parse_tags(q)])
+            print 'search path'
+            #print path
+            #kwargs['path'] = path
+            #kwargs['from_search'] = True
+            #return tagview(Tag, AdListView, 'slug')(request, *args, **kwargs)
+            return redirect('content:tagged_ads', path=path)
 
         return redirect('content:ad_list')
 
