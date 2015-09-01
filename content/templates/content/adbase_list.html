@@ -4,11 +4,11 @@
 {% load thumbnail %}
 
 
+
 {% block breadcrumbs %}
     <div class="row text-center">
         <div class="col-lg-12">
             <ul class="breadcrumb roof-breadcrumb">
-
                 {% if request.path = '/' %}
                     <li class="active">Inicio</li>
                 {% else %}
@@ -16,42 +16,49 @@
                         <a href="/">Inicio</a>
                     </li>
                 {% endif %}
-                {% if slugs %}
-                    <l1 class="active">
-                        Tags
-                    </l1>
-                {% endif %}
-                {% for category in category.get_ancestors %}
-                    <li>
-                        <a href="/categorias/{{ category.my_get_path }}">{{ category.name }}</a>
-                    </li>
-                {% endfor %}
-                {% if category %}
-                    <li class="active">{{ category.name }}</li>
-                {% endif %}
+                {% include 'partials/tags_breadcrumbs.html' %}
+                {% include 'partials/category_breadcrumbs.html'%}
             </ul>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <ul class="list-unstyled wall">
-        <div class="row">
-            {# .grid-sizer configura el columnWidth de masonry, en otro caso, se toma el ancho del primer item #}
-            <div class="grid-sizer" style="width: 25%;"></div>
-            {% for object in object_list %}
-                {% if object.videoad %}
-                    {% thumbnail object.videoad.content "740" as im %}
-                        {% include 'partials/image.html' with im=im object=object.videoad %}
-                    {% endthumbnail %}
-                {% elif object.bannerad %}
-                    {% thumbnail object.bannerad.content "740" as im %}
-                        {% include 'partials/image.html' with im=im object=object.bannerad %}
-                    {% endthumbnail %}
-                {% endif %}
-            {% endfor %}
+    {% if object_list %}
+        <ul class="list-unstyled wall">
+            <div class="row">
+                {# .grid-sizer configura el columnWidth de masonry, en otro caso, se toma el ancho del primer item #}
+                <div class="grid-sizer" style="width: 25%;"></div>
+
+                {% for object in object_list %}
+                    {% if object.videoad %}
+                        {% thumbnail object.videoad.content "740" as im %}
+                            {% include 'partials/image.html' with im=im object=object.videoad %}
+                        {% endthumbnail %}
+                    {% elif object.bannerad %}
+                        {% thumbnail object.bannerad.content "740" as im %}
+                            {% include 'partials/image.html' with im=im object=object.bannerad %}
+                        {% endthumbnail %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </ul>
+    {% else %}
+        {% get_tagcloud as tags %}
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="list-unstyled tag-list tagcloud">
+                    {% for tag in tags %}
+                        <li class="tag-list__item">
+                            <a href="{% url 'content:tagged_ads' path=tag.slug %}">
+                                <font size={{ tag.weight|floatformat:0 }}>{{ tag }}</font>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    </ul>
+    {% endif %}
     {% include 'partials/pagination.html' %}
 {% endblock %}
 

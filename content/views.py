@@ -58,15 +58,16 @@ class AdListView(ListView):
             if 'instance' in kwargs.keys():
                 descendants = kwargs['instance'].get_descendants(include_self=True)
                 self.queryset = queryset.filter(category__in=descendants)
-            elif 'slugs' in kwargs.keys():
-                self.queryset = queryset.filter(tags__slug__in=kwargs['slugs']).distinct()
+            elif 'tags' in kwargs.keys():
+                self.queryset = queryset.filter(tags__in=kwargs['tags']).distinct()
             else:
                 return redirect('content:ad_list')
 
         self.object_list = self.get_queryset()
-        print 'counting'
-        message = 'Se encontaron %d resultados' % self.object_list.count()
-        messages.add_message(request, messages.INFO, message)
+
+        if not request.is_ajax():
+            message = 'Se encontaron %d resultados' % self.object_list.count()
+            messages.add_message(request, messages.INFO, message)
         allow_empty = self.get_allow_empty()
 
         if not allow_empty:

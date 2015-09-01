@@ -1,0 +1,20 @@
+{% if request.path = '/tags/' %}
+    <li class="active">Tags:</li>
+{% endif %}
+{% if tags %}
+    <li>
+        <a href="/tags/">Tags</a>
+    </li>
+    <li class="">
+
+        <ul class="list-unstyled tag-list breadcrumb-tags">
+            {% for tag in tags %}
+                <li class="tag-list__item">
+                    <a href="{% url 'content:tagged_ads' path=tag.slug %}">
+                        {{ tag.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endif %}

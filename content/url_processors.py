@@ -41,12 +41,14 @@ class tagview():
         tag_slugs = [tag.slug for tag in self.tagmodel.objects.all()]
         path_tag_slugs = list(set(path_slugs).intersection(tag_slugs))
 
+
         if not path_tag_slugs:
             return redirect('content:tagged_ads', path='')
         elif set(path_tag_slugs) != set(path_slugs):
             return redirect('content:tagged_ads', path='/'.join(path_tag_slugs))
 
-        kwargs['slugs'] = path_tag_slugs
+
+        kwargs['tags'] = self.tagmodel.objects.filter(slug__in=path_tag_slugs)
         return self.view.as_view()(request, *args, **kwargs)
 
 
