@@ -58,7 +58,6 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'secretballot',
     'likes',
-    'django_libs',
     'feedback_form'
 )
 
