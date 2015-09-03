@@ -1,8 +1,9 @@
 cffi==1.1.2
 cryptography==0.9.3
-Django==1.8.3
+Django==1.8.4
 django-advert==1.0.0
 django-likes==0.2
+django-mailer==1.1
 django-mptt==0.7.4
 django-mptt-admin==0.2.1
 django-mptt-urls==1.0
@@ -15,6 +16,7 @@ django-widget-tweaks==1.4.1
 enum34==1.0.4
 idna==2.0
 ipaddress==1.0.11
+lockfile==0.10.2
 ndg-httpsclient==0.4.0
 Pillow==2.9.0
 pyasn1==0.1.8
