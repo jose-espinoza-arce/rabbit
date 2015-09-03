@@ -143,9 +143,9 @@ var Detail = (function ($) {
     },
     cache: function(){
       this.el = $('div.detail');
-      this.trigger = $('.detail a.action-button, .detail a.action-image');
+      this.trigger = $('.detail a.action-button');
       this.phone = $('.detail a.simple-button');
-
+      this.imgtrigger = $('.detail a.action-image');
       this.back = $('.detail a.detail__back');
       this.submit = $('.detail :submit');
     },
@@ -199,7 +199,6 @@ var Detail = (function ($) {
               return false;
           });
           if ($('#id_fecha').length) {
-              console.log('hay fecha');
               $('#id_hora').datetimepicker({
                   datepicker: false,
                   format: 'H:i',
@@ -234,6 +233,16 @@ var Detail = (function ($) {
         self.closeForm();
       });
 
+      this.imgtrigger.on('click', function(ev){
+        ev.preventDefault();
+        if ($('.detail--open').length){
+          self.back.trigger('click');
+        }
+        else {
+          self.trigger.trigger('click');
+        }
+      });
+
       this.phone.on('click', function(ev){
         ev.preventDefault();
 
@@ -243,7 +252,6 @@ var Detail = (function ($) {
         var url = '/phone/';
 
         $.post( url , { pk : pk }, function (response) {
-          console.log('response:', response);
           that.off('click');
         });
 
@@ -271,12 +279,10 @@ $(function () {
     var $container = $("ul.wall .row");
 
     $container.imagesLoaded(function () {
-        console.log('en el imageslodwed');
         $container.masonry({
             itemSelector : '.brick',
             columnWidth: '.grid-sizer'
         });
-        console.log($container.masonry);
     });
 
     $container.infinitescroll(
@@ -290,7 +296,7 @@ $(function () {
                 msg: null,
                 msgText: ""
             },
-            debug: true
+            //debug: true
         },
         function (newProducts) {
             var $newProds = $(newProducts).css({"opacity": 0});
