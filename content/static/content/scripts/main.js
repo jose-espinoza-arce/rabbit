@@ -143,7 +143,7 @@ var Detail = (function ($) {
     },
     cache: function(){
       this.el = $('div.detail');
-      this.trigger = $('.detail a.action-button');
+      this.trigger = $('.detail a.action-button, .detail a.action-image');
       this.phone = $('.detail a.simple-button');
 
       this.back = $('.detail a.detail__back');
@@ -161,7 +161,7 @@ var Detail = (function ($) {
               }
 
               if ( $('.success-wrapper').length ) {
-                  /*  Uncomment to reload form after sunmit
+                  /*  Uncomment to reload form after submit
                   self.el.find('.success-wrapper').remove();
                   */
                   /* Comment to reload form after submit*/
@@ -300,11 +300,6 @@ $(function () {
             });
         }
     );
-    /*$container.infinitescroll('unbind');
-    $('#next').on('click', function(e) {
-        e.preventDefault();
-        $container.infinitescroll('retrieve');
-    });*/
 });
 
 // autocomplete

@@ -5,8 +5,10 @@
 {% endif %}
 
 {% if likes_enabled %}
+
     {% if can_vote %}
         <a href="{% url "like" content_type content_obj.id 1 %}"><span><i class="fa fa-heart"></i> {{ content_obj.vote_total }}</span></a>
+        {% comment %}<a href="{% url "like" content_type content_obj.id 1 %}"><span><i class="fa fa-heart"></i> {{ content_obj.vote_total }}</span></a>{% endcomment %}
     {% else %}
         <span class="liked"><i class="fa fa-heart"></i>  {{ content_obj.vote_total }}</span>
     {% endif %}

@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-
+#-*- coding: utf-8 -*-
+from __future__ import unicode_literals
 # © Copyright 2009 Andre Engelbrecht. All Rights Reserved.
 # This script is licensed under the BSD Open Source Licence
 # Please see the text file LICENCE for more information

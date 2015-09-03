@@ -8,7 +8,7 @@
     <li>
         <ul class="list-unstyled tag-list breadcrumb-tags">
             {% if tags|length = 1 %}
-                <li>{{ tags.0.name }}</li>
+                <li>{{ tags.0.name|title }}</li>
             {% else %}
                 {% for tag in tags %}
                     <li class="tag-list__item">

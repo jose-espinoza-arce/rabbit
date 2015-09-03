@@ -102,10 +102,14 @@ register.inclusion_tag('taggit_templatetags/tagcloud_include.html')(include_tagc
 
 
 
+#A helper for the content type
+from django.contrib.contenttypes.models import ContentType
 
-
-
-
+@register.filter
+def content_type(obj):
+    if not obj:
+        return False
+    return ContentType.objects.get_for_model(obj)
 
 
 
@@ -121,7 +125,6 @@ def adlikes(context, obj, template=None):
     if not hasattr(request, '_django_likes_js_imported'):
         setattr(request, '_django_likes_js_imported', 1)
         import_js = True
-
     context.update({
         'template': template,
         'content_obj': obj,

@@ -4,6 +4,7 @@
 # This script is licensed under the BSD Open Source Licence
 # Please see the text file LICENCE for more information
 # If this script is distributed, it must be accompanied by the Licence
+from __future__ import unicode_literals
 
 import datetime
 import secretballot
@@ -12,6 +13,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
+from django.utils.encoding import python_2_unicode_compatible
 
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -34,6 +36,7 @@ else:
     MAX_DATETIME = make_aware(MAX_DATETIME, utc)
 
 
+@python_2_unicode_compatible
 class Advertiser(models.Model):
     """ A Model for our Advertiser.  """
     company_name = models.CharField(
@@ -56,6 +59,8 @@ class Advertiser(models.Model):
     def get_website_url(self):
         return self.website
 
+
+@python_2_unicode_compatible
 class AdType(models.Model):
     """
     A model to hold the different types for adverts
@@ -73,10 +78,7 @@ class AdType(models.Model):
         return self.title
 
 
-
-
-
-
+@python_2_unicode_compatible
 class AdCategory(MPTTModel):
     """ a Model to hold the from taggit.managers import TaggableManagerdifferent Categories for adverts """
     name = models.CharField(verbose_name=_(u'Name'), max_length=255)
@@ -87,16 +89,9 @@ class AdCategory(MPTTModel):
     def __init__(self, *args, **kwargs):
         super(AdCategory, self).__init__(*args, **kwargs)
 
-
-
     class MPTTMeta:
         order_insertion_by = ['name']
         unique_together = ('slug', 'parent')
-
-    # class Meta:
-    #     verbose_name = _('Category')
-    #     verbose_name_plural = _('Categories')
-    #     ordering = ('title',)
 
     def __str__(self):
         return self.name
@@ -105,6 +100,7 @@ class AdCategory(MPTTModel):
         return '/'.join([getattr(item, 'slug') for item in self.get_ancestors(include_self=True)])
 
 
+@python_2_unicode_compatible
 class AdZone(models.Model):
     """ a Model that describes the attributes and behaviours of ad zones """
     title = models.CharField(verbose_name=_(u'Title'), max_length=255)
@@ -119,7 +115,11 @@ class AdZone(models.Model):
     def __str__(self):
         return self.title
 
+    def __unicode__(self):
+        return self.title
 
+
+@python_2_unicode_compatible
 class AdBase(models.Model):
     """
     This is our base model, from which all ads will inherit.

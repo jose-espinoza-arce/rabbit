@@ -4,6 +4,7 @@
 # This script is licensed under the BSD Open Source Licence
 # Please see the text file LICENCE for more information
 # If this script is distributed, it must be accompanied by the Licence
+from __future__ import unicode_literals
 
 import csv
 
@@ -40,8 +41,9 @@ class AdvertiserAdmin(admin.ModelAdmin):
 
 
 class AdTypeAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ['title']}
-    list_display = ['title', 'slug']
+    prepopulated_fields = {u'slug': [u'title']}
+    list_display = [u'title', u'slug']
+
 
 class AdCategoryAdmin(DjangoMpttAdmin):
     prepopulated_fields = {'slug': ['name']}
@@ -67,7 +69,7 @@ class AdBaseAdmin(admin.ModelAdmin):
         textarea field don't have max_length attribute.
         """
         form = super(AdBaseAdmin, self).get_form(request, obj, **kwargs)
-        form.base_fields['description'].widget = admin.widgets.AdminTextareaWidget()
+        #form.base_fields['description'].widget = admin.widgets.AdminTextareaWidget()
         return form
 
 

@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load feedback_tags %}
+{% feedback_form %}
 <!DOCTYPE html>
 <html class="no-js" lang=""/>
 <head>
@@ -9,8 +11,9 @@
 
     <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic' rel='stylesheet' type='text/css'>
-    <!-- Place favicon.ico in the root directory -->
 
+    <!-- Place favicon.ico in the root directory -->
+    <link href="{% static 'feedback_form/css/feedback_form.css' %}" type="text/css" media="all" rel="stylesheet" />
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" type="text/css" href="{% static "content/libs/bootstrap/css/bootstrap.css" %}" />
@@ -52,6 +55,7 @@
     <script src="{% static 'content/libs/jquery/dist/jquery.js' %}"></script>
     <script src="{% static 'content/libs/jquery-ui/jquery-ui.js' %}"></script>
     <!-- endbower -->
+    <script type="text/javascript" src="{% static 'feedback_form/js/feedback_form.js' %}"></script>
     <!-- endbuild -->
     <!--<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.js"></script>-->

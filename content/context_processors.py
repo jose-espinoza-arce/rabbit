@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from content.models import AdCategory
 from content.forms import AdSearchForm
 

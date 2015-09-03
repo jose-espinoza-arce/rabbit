@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^feedback/', include('feedback_form.urls')),
     url(r'^dynamic_forms/',
         include('dynamic_forms.urls', namespace='dynamic_forms')),
     url(r'^likes/', include('likes.urls')),

@@ -45,7 +45,8 @@
                                     {% adlikes object template='partials/likes.html' %}
                                 </li>
                             </ul>
-                            <a href="{% url 'content:ad_view' pk=object.id %}">
+                            <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}"
+                                       class="action-image">
                                 {% thumbnail object.bannerad.content "740" as im %}
                                     <img src="{{ im.url }}" alt="" class="img-responsive">
                                 {% endthumbnail %}
@@ -57,12 +58,16 @@
                         <div class="detail__wrapper">
                             <div class="detail__about">
                                 <h1 class="detail__title">{{ object.title }}</h1>
+                                <span>Por:</span>
                                 <a href="{{ object.advertiser.website }}">
                                     <h2 class="detail__company">{{ object.advertiser }}</h2>
                                 </a>
                                 <p class="detail__description">
                                     {{ object.description }}
                                 </p>
+                                <a href="{% url 'content:ad_view' pk=object.id %}">
+                                    <span class="detail__site">Ver sitio</span>
+                                </a>
                                 <div class="detail__actions">
                                     <a href="javascript:;" class="simple-button" data-pk="{{ object.id }}">
                                         <span class="simple-button__label">Llámanos</span>

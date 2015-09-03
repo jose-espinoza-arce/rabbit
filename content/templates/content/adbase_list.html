@@ -33,11 +33,11 @@
                 {% for object in object_list %}
                     {% if object.videoad %}
                         {% thumbnail object.videoad.content "740" as im %}
-                            {% include 'partials/image.html' with im=im object=object.videoad %}
+                            {% include 'partials/image.html' with im=im object=object %}
                         {% endthumbnail %}
                     {% elif object.bannerad %}
                         {% thumbnail object.bannerad.content "740" as im %}
-                            {% include 'partials/image.html' with im=im object=object.bannerad %}
+                            {% include 'partials/image.html' with im=im object=object %}
                         {% endthumbnail %}
                     {% endif %}
                 {% endfor %}

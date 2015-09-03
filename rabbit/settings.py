@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MANAGERS = (('Jose', 'jose@haushaus.mx'),('Jhon', 'Jhon@roof.mx'))
+
 DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['backup@haushaus.mx']
 
 DEFAULT_FROM_EMAIL = 'admin@haushaus.mx'
@@ -44,7 +46,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    #'advert',
     'captcha',
     'content',
     'mptt',
@@ -57,6 +58,8 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'secretballot',
     'likes',
+    'django_libs',
+    'feedback_form'
 )
 
 # App configs
@@ -68,7 +71,8 @@ NORECAPTCHA_SITE_KEY = '6LeptgsTAAAAACAC2Qpdyep_I9gTy1S-K0G10VzK'
 
 NORECAPTCHA_SECRET_KEY = '6LeptgsTAAAAAFHCHMmgqCH-62kigxG2BF_rhKxS'
 
-
+#feedback
+FROM_EMAIL = 'feedback@roof.mx'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

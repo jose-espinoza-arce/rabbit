@@ -4,6 +4,8 @@ db.*
 
 *.pyc
 
+bauhaus.js
+
 *.swp
 
 media/
