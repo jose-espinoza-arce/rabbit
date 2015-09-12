@@ -11262,6 +11262,7 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
 }
 
 .the-end {
+    display: block;
     text-align: center;
     background: white;
     margin: 20px 0 3em 0;

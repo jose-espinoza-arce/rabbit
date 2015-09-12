@@ -285,7 +285,9 @@ $(function () {
         });
     });
 
-    $container.infinitescroll(
+
+
+    /*$container.infinitescroll(
         {
             navSelector: ".pagination",
             nextSelector: ".pagination .next",
@@ -305,7 +307,7 @@ $(function () {
                 $container.masonry("appended", $newProds, true);
             });
         }
-    );
+    );*/
 });
 
 // autocomplete
