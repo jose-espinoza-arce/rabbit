@@ -70,6 +70,8 @@ var Header = (function($){
         'brand' : $('.header__brand'),
         'logo' : $('.logo'),
         'trigger': $('.trigger-nav'),
+        'triggerSearch': $('.trigger-search'),
+        'searchEl': $('.search-mobile'),
         'container' : $('.container'),
         'win' : $(window)
       };
@@ -81,7 +83,7 @@ var Header = (function($){
     bind: function(){
       var self = this;
 
-      this.elements.win.on('load resize', function(){
+      /*this.elements.win.on('load resize', function(){
         var offsetLeft =  Math.ceil ( ( $( this ).outerWidth() - self.elements.container.outerWidth() ) / 2 );
 
         var spacing = 148;
@@ -99,6 +101,11 @@ var Header = (function($){
           'right' : offsetLeft + 40
         });
 
+      });*/
+      
+      this.elements.triggerSearch.on('click', function (ev) {
+        ev.preventDefault();
+        self.elements.searchEl.toggleClass('active');
       });
 
       this.elements.trigger.on('click', function (ev) {

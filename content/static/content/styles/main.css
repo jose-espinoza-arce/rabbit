@@ -10641,8 +10641,21 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
   left: 0;
   width: 100%;
   height: 148px;
-  background-color: transparent;
+  background-color: black;
   z-index: 100;
+}
+
+.header__left {
+  float: left;
+}
+
+.header__right {
+  float: right;
+}
+.header__middle {
+  overflow: hidden;
+  text-align: center;
+  position: relative;
 }
 
 .header__brand {
@@ -10662,13 +10675,15 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
 }
 
 .header__search {
-    position: absolute;
-    width: 400px;
-    height: 34px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    min-width: 400px;
+    display: inline-block;
     z-index: 15;
+    margin: 57px 0;
+}
+
+.header__search form {
+  position: relative;
+  margin: 0;  
 }
 
 .header__search .field {
@@ -10679,6 +10694,36 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
     outline: none;
     padding: 0.5em;
     z-index: 5;
+}
+
+.trigger-search {
+  display: block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 54px auto;
+  line-height: 40px;
+  color: white;
+  text-align: center;
+}
+.trigger-search i {
+  position: relative;
+  top: 12px;
+}
+.search-mobile {
+  position: relative;
+  top: 148px;
+  display: none;
+  width: 100%;
+  background-color: #ccc;
+}
+.search-mobile input {
+  width: 100%;
+  padding: 0.5em;
+
+}
+.search-mobile.active {
+  display: block;
 }
 
 .header__search .field-submit {
@@ -10731,13 +10776,9 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
 }
 
 .trigger-nav {
-  position: absolute;
+  position: relative;
   width: 32px;
-  height: auto;
-  top: 50%;
-  -webkit-transform: translate(0, -50%);
-      -ms-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  margin: 58px 1em;
 }
 
 .trigger-nav span {
