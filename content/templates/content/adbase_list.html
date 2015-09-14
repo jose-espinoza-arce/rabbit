@@ -44,9 +44,9 @@
             </div>
         </ul>
         {% if page_obj.has_next %}
-            <a class="the-end next" href="{{ request.path }}" data-npg="{{ page_obj.next_page_number }}">More</a>
+            <a class="the-end next" href="{{ request.path }}" data-npg="{{ page_obj.next_page_number }}">Más</a>
         {% else %}
-            <a class="the-end" >Fin</a>
+            <span class="the-end" >Fin</span>
         {% endif %}
 
     {% else %}

@@ -292,7 +292,7 @@ var List = (function($){
         },
         cache: function(){
             this.container = $('ul.wall .row');
-            this.end = $('.the-end');
+            this.end = $('a.the-end');
         },
         bind: function(){
             var self = this;
