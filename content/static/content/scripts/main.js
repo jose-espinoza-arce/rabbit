@@ -269,10 +269,10 @@ var Detail = (function ($) {
     },
     closeForm: function(){
       this.el.removeClass('detail--open');
-    },
-  }
+    }
+  };
 
-  return detail.init()
+  return detail.init();
 })(jQuery);
 
 
@@ -280,42 +280,61 @@ var Detail = (function ($) {
 // Autor: Jose
 
 
+var List = (function($){
 
+    var list = {
+        init: function(){
+            var self = this;
+            this.cache();
+            this.bind();
 
-$(function () {
-    var $container = $("ul.wall .row");
-
-    $container.imagesLoaded(function () {
-        $container.masonry({
-            itemSelector : '.brick',
-            columnWidth: '.grid-sizer'
-        });
-    });
-
-
-
-    /*$container.infinitescroll(
-        {
-            navSelector: ".pagination",
-            nextSelector: ".pagination .next",
-            itemSelector: ".brick",
-            loading: {
-                finishedMsg: "The End",
-                img: "/static/content/images/roof-loader.gif",
-                msg: null,
-                msgText: ""
-            },
-            //debug: true
+            return this;
         },
-        function (newProducts) {
-            var $newProds = $(newProducts).css({"opacity": 0});
-            $newProds.imagesLoaded(function () {
-                $newProds.animate({"opacity": 1});
-                $container.masonry("appended", $newProds, true);
+        cache: function(){
+            this.container = $('ul.wall .row');
+            this.end = $('.the-end');
+        },
+        bind: function(){
+            var self = this;
+
+            this.container.imagesLoaded(function(){
+                self.container.masonry({
+                    itemSelector: '.brick',
+                    columnWidth: '.grid-sizer'
+                });
+            });
+
+            this.end.on('click', function(ev){
+                ev.preventDefault();
+                var that = $(this);
+                var npg = that.attr('data-npg');
+                var url = that.attr('href');
+
+                $.get(url,{ page: npg }, function(response){
+                    var markup = $.parseHTML(response);
+                    var bricks = $(markup).find('.brick');
+                    var newend = $(markup).find('.the-end');
+
+                    self.loadmasonry(bricks);
+                    self.end.replaceWith($(newend));
+                    self.init();
+                });
+            })
+        },
+        loadmasonry: function(newImages){
+            var self = this;
+            var $newImages = $(newImages).css({"opacity": 0});
+            $newImages.imagesLoaded(function(){
+               $newImages.animate({"opacity": 1});
+               self.container.append($newImages);
+               self.container.masonry("appended", $newImages, true);
             });
         }
-    );*/
-});
+    }
+
+    return list.init();
+})(jQuery);
+
 
 // autocomplete
 

@@ -26,7 +26,7 @@ from content.forms import AdSearchForm
 
 class AdListView(ListView):
     model = AdBase
-    paginate_by = 10
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         ctx = super(AdListView, self).get_context_data(**kwargs)
@@ -68,7 +68,11 @@ class AdListView(ListView):
         self.object_list = self.get_queryset()
         count = self.object_list.count()
 
-        if not request.is_ajax() and not request.path == '/': #reverse()
+        if request.is_ajax():
+            print 'ajax'
+            pass
+            #return JsonResponse(self.object_list, safe=False)
+        elif not request.path == '/': #reverse()
             if count > 1:
                 message = 'Se encontraron %d resultados.' % self.object_list.count()
                 messages.add_message(request, messages.INFO, message)
@@ -78,6 +82,7 @@ class AdListView(ListView):
             elif count == 0:
                 message = 'No se encontraron resultados.'
                 messages.add_message(request, messages.ERROR, message)
+
 
 
         allow_empty = self.get_allow_empty()

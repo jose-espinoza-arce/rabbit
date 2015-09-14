@@ -43,7 +43,12 @@
                 {% endfor %}
             </div>
         </ul>
-        <a class="the-end">More</a>
+        {% if page_obj.has_next %}
+            <a class="the-end next" href="{{ request.path }}" data-npg="{{ page_obj.next_page_number }}">More</a>
+        {% else %}
+            <a class="the-end" >Fin</a>
+        {% endif %}
+
     {% else %}
         {% get_tagcloud as tags %}
         <div class="row text-center">
