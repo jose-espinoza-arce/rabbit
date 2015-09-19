@@ -1,14 +1,21 @@
 function hideForm(mobile) {
     $('#feedbackForm').fadeOut('fast', function() {
         if (mobile) {
-            $('#feedbackSnippet').animate({bottom: '-4'});
+            $('#feedbackSnippet').animate({bottom: '0'});
         } else {
-            $('#feedbackSnippet').animate({left: '-4'});
+            $('#feedbackSnippet').animate({left: '-70'});
         }
     });
 }
 
 function initiateForm(mobile) {
+    var rect = {
+        w : $('#feedbackForm').width(),
+        h : $('#feedbackForm').height(),
+    }
+
+
+
     $('#feedbackForm').unbind('submit');
     $('#feedbackForm input, #feedbackForm textarea').each(function() {
         $(this).attr('placeholder', $('[for=' + $(this).attr('id') + ']').text());
@@ -25,9 +32,9 @@ function initiateForm(mobile) {
             if (data.toLowerCase().indexOf('errorlist') == -1) {
                 hideForm(mobile);
                 if (mobile) {
-                    $('#feedbackSuccess').fadeIn().delay(2000).animate({bottom: '-500'}).fadeOut().animate({bottom: '40'});
+                    $('#feedbackSuccess').fadeIn().delay(1000).animate({bottom: '-500'}).fadeOut().animate({bottom: '40'});
                 } else {
-                    $('#feedbackSuccess').fadeIn().delay(2000).animate({left: '-500'}).fadeOut().animate({left: '40'});
+                    $('#feedbackSuccess').fadeIn().delay(1000).animate({left: '-500'}).fadeOut().animate({left: '40'});
                 }
             }
             form.html(data);
@@ -39,11 +46,13 @@ function initiateForm(mobile) {
     $('#feedbackSnippet').attr('href', '#');
     $('#feedbackSnippet').click(function() {
         if (mobile) {
-            $(this).animate({bottom: '-100'});
+            $(this).animate({bottom: '-200'});
+            $('#feedbackForm').fadeIn().animate('bottom', rect.height);
         } else {
-            $(this).animate({left: '-100'});
+            $(this).animate({left: '-200'});
+            $('#feedbackForm').fadeIn().animate('left',rect.width);
         }
-        $('#feedbackForm').fadeIn();
+        
         $('html').click(function() {
             hideForm(mobile);
          });
@@ -56,9 +65,11 @@ function initiateForm(mobile) {
 }
 
 $(document).ready(function() {
-    if ($('body').innerWidth() < 768) {
-        initiateForm(true);
-    } else {
-        initiateForm(false);
-    }
+    $(window).on('load  resize', function(){
+        if ($('body').innerWidth() < 768) {
+            initiateForm(true);
+        } else {
+            initiateForm(false);
+        }
+    });
 });

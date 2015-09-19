@@ -8,9 +8,12 @@
         <input type="submit" value="{% trans "Send Feedback" %}" />
     </form>
 {% else %}
-    <a id="feedbackSnippet" href="{% url "feedback_form" %}" style="background-color: {{ background_color }};"></a>
+    <a id="feedbackSnippet" href="{% url "feedback_form" %}">
+        <span>Feedback</span>
+        <span><i class="fa fa-comment"></i></span>
+    </a>
     <p id="feedbackSuccess">{% trans "Thank you!" %}</p>
-    <form id="feedbackForm" method="post" action="{% url "feedback_form" %}" style="background-color: {{ background_color }};">
+    <form id="feedbackForm" method="post" action="{% url "feedback_form" %}">
         {% include "feedback_form/partials/form_content.html" %}
     </form>
 {% endif %}

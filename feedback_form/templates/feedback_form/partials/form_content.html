@@ -1,8 +1,10 @@
 {% load i18n %}
 {% csrf_token %}
-<div style="color: {{ text_color }};" id="feedbackText">
-    {{ text|safe }}Escriba su comentario
+<div class="clearfix  feedback-header">
+	<a id="feedbackClose" href="#" class="pull-right"><i class="fa fa-times"></i></a>
+	<div class="pull-left">
+	    {{ text|safe }}Escriba su comentario
+	</div>
 </div>
 {{ form.as_p }}
 <input type="submit" value="{% trans "Enviar Mensaje" %}" />
-<a id="feedbackClose" href="#" style="color: {{ background_color }};">{% trans "cerrar" %}</a>

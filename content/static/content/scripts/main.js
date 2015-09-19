@@ -83,6 +83,11 @@ var Header = (function($){
     bind: function(){
       var self = this;
 
+      $(window).on('scroll', function(){
+        console.log('scroll');
+        $('.ui-widget').fadeOut();
+      });
+
       /*this.elements.win.on('load resize', function(){
         var offsetLeft =  Math.ceil ( ( $( this ).outerWidth() - self.elements.container.outerWidth() ) / 2 );
 
@@ -298,6 +303,19 @@ var List = (function($){
             this.container = $('ul.wall .row');
             this.end = $('a.the-end');
             this.window = $(window);
+
+            this.tour = $('.rm-tour');
+            if (this.tour.length>0) {
+              var inst = $('[data-remodal-id=modal]').remodal();
+              inst.open();
+              $('.owl-carousel').owlCarousel({
+                  loop:false,
+                  margin:10,
+                  nav:false,
+                  dots: true,
+                  items: 1
+              })
+            };
         },
         call: function(){
             var self = this;

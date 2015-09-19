@@ -1,6 +1,7 @@
 #feedbackForm #id_feedback-url, #feedbackForm label {display: none;}
-
-#feedbackForm {
+body.nav-active #feedbackSnippet {
+  display: none; }
+/*#feedbackForm {
     display: none;
     position: fixed;
     z-index: 1299;
@@ -19,8 +20,60 @@
     -o-box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
     -ms-box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
     box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
-}
-#feedbackForm textarea, #feedbackForm input[type="text"], #feedbackForm input[type="email"] {
+}*/
+
+#feedbackForm {
+  display: none;
+  position: fixed;
+  width: 300px;
+  z-index: 10000;
+  padding: 1em;
+  bottom: 0;
+  right: 0;
+  background: #0A0A0A; }
+  #feedbackForm input[type="text"],
+  #feedbackForm input[type="email"],
+  #feedbackForm textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 0;
+    font-size: 14px; }
+  #feedbackForm p {
+    position: relative;
+    margin-bottom: 1em; }
+  #feedbackForm #feedbackText {
+    font-family: "Roboto", serif;
+    padding-bottom: 1em; }
+  #feedbackForm input[type="submit"] {
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+    font-family: "Roboto", serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5em 1.5em;
+    border: 2px solid white;
+    font-size: 12px;
+    color: white;
+    background-color: transparent; 
+    transition: letter-spacing 0.33s;}
+    #feedbackForm input[type="submit"]:hover {
+        letter-spacing: 3px;
+       }
+   #feedbackForm .feedback-header {
+     padding: 0 0 1em 0;
+     color: white; }
+     #feedbackForm .feedback-header a {
+       color: white;
+       border: 2px solid white;
+        width: 24px;
+        text-align: center; }
+       #feedbackForm .feedback-header a:hover {
+         text-decoration: none; }
+
+/*#feedbackForm textarea, #feedbackForm input[type="text"], #feedbackForm input[type="email"] {
     width: 280px;
     padding: 10px;
     margin: 0 0 10px 0;
@@ -37,66 +90,18 @@
     -moz-transition: border linear .2s, box-shadow linear .2s;
     -o-transition: border linear .2s, box-shadow linear .2s;
     transition: border linear .2s, box-shadow linear .2s;
-}
+}*/
 #feedbackForm textarea {
     height: 50px;
 }
 #feedbackForm input[type="text"] {
     margin-bottom: 5px;
 }
-#feedbackForm input[type="submit"] {
-    margin: 5px 0 0 0;
-    cursor: pointer;
-    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
-    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
-    background-color:#ededed;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
-    border-radius:6px;
-    border:1px solid #dcdcdc;
-    display:inline-block;
-    color:#777777;
-    font-size:15px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:1px 1px 0px #ffffff;
-}
-#feedbackForm input[type="submit"]:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
-    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
-    background-color:#dfdfdf;
-}
 #feedbackForm input[type="submit"]:active {
     position:relative;
     top:1px;
 }
-#feedbackForm p, #feedbackForm h3 {
-    margin: 0;
-    padding: 0;
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-}
-#feedbackForm #feedbackClose {
-    bottom: 100%;
-    right: 10px;
-    position: absolute;
-    font-size: 0.8em;
-    padding: 2px 7px;
-    background: #fff;
-    -moz-border-radius: 8px 8px 0 0;
-    -webkit-border-radius: 8px 8px 0 0;
-    border-radius: 8px 8px 0 0;
-    -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
-    -o-box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
-    -ms-box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
-}
+
 #feedbackForm ul.errorlist {
     margin: 0;
     padding: 0;
@@ -126,26 +131,24 @@
 }
 
 #feedbackSnippet {
-    position: fixed;
-    z-index: 1298;
-    left: -4px;
-    top: 50%;
-    margin-top: -90px;
-    height: 180px;
-    width: 36px;
-    background: url(../img/feedback.png) no-repeat right center;
-    -webkit-border-radius: 0 15px 15px 0;
-    -moz-border-radius: 0 15px 15px 0;
-    border-radius: 0 15px 15px 0;
-}
-#feedbackSnippet:hover {
-    -webkit-transform: translateX(4px);
-    -moz-transform: translateX(4px);
-    -o-transform: translateX(4px);
-    -ms-transform: translateX(4px);
-    transform: translateX(4px);
-}
-
+  background-color: #0A0A0A;
+  color: white;
+  width: 180px;
+  height: 40px;
+  line-height: 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+  font-family: "Roboto", serif;
+  font-size: 12px;
+  text-align: center; }
+  #feedbackSnippet span {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0.25em; }
 #feedbackSuccess {
     position: fixed;
     display: none;
@@ -199,33 +202,18 @@
     display: none;
 }
 
-@media all and (max-width: 767px) {
-    #feedbackSnippet {
-        left: auto;
-        right: 0px;
-        top: auto;
-        bottom: -4px;
-        margin-top: 0px;
-        height: 36px;
-        width: 180px;
-        background: url(../img/feedback_mobile.png) no-repeat right center;
-        -webkit-border-radius: 15px 0 0 0;
-        -moz-border-radius: 15px 0 0 0;
-        border-radius: 15px 0 0 0;
+/* Desktops and laptops ----------- */
+@media (min-width: 768px) {
+    #feedbackForm {
+        left: 0;
+        right: inherit;
+        bottom: inherit;
+        top: 50%;
+        transform: translateY(-50%);
     }
-    #feedbackSnippet:hover {
-        -webkit-transform: translateY(-4px);
-        -moz-transform: translateY(-4px);
-        -o-transform: translateY(-4px);
-        -ms-transform: translateY(-4px);
-        transform: translateY(-4px);
-    }
-
-    #feedbackSuccess {
-        margin: 0;
-        left: auto;
-        right: 10px;
-        top: auto;
-        bottom: 40px;
-    }
-}
+  #feedbackSnippet {
+    left: -70px;
+    right: inherit;
+    top: 50%;
+    bottom: inherit;
+    transform:  translateY(-50%) rotate(-90deg) ; } }
