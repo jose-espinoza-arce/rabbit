@@ -106,6 +106,10 @@ var Header = (function($){
       this.elements.triggerSearch.on('click', function (ev) {
         ev.preventDefault();
         self.elements.searchEl.toggleClass('active');
+        if ($('.tags_mobile').length > 0) {
+          var tag_completion = new Snippets.TagCompletion();
+          tag_completion.bind_listener('.tags_mobile');
+        }
       });
 
       this.elements.trigger.on('click', function (ev) {
@@ -280,11 +284,11 @@ var Detail = (function ($) {
 // Autor: Jose
 
 
-var List = (function($){
 
+
+var List = (function($){
     var list = {
         init: function(){
-            var self = this;
             this.cache();
             this.bind();
 
@@ -293,6 +297,19 @@ var List = (function($){
         cache: function(){
             this.container = $('ul.wall .row');
             this.end = $('a.the-end');
+            this.window = $(window);
+        },
+        call: function(){
+            var self = this;
+
+            this.window.scroll(function(){
+                if(self.end.length){
+                    if (self.window.scrollTop() + self.window.height() + 500 > self.end.offset().top) {
+                        self.end.trigger('click');
+                    }
+                }
+
+            });
         },
         bind: function(){
             var self = this;
@@ -310,15 +327,19 @@ var List = (function($){
                 var npg = that.attr('data-npg');
                 var url = that.attr('href');
 
-                $.get(url,{ page: npg }, function(response){
-                    var markup = $.parseHTML(response);
-                    var bricks = $(markup).find('.brick');
-                    var newend = $(markup).find('.the-end');
+                if (self.end.attr('data-clicked')==0) {
+                    $.get(url, { page: npg }, function (response) {
+                        var markup = $.parseHTML(response);
+                        var bricks = $(markup).find('.brick');
+                        var newend = $(markup).find('.the-end');
 
-                    self.loadmasonry(bricks);
-                    self.end.replaceWith($(newend));
-                    self.init();
-                });
+                        self.loadmasonry(bricks);
+                        self.end.replaceWith($(newend));
+                        self.init();
+                    });
+                    self.call();
+                }
+                self.end.attr('data-clicked', 1);
             })
         },
         loadmasonry: function(newImages){
@@ -330,7 +351,7 @@ var List = (function($){
                self.container.masonry("appended", $newImages, true);
             });
         }
-    }
+    };
 
     return list.init();
 })(jQuery);
@@ -355,7 +376,7 @@ Snippets = window.Snippets || {};
     this.input_element = $(input_sel);
 
     this.input_element.autocomplete({
-      minLength: self.options.min_length || 3,
+      minLength: self.options.min_length || 2,
       source: function(request, response) {self.fetch_results(request, response);},
     });
   };

@@ -44,7 +44,7 @@
             </div>
         </ul>
         {% if page_obj.has_next %}
-            <a class="the-end next" href="{{ request.path }}" data-npg="{{ page_obj.next_page_number }}">Más</a>
+            <a class="the-end next" href="{{ request.path }}" data-npg="{{ page_obj.next_page_number }}" data-clicked="0">Más</a>
         {% else %}
             <span class="the-end" >Fin</span>
         {% endif %}
@@ -68,7 +68,6 @@
             </div>
         </div>
     {% endif %}
-    {% include 'partials/pagination.html' %}
 {% endblock %}
 
 

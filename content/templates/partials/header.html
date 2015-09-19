@@ -1,0 +1,31 @@
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+<header class="header">
+    <div class="container">
+        <div class="header__left">
+            <div class="header__brand">
+                <a href="/" class="">
+                    <img class="logo" src="{% static 'content/images/roof-logo.png' %}" alt=""/>
+                </a>
+            </div>
+        </div>
+        <div class="header__right">
+            <a href="#" class="pull-right trigger-nav">
+                <span class="trigger-nav__icon-bar"></span>
+                <span class="trigger-nav__icon-bar"></span>
+                <span class="trigger-nav__icon-bar"></span>
+            </a>
+        </div>
+
+        <div class="header__middle">
+            <div class="header__search hidden-xs">
+                <form action="{% url 'content:search' %}" method="get">
+                    {% render_field search_form.q id='id_tags' class='field' %}
+                    <button type="submit" class="field-submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <span class="trigger-search hidden-sm hidden-md hidden-lg"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+</header>

@@ -1,22 +1,24 @@
 {% load content_tags %}
 
 <li class="brick {% if im.x < im.y %}col-sm-6 col-md-3{% else %}col-sm-12 col-md-6{% endif %}">
-
-        <div class="thumbnail">
-            <ul class="list-unstyled stadistic stadistic__list-view">
-                <li class="stadistic__item">
+    <div class="thumbnail">
+        {% comment %}<ul class="list-unstyled stadistic stadistic__list-view">
+            <li class="stadistic__item">
                 <span class="views-count">
                     <i class="fa fa-eye"></i>
                     {{ object.impressions.count }}
                 </span>
-                </li>
-                <li class="stadistic__item">
-                    {% adlikes object template='partials/likes.html' %}
-                </li>
-            </ul>
-            <a href="/categorias/{{ object.get_path }}">
-                <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
-            </a>
-        </div>
-
+            </li>
+            <li class="stadistic__item">
+                {% adlikes object template='partials/likes.html' %}
+            </li>
+        </ul>{% endcomment %}
+        <a href="/categorias/{{ object.get_path }}" class="img-link">
+            <div class="overlay">
+                <span class="views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                <span><i class="fa fa-heart"></i>{{ object.vote_total }}</span>
+            </div>
+            <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
+        </a>
+    </div>
 </li>

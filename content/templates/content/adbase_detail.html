@@ -36,22 +36,26 @@
                             </div>
                         {% elif object.bannerad %}
                             <div class="detail__media">
-                            <ul class="list-unstyled stadistic">
-                                <li class="stadistic__item">
+                                {% comment %}<ul class="list-unstyled stadistic">
+                                    <li class="stadistic__item">
                                     <span class="views-count"><i
                                             class="fa fa-eye"></i> {{ object.impressions.count }}</span>
-                                </li>
-                                <li class="stadistic__item">
-                                    {% adlikes object template='partials/likes.html' %}
-                                </li>
-                            </ul>
-                            <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}"
-                                       class="action-image">
-                                {% thumbnail object.bannerad.content "740" as im %}
-                                    <img src="{{ im.url }}" alt="" class="img-responsive">
-                                {% endthumbnail %}
-                            </a>
-                        </div>
+                                    </li>
+                                    <li class="stadistic__item">
+                                        {% adlikes object template='partials/likes.html' %}
+                                    </li>
+                                </ul>{% endcomment %}
+                                <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}"
+                                   class="action-image">
+                                    {% thumbnail object.bannerad.content "740" as im %}
+                                        <img src="{{ im.url }}" alt="" class="img-responsive">
+                                    {% endthumbnail %}
+                                </a>
+                            </div>
+                            <div class="statistic">
+                                {% adlikes object template='partials/likes.html' %}
+                                <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                            </div>
                     {% endif %}
                     </div>
                     <div class="col-sm-12 col-md-6">

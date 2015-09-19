@@ -127,7 +127,7 @@ def adlikes(context, obj, template=None):
         import_js = True
     context.update({
         'template': template,
-        'content_obj': obj,
+        'object': obj,
         'likes_enabled': likes_enabled(obj, request),
         'can_vote': can_vote(obj, request.user, request),
         'content_type': "-".join((obj._meta.app_label, obj._meta.model_name)),
