@@ -8,6 +8,8 @@ bauhaus.js
 
 *.swp
 
+.DS_Store
+
 media/
 
 content/static/content/libs
