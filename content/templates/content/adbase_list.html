@@ -68,6 +68,7 @@
             </div>
         </div>
     {% endif %}
+    {% if request.path = '/' %}
     <div class="rm-tour">
         <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
           <div class="owl-carousel">
@@ -80,6 +81,7 @@
           <a href="#" data-remodal-action="cancel" class="rm-tour__skip">Saltar</a>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
 
 

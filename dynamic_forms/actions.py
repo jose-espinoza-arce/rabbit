@@ -116,7 +116,6 @@ def dynamic_form_send_download_email(form_model, form, advert, request):
         'dl_url': dl_url,
     })
 
-    print advert.advertiser.email
     from_email = advert.advertiser.email
     if form_model.recipient_email:
         hidden_recipient_list = [form_model.recipient_email]

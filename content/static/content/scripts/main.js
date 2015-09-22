@@ -171,18 +171,13 @@ var Detail = (function ($) {
 
       function loadsuccess(response) {
               var markup = $.parseHTML(response);
-              var form = null;
+              console.log(markup);
+              var form = null, exito = null;
               if ( $('.form-wrapper').length ) {
                   self.el.find('.form-wrapper').remove();
+                  console.log('form-wrapper');
               }
 
-              if ( $('.success-wrapper').length ) {
-                  /*  Uncomment to reload form after submit
-                  self.el.find('.success-wrapper').remove();
-                  */
-                  /* Comment to reload form after submit*/
-                  return
-              }
               $.each(markup, function (i, el) {
                 if ($(el).hasClass('form-wrapper')) {
                   form = $(el);
@@ -192,6 +187,7 @@ var Detail = (function ($) {
                   return
                 };
                 if ($(el).hasClass('success-wrapper')) {
+                  console.log('success');
                   exito = $(el);
                   self.el.find('.detail__form').append(exito);
                   return
