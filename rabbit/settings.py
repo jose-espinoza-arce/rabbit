@@ -27,11 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-MANAGERS = (('Jose', 'jose@haushaus.mx'),('Jhon', 'Jhon@roof.mx'))
+MANAGERS = (('Jose', 'jose@roofmedia.mx'),)
 
-DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['backup@haushaus.mx']
+DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['info@roofmedia.mx']
 
-DEFAULT_FROM_EMAIL = 'admin@haushaus.mx'
+DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 
 
 
@@ -72,7 +72,7 @@ NORECAPTCHA_SITE_KEY = '6LeptgsTAAAAACAC2Qpdyep_I9gTy1S-K0G10VzK'
 NORECAPTCHA_SECRET_KEY = '6LeptgsTAAAAAFHCHMmgqCH-62kigxG2BF_rhKxS'
 
 #feedback
-FROM_EMAIL = 'feedback@roof.mx'
+FROM_EMAIL = 'feedback@roofmedia.mx'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -126,10 +126,15 @@ SITE_ID = 1
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'roofmedia',
+        'USER': 'roof',
+        'PASSWORD': 'st$yh65KNe1',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
