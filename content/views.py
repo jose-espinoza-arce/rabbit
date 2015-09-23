@@ -101,6 +101,16 @@ class AdListView(ListView):
                         % {'class_name': self.__class__.__name__})
 
         context = self.get_context_data(**kwargs)
+
+        if request.session.get('first_visit', True):
+            request.session['visited'] = False
+        else:
+            request.session['visited'] = True
+
+        request.session['first_visit'] = False
+        if not request.user.is_authenticated:
+            request.session.set_expiry(0)
+
         return self.render_to_response(context)
 
 
