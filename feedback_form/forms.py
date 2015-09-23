@@ -38,7 +38,7 @@ class FeedbackForm(forms.ModelForm):
             obj = super(FeedbackForm, self).save()
             subject = render_to_string('feedback_form/email/subject.txt')
             message = render_to_string('feedback_form/email/body.txt', {'feedback': obj})
-            managers = [manager for manager in settings.MANAGERS]
+            managers = [manager[1] for manager in settings.MANAGERS]
 
             send_mail(subject, ' ', settings.DEFAULT_FROM_EMAIL, managers, [], html_message=message)
             if getattr(settings, 'FEEDBACK_EMAIL_CONFIRMATION', False):
