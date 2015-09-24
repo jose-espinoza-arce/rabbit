@@ -216,4 +216,5 @@ body.nav-active #feedbackSnippet {
     right: inherit;
     top: 50%;
     bottom: inherit;
-    transform:  translateY(-50%) rotate(-90deg) ; } }
+    -webkit-transform:  translateY(-50%) rotate(-90deg) ;
+            transform:  translateY(-50%) rotate(-90deg) ; } }
