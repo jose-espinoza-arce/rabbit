@@ -50,8 +50,9 @@ class FeedbackForm(forms.ModelForm):
                 if email:
                     confirmation_subject = render_to_string('feedback_form/email/confirmation_subject.txt')
                     confirmation_body = render_to_string('feedback_form/email/confirmation_body.txt', {})
+
                     send_mail(confirmation_subject, '',
-                              settings.FROM_EMAIL, [email], html_message=confirmation_body)
+                              settings.DEFAULT_FROM_EMAIL, [email], [], html_message=confirmation_body)
             return obj
 
     class Media:
