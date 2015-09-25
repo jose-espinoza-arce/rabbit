@@ -33,7 +33,7 @@ DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['info@roofmedia.mx']
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 
-
+FEEDBACK_EMAIL_CONFIRMATION = True
 
 
 # Application definition

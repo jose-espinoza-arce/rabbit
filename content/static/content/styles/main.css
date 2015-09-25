@@ -10667,10 +10667,10 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
 
 .header__brand .logo {
   display: block;
-  width: 148px;
-  height: 148px;
+  width: 127px;
+  height: 127px;
   margin: 0 0 0 -148px;
-  background: url("../images/roof-media-logo.png") no-repeat scroll right center transparent;
+  /*background: url("../images/roof-media-logo.png") no-repeat scroll right center transparent;*/
   text-indent: -5000px;
 }
 
@@ -10713,11 +10713,12 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
   font-size: 20px;
 }
 .search-mobile {
-  position: relative;
+  position: fixed;
   top: 148px;
   display: none;
   width: 100%;
   background-color: #ccc;
+  z-index: 100;
 }
 .search-mobile input {
   width: 100%;
