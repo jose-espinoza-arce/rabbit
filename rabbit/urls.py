@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^intranetRoof/', include(admin.site.urls)),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^feedback/', include('feedback_form.urls')),
     url(r'^dynamic_forms/',
