@@ -10658,30 +10658,8 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
   position: relative;
 }
 
-.header__brand {
-  position: relative;
-  z-index: 11;
-  /*margin: 0 0 0 148px;*/
-  background-color: #1c1c1c;
-}
 
-.header__brand .logo {
-  display: block;
-  position: relative;
-  top: 11px;
-  width: 127px;
-  height: 127px;
-  /*margin: 0 0 0 -148px;*/
-  /*background: url("../images/roof-media-logo.png") no-repeat scroll right center transparent;*/
-  text-indent: -5000px;
-}
 
-.header__search {
-    min-width: 400px;
-    display: inline-block;
-    z-index: 15;
-    margin: 57px 0;
-}
 
 .header__search form {
   position: relative;
@@ -10698,33 +10676,19 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
     z-index: 5;
 }
 
-.trigger-search {
-  display: inline-block;
-  position: relative;
-  width: 40px;
-  height: 40px;
-  margin: 54px 0;
-  float: right;
-  line-height: 40px;
-  color: white;
-  text-align: center;
-}
-.trigger-search i {
-  position: relative;
-  top: -5px;
-  font-size: 20px;
-}
+
 .search-mobile {
-  position: fixed;
-  top: 148px;
   display: none;
-  width: 100%;
-  background-color: #FAFAFA;
-  z-index: 100;
+  height: auto;
+  overflow: hidden;
+  padding: 1em 0;
+  background-color: white;
 }
 .search-mobile input {
   width: 100%;
   padding: 0.5em;
+  border: 0;
+  outline: none;
 }
 
 .search-mobile.active {
@@ -10783,11 +10747,7 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
   position: relative;
 }
 
-.trigger-nav {
-  position: relative;
-  width: 32px;
-  margin: 58px 1em;
-}
+
 
 .trigger-nav span {
   display: block;

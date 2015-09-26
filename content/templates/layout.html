@@ -5,8 +5,9 @@
     <div class="wrapper">
         <div class="wrapper__scroller">
             {% include 'partials/header.html' %}
-            {% include 'partials/mobile.html' %}
+            
             <main class="main">
+                {% include 'partials/mobile.html' %}
                 <div class="container">
                     {% block breadcrumbs %}{% endblock %}
 

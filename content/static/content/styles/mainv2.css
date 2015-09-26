@@ -1,3 +1,64 @@
-.puto {
-  background: transparent url("image.png") left top no-repeat;
+.header {
+  height: auto;
+  padding: 1em 0;
+}
+
+.header .container {
+  position: relative;
+}
+
+.header__brand {
+  display: block;
+}
+
+.header__brand a {
+  display: block;
+  height: 60px;
+  width: 100px;
+  background: transparent url("../images/roof-logo.svg") left top no-repeat;
+}
+
+.header__search {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 13px 0;
+}
+
+.header__search form {
+  display: inline-block;
+  vertical-align: middle;
+  width: 75%;
+}
+
+.header .trigger-nav {
+  width: 24px;
+  margin: 21px 0;
+}
+
+.header .trigger-nav span:last-child {
+  margin-bottom: 0;
+}
+
+.site-nav__logo {
+  display: block;
+  height: auto;
+  overflow: hidden;
+  padding: 1em 0;
+}
+
+.trigger-search {
+  display: block;
+  width: 32px;
+  height: 18px;
+  line-height: 18px;
+  margin: 21px 16px 0 21px;
+  font-size: 18px;
+  cursor: pointer;
+  float: right;
+  color: white;
+}
+
+.main {
+  padding-top: 90px;
 }
