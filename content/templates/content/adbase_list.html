@@ -32,15 +32,39 @@
                 <div class="grid-sizer"></div>
 
                 {% for object in object_list %}
-                    {% if object.videoad %}
+                    {% if object.images.all %}
+                        <div class="main-list-image">
+                            {% for model_image in object.images.all %}
+                                {% thumbnail model_image.image "740"  as im %}
+                                    {% if model_image.main %}
+                                        {% include 'partials/image.html' with im=im object=object %}
+                                    {% endif %}
+                                {% endthumbnail %}
+                            {% endfor %}
+                        </div>
+                        <div class="extra-list-images">
+                            {% for model_image in object.images.all %}
+                                {% thumbnail model_image.image "740"  as im %}
+                                    {% if not model_image.main %}
+                                        <div class="extra-image">
+                                            {% include 'partials/image.html' with im=im object=object %}
+                                        </div>
+                                    {% endif %}
+                                {% endthumbnail %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+
+                    {% comment %}{% if object.videoad %}
                         {% thumbnail object.videoad.content "740" as im %}
                             {% include 'partials/image.html' with im=im object=object %}
                         {% endthumbnail %}
                     {% elif object.bannerad %}
-                        {% thumbnail object.bannerad.content "740" as im %}
-                            {% include 'partials/image.html' with im=im object=object %}
+                        {% thumbnail object.bannerad.content "740"  as im %}
+                                {% include 'partials/image.html' with im=im object=object %}
                         {% endthumbnail %}
-                    {% endif %}
+                    {% endif %}{% endcomment %}
                 {% endfor %}
             </div>
         </ul>

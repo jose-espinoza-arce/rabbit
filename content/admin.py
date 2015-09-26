@@ -17,6 +17,10 @@ from content.models import *
 from django import forms
 
 
+class ContentListImageInline(admin.TabularInline):
+    model = ContentListImage
+    extra = 3
+
 class AdBaseForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(AdBaseForm, self).clean()
@@ -61,6 +65,8 @@ class AdBaseAdmin(admin.ModelAdmin):
     search_fields = ['title', 'url']
     raw_id_fields = ['advertiser']
     form = AdBaseForm
+
+    inlines = [ContentListImageInline,]
 
     def get_form(self, request, obj=None, **kwargs):
         """
