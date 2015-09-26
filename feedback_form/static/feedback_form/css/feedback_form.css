@@ -30,7 +30,7 @@ body.nav-active #feedbackSnippet {
   padding: 1em;
   bottom: 0;
   right: 0;
-  background: #0A0A0A; }
+  background: #0E0E0E; }
   #feedbackForm input[type="text"],
   #feedbackForm input[type="email"],
   #feedbackForm textarea {
@@ -131,7 +131,7 @@ body.nav-active #feedbackSnippet {
 }
 
 #feedbackSnippet {
-  background-color: #0A0A0A;
+  background-color: #0E0E0E;
   color: white;
   width: 180px;
   height: 40px;

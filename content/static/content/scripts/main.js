@@ -65,6 +65,7 @@ var Header = (function($){
     init: function() {
 
       this.open = false;
+      this.msearchopen = false;
 
       this.elements = {
         'brand' : $('.header__brand'),
@@ -111,6 +112,10 @@ var Header = (function($){
       this.elements.triggerSearch.on('click', function (ev) {
         ev.preventDefault();
         self.elements.searchEl.toggleClass('active');
+        if(self.open){
+          self.toggle();
+        }
+        self.msearchopen = !self.msearchopen;
         if ($('.tags_mobile').length > 0) {
           var tag_completion = new Snippets.TagCompletion();
           tag_completion.bind_listener('.tags_mobile');
@@ -120,6 +125,16 @@ var Header = (function($){
       this.elements.trigger.on('click', function (ev) {
         ev.preventDefault();
         self.toggle();
+      });
+
+      $('body').on('click', function (e) {
+        if (self.elements.searchEl.hasClass('active')
+            && !self.elements.searchEl.is(e.target)
+            && !self.elements.triggerSearch.is(e.target)
+            && self.elements.searchEl.has(e.target).length === 0
+            && self.elements.triggerSearch.has(e.target).length === 0 ) {
+          self.elements.searchEl.removeClass('active');
+        }
       });
 
     },
@@ -132,8 +147,11 @@ var Header = (function($){
       } else {
         doc.addClass('nav-active');
       }
+      if(this.msearchopen){
+          this.elements.triggerSearch.trigger('click');
+      }
 
-      this.open =!this.open;
+      this.open = !this.open;
     }
   };
 
