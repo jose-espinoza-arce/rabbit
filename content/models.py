@@ -250,6 +250,13 @@ class VideoAd(AdBase):
         super(VideoAd, self).save(*args, **kwargs)
 
 
+class ContentListImage(models.Model):
+    adbase = models.ForeignKey(AdBase, related_name='images')
+    image = models.ImageField(
+        verbose_name=_(u'List Image'), upload_to="content/bannerads/images"
+    )
+    main = models.NullBooleanField()
+
 class DownloadLink(models.Model):
     key = models.CharField(verbose_name=_(u'Key'), max_length=255)
     filepath = models.FilePathField(verbose_name=_(u'Link Path'))

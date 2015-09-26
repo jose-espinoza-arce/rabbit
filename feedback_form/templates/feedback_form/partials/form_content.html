@@ -8,5 +8,12 @@
         <a href="contacto#">AQUÍ</a>
 	</div>
 </div>
-{{ form.as_p }}
+{% for field in form %}
+    {{ field.errors }}
+    <p>
+        {{ field.label_tag }}
+        {{ field }}
+    </p>
+{% endfor %}
+
 <input type="submit" value="{% trans "Enviar Mensaje" %}" />

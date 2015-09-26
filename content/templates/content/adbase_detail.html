@@ -55,6 +55,19 @@
                             <div class="statistic">
                                 {% adlikes object template='partials/likes.html' %}
                                 <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                                <hr>
+                                <h5 class="detail__share-title">Compartir:</h5>
+                                <ul class="list-unstyled sharer">
+                                    <li class="sharer__item sharer__item--fb">
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li class="sharer__item sharer__item--tw">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li class="sharer__item sharer__item--pin">
+                                        <a href=""><i class="fa fa-pinterest"></i></a>
+                                    </li>
+                                </ul>
                             </div>
                     {% endif %}
                     </div>
@@ -98,19 +111,6 @@
                                         {% endfor %}
                                     {% endif %}
 
-                                </ul>
-                                <hr>
-                                <h5 class="detail__share-title">Compartir:</h5>
-                                <ul class="list-unstyled sharer">
-                                    <li class="sharer__item sharer__item--fb">
-                                        <a href=""><i class="fa fa-facebook"></i></a>
-                                    </li>
-                                    <li class="sharer__item sharer__item--tw">
-                                        <a href=""><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li class="sharer__item sharer__item--pin">
-                                        <a href=""><i class="fa fa-pinterest"></i></a>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="detail__form">
