@@ -3,11 +3,11 @@
 
 <li class="brick {% if im.x < im.y %}col-sm-6 col-md-3{% else %}col-sm-12 col-md-6{% endif %}">
     <div class="thumbnail">
-        <div class="main-list-image">
+
             <a href="/categorias/{{ object.get_path }}" class="img-link">
                 <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
             </a>
-        </div>
+        
         {% comment %}<a href="/categorias/{{ object.get_path }}" class="img-link">
             <div class="overlay">
                 <span class="views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
