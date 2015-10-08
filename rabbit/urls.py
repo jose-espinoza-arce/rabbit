@@ -15,11 +15,25 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from adminplus.sites import AdminSitePlus
+
 from django.conf.urls.static import static
 from django.conf import settings
 
+from jet import urls as jet_urls
+from jet.dashboard import urls as dash_urls
+
+
+#admin.site = AdminSitePlus()
+#admin.autodiscover()
+
+
 urlpatterns = [
+    #url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^jet/', include(jet_urls, 'jet')),
+    url(r'^jet/dashboard/', include(dash_urls, 'jet-dashboard')),
     url(r'^intranetRoof/', include(admin.site.urls)),
+    #url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^feedback/', include('feedback_form.urls')),
     url(r'^dynamic_forms/',

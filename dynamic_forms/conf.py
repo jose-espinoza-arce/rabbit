@@ -12,8 +12,7 @@ settings.DYNAMIC_FORMS_FORM_TEMPLATES = getattr(
     settings,
     'DYNAMIC_FORMS_FORM_TEMPLATES',
     [
-        ('dynamic_forms/form.html', _('Default form template')),
-        ('dynamic_forms/myform.html', _('My form template')),
+        ('dynamic_forms/myform.html', _('Default form template')),
     ]
 )
 
@@ -21,8 +20,7 @@ settings.DYNAMIC_FORMS_SUCCESS_TEMPLATES = getattr(
     settings,
     'DYNAMIC_FORMS_SUCCESS_TEMPLATES',
     [
-        ('dynamic_forms/form_success.html', _('Default success template')),
-        ('dynamic_forms/myform_success.html', _('My success template')),
+        ('dynamic_forms/myform_success.html', _('Default success template')),
         ('dynamic_forms/downloadform_success.html', _('Download success template')),
     ]
 )

@@ -10,10 +10,10 @@
         <div class="col-lg-12">
             <ul class="breadcrumb roof-breadcrumb">
                 {% if request.path = '/' %}
-                    <li class="active">Inicio</li>
+                    <i class="fa fa-home"></i><li class="active">Inicio</li>
                 {% else %}
                     <li>
-                        <a href="/">Inicio</a>
+                        <i class="fa fa-home"></i><a href="/">Inicio</a>
                     </li>
                 {% endif %}
                 {% include 'partials/tags_breadcrumbs.html' %}
@@ -32,7 +32,7 @@
                 <div class="grid-sizer"></div>
 
                 {% for object in object_list %}
-                    {% if object.images.all %}
+                    {% comment %}{% if object.images.all %}
                         <div class="main-list-image">
                             {% for model_image in object.images.all %}
                                 {% thumbnail model_image.image "740"  as im %}
@@ -53,10 +53,10 @@
                                 {% endthumbnail %}
                             {% endfor %}
                         </div>
-                    {% endif %}
+                    {% endif %}{% endcomment %}
 
 
-                    {% comment %}{% if object.videoad %}
+                    {% if object.videoad %}
                         {% thumbnail object.videoad.content "740" as im %}
                             {% include 'partials/image.html' with im=im object=object %}
                         {% endthumbnail %}
@@ -64,7 +64,7 @@
                         {% thumbnail object.bannerad.content "740"  as im %}
                                 {% include 'partials/image.html' with im=im object=object %}
                         {% endthumbnail %}
-                    {% endif %}{% endcomment %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </ul>

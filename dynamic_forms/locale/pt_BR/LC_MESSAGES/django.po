@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-19 00:26+0100\n"
+"POT-Creation-Date: 2015-10-05 12:51-0500\n"
 "PO-Revision-Date: 2013-09-16 17:39+0200\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: Markus Holtermann <info@markusholtermann.eu>\n"
@@ -19,24 +19,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: actions.py:49
-msgid "Send via email"
-msgstr "Enviar por E-mail"
+#: actions.py:60
+msgid "Send email to client"
+msgstr ""
 
-#: actions.py:53
+#: actions.py:64
 #, python-format
 msgid "Form “%(formname)s” submitted"
 msgstr "Formulário “%(formname)s” enviado"
 
-#: actions.py:66
+#: actions.py:83
 msgid "Store in database"
 msgstr "Salve no banco de dados"
 
-#: admin.py:168 models.py:99
+#: actions.py:92
+#, fuzzy
+#| msgid "Send via email"
+msgid "Send download email"
+msgstr "Enviar por E-mail"
+
+#: actions.py:113
+#, python-format
+msgid "Descarga de archivo del anuncio “%(advert)s” submitted"
+msgstr ""
+
+#: admin.py:151 models.py:94
 msgid "Options"
 msgstr "Opções"
 
-#: admin.py:171
+#: admin.py:154
 msgid ""
 "The options for this field will be available once it has been stored the "
 "first time."
@@ -47,63 +58,87 @@ msgstr ""
 msgid "Dynamic Forms"
 msgstr "Formulários Dinâmicos"
 
-#: conf.py:16
+#: conf.py:15
 msgid "Default form template"
+msgstr "Modelo de formulário padrão"
+
+#: conf.py:16
+#, fuzzy
+#| msgid "Default form template"
+msgid "My form template"
 msgstr "Modelo de formulário padrão"
 
 #: conf.py:24
 msgid "Default success template"
 msgstr "Modelo de sucesso padrão"
 
+#: conf.py:25
+#, fuzzy
+#| msgid "Default success template"
+msgid "My success template"
+msgstr "Modelo de sucesso padrão"
+
+#: conf.py:26
+#, fuzzy
+#| msgid "Default success template"
+msgid "Download success template"
+msgstr "Modelo de sucesso padrão"
+
 #: contrib/simple_captcha/models.py:14
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
 
-#: formfields.py:197
+#: contrib/simple_captcha/models.py:28
+#, fuzzy
+#| msgid "CAPTCHA"
+msgid "NoCreCAPTCHA"
+msgstr "CAPTCHA"
+
+#: formfields.py:191
 msgid "Boolean"
 msgstr "Booleano"
 
-#: formfields.py:207
+#: formfields.py:201
 msgid "Choices"
 msgstr "Seleção"
 
-#: formfields.py:227
+#: formfields.py:221
 msgid "Date"
 msgstr "Data"
 
-#: formfields.py:237
+#: formfields.py:231
 msgid "Date and Time"
 msgstr "Data e Hora"
 
-#: formfields.py:247
+#: formfields.py:242
 msgid "Email"
 msgstr "E-Mail"
 
-#: formfields.py:254
+#: formfields.py:250
 msgid "Integer"
 msgstr "Número Inteiro"
 
-#: formfields.py:266
+#: formfields.py:263
 msgid "Multi Line Text"
 msgstr "Texto Multi Linha"
 
-#: formfields.py:274
+#: formfields.py:271
 msgid "Single Line Text"
 msgstr "Texto uma Linha"
 
-#: formfields.py:285
+#: formfields.py:282
 msgid "Time"
 msgstr "Tempo"
 
-#: models.py:34 models.py:98
+#: models.py:29 models.py:93
 msgid "Name"
 msgstr "Nome"
 
-#: models.py:35
+#: models.py:30
 msgid "Submit URL"
 msgstr "Enviar URL"
 
-#: models.py:36
+#: models.py:31
 msgid ""
 "The full URL path to the form. It should start and end with a forward slash "
 "(<code>/</code>)."
@@ -111,11 +146,11 @@ msgstr ""
 "O caminho de URL completo para o formulário. Ele deve começar e terminar com "
 "uma barra (<code>/</code>)."
 
-#: models.py:38
+#: models.py:33
 msgid "Success URL"
 msgstr "Sucesso URL"
 
-#: models.py:39
+#: models.py:34
 msgid ""
 "The full URL path where the user will be redirected after successfully "
 "sending the form. It should start and end with a forward slash (<code>/</"
@@ -127,23 +162,23 @@ msgstr ""
 "code>). Se vazio, a URL de sucesso é gerado anexando <code>done/</code> ao "
 "“Enviar URL”."
 
-#: models.py:44
+#: models.py:39
 msgid "Actions"
 msgstr "Ações"
 
-#: models.py:46
+#: models.py:41
 msgid "Form template path"
 msgstr "Caminho do modelo de formulário"
 
-#: models.py:49
+#: models.py:44
 msgid "Success template path"
 msgstr "Caminho do modelo Sucesso"
 
-#: models.py:52
+#: models.py:47
 msgid "Allow display"
 msgstr "Permitir exibição"
 
-#: models.py:53
+#: models.py:48
 msgid ""
 "Allow a user to view the input at a later time. This requires the “Store in "
 "database” action to be active. The sender will be given a unique URL to "
@@ -153,60 +188,60 @@ msgstr ""
 "requer que a “Gravação no banco de dados” seja ativado. O envio será dada a "
 "uma única URL para recuperar os dados."
 
-#: models.py:56
+#: models.py:51
 msgid "Recipient email"
 msgstr ""
 
-#: models.py:57
+#: models.py:52
 msgid "Email address to send form data."
 msgstr ""
 
-#: models.py:61
+#: models.py:56
 msgid "Dynamic form"
 msgstr "Fomulário Dinâmico"
 
-#: models.py:62
+#: models.py:57
 msgid "Dynamic forms"
 msgstr "Fomulários Dinâmicos"
 
-#: models.py:95
+#: models.py:90
 msgid "Type"
 msgstr "Tipo"
 
-#: models.py:97
+#: models.py:92
 msgid "Label"
 msgstr "Legenda"
 
-#: models.py:100
+#: models.py:95
 msgid "Position"
 msgstr "Posição"
 
-#: models.py:105
+#: models.py:100
 msgid "Form field"
 msgstr "Campo de formulário"
 
-#: models.py:106
+#: models.py:101
 msgid "Form fields"
 msgstr "Campos dos formulários"
 
-#: models.py:109
+#: models.py:104
 #, python-format
 msgid "Field “%(field_name)s” in form “%(form_name)s”"
 msgstr "Campo “%(field_name)s” no formulário “%(form_name)s”"
 
-#: models.py:165 models.py:173 models.py:174
+#: models.py:161 models.py:169 models.py:170
 msgid "Form data"
 msgstr "Dados do Formulário"
 
-#: models.py:166
+#: models.py:162
 msgid "Submitted on"
 msgstr "Enviado em"
 
-#: models.py:167
+#: models.py:163
 msgid "Display key"
 msgstr "Chave de exibição"
 
-#: models.py:169
+#: models.py:165
 msgid ""
 "A unique identifier that is used to allow users to view their sent data. "
 "Unique over all stored data sets."
@@ -214,7 +249,7 @@ msgstr ""
 "O identificador único é usado para permitir que os usuários visualizem seus "
 "dados enviados. Único, sobre todos os conjuntos de dados armazenados."
 
-#: models.py:177
+#: models.py:173
 #, python-format
 msgid "Form: “%(form)s” on %(date)s"
 msgstr "Formulário “%(form)s” em %(date)s"
@@ -235,27 +270,29 @@ msgstr ""
 "\n"
 "você recebeu este e-mail porque alguém enviou este formulário “%(form)s”."
 
-#: templates/dynamic_forms/form.html:6
+#: templates/dynamic_forms/form.html:6 templates/dynamic_forms/myform.html:39
 msgid "Submit"
 msgstr "Enviar"
 
 #: templates/dynamic_forms/form_success.html:2
+#: templates/dynamic_forms/myform_success.html:10
 msgid "Success"
 msgstr "Sucesso"
 
 #: templates/dynamic_forms/form_success.html:3
+#: templates/dynamic_forms/myform_success.html:12
 msgid "Form submitted successfully"
 msgstr "Formulário enviado com sucesso"
 
-#: templates/dynamic_forms/form_success.html:4
+#: templates/dynamic_forms/form_success.html:6
 #, python-format
 msgid "For your convenience you can see your data at %(link)s."
 msgstr "Para sua conveniência, você pode ver os seus dados em %(link)s."
 
-#: views.py:67
+#: views.py:103
 msgid "Thank you for submitting this form."
 msgstr "Obrigado por enviar este formulário."
 
-#: views.py:72
+#: views.py:110
 msgid "An error occurred during submitting this form."
 msgstr "Ocorreu um erro durante a envio deste formulário."

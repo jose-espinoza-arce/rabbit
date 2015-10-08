@@ -54,7 +54,7 @@ body.nav-active #feedbackSnippet {
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 0.5em 1.5em;
-    border: 2px solid white;
+    border: 1px solid white;
     font-size: 12px;
     color: white;
     background-color: transparent; 
@@ -65,9 +65,9 @@ body.nav-active #feedbackSnippet {
    #feedbackForm .feedback-header {
      padding: 0 0 1em 0;
      color: white; }
-     #feedbackForm .feedback-header a {
+     #feedbackForm .feedback-header > a {
        color: white;
-       border: 2px solid white;
+       border: 1px solid white;
         width: 24px;
         text-align: center; }
        #feedbackForm .feedback-header a:hover {
@@ -202,6 +202,17 @@ body.nav-active #feedbackSnippet {
     display: none;
 }
 
+/* Main css Overrides */
+#feedbackForm .leer-mas a {
+    border: none;
+}
+#feedbackForm .leer-mas a:hover{
+
+  text-decoration: underline;
+}
+
+
+
 /* Desktops and laptops ----------- */
 @media (min-width: 768px) {
     #feedbackForm {
@@ -218,3 +229,5 @@ body.nav-active #feedbackSnippet {
     bottom: inherit;
     -webkit-transform:  translateY(-50%) rotate(-90deg) ;
             transform:  translateY(-50%) rotate(-90deg) ; } }
+
+

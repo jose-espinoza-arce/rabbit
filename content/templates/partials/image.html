@@ -4,16 +4,16 @@
 <li class="brick {% if im.x < im.y %}col-sm-6 col-md-3{% else %}col-sm-12 col-md-6{% endif %}">
     <div class="thumbnail">
 
-            <a href="/categorias/{{ object.get_path }}" class="img-link">
+            {% comment %}<a href="/categorias/{{ object.get_path }}" class="img-link">
                 <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
-            </a>
-        
-        {% comment %}<a href="/categorias/{{ object.get_path }}" class="img-link">
+            </a>{% endcomment %}
+
+        <a href="/categorias/{{ object.get_path }}" class="img-link">
             <div class="overlay">
                 <span class="views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
                 <span><i class="fa fa-heart"></i>{{ object.vote_total }}</span>
             </div>
             <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
-        </a>{% endcomment %}
+        </a>
     </div>
 </li>

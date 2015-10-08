@@ -7,15 +7,76 @@
 from __future__ import unicode_literals
 
 import csv
-
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from django.http import HttpResponse
 
 from content.models import *
-
 from django import forms
 
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import *
+from django.utils.translation import ugettext_lazy as _
+
+
+class MyReadOnlyPaaswordHashWidget(ReadOnlyPasswordHashWidget):
+
+    def render(self, name, value, attrs):
+        encoded = value
+        final_attrs = self.build_attrs(attrs)
+
+        if not encoded or encoded.startswith(UNUSABLE_PASSWORD_PREFIX):
+            summary = mark_safe("<strong>%s</strong>" % ugettext("No password set."))
+        else:
+            try:
+                hasher = identify_hasher(encoded)
+            except ValueError:
+                summary = mark_safe("<strong>%s</strong>" % ugettext(
+                    "Invalid password format or unknown hashing algorithm."))
+            else:
+                summary = format_html_join('',
+                                           "<strong>{}</strong>: {} ",
+                                           ((ugettext(key), value)
+                                            for key, value in hasher.safe_summary(encoded).items())
+                                           )
+
+        return format_html("<div{}>{}</div>", flatatt(final_attrs), 'eco')
+
+class MyUserAdmin(UserAdmin):
+
+    def __init__(self, model, admin_site):
+        print('en el init de myuseradmin')
+        print(self.__class__.form) #.password.widget = MyReadOnlyPaaswordHashWidget
+        super(UserAdmin, self).__init__(model, admin_site)
+
+
+
+
+    def get_fieldsets(self, request, obj=None):
+
+        if not request.user.is_superuser:
+            self.fieldsets = (
+                (None, {'fields': ('username', 'password')}),
+                (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+                (_('Permissions'), {'fields': ('is_active', 'is_staff', 'groups')}),
+                (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+            )
+
+        return super(MyUserAdmin, self).get_fieldsets(request, obj)
+
+    def get_queryset(self, request):
+        qs = super(MyUserAdmin, self).get_queryset(request)
+
+        if request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(is_superuser=0)
+
+
+
+admin.site.unregister(User)
+admin.site.register(User, MyUserAdmin)
 
 class ContentListImageInline(admin.TabularInline):
     model = ContentListImage
@@ -60,23 +121,30 @@ class AdZoneAdmin(admin.ModelAdmin):
 
 class AdBaseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
-    list_display = ['title', 'url', 'advertiser', 'since', 'updated', 'start_showing', 'stop_showing']
-    list_filter = ['updated', 'start_showing', 'stop_showing', 'since', 'updated']
+    list_display = ['title', 'advertiser', 'since', 'updated', 'start_showing', 'stop_showing']
+    list_filter = ['stop_showing']
     search_fields = ['title', 'url']
     raw_id_fields = ['advertiser']
     form = AdBaseForm
 
-    inlines = [ContentListImageInline,]
+    fieldsets = [(None, {'fields': ('title', 'slug', 'description', 'advertiser', 'url')}),
+                    (_('Call to action'), {'fields': ('actionform', 'file')}),
+                    (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
+                    (_('Filters'), {'fields': ('category', 'tags')}),
+                ]
 
-    def get_form(self, request, obj=None, **kwargs):
-        """
-        Overrides the widget for description so it displays as a textarea.
-        The original field is a CharField because of the 450 max_length requirement;
-        textarea field don't have max_length attribute.
-        """
-        form = super(AdBaseAdmin, self).get_form(request, obj, **kwargs)
-        #form.base_fields['description'].widget = admin.widgets.AdminTextareaWidget()
-        return form
+    #inlines = [ContentListImageInline,]
+
+
+    # def get_form(self, request, obj=None, **kwargs):
+    #     """
+    #     Overrides the widget for description so it displays as a textarea.
+    #     The original field is a CharField because of the 450 max_length requirement;
+    #     textarea field don't have max_length attribute.
+    #     """
+    #     form = super(AdBaseAdmin, self).get_form(request, obj, **kwargs)
+    #     #form.base_fields['description'].widget = admin.widgets.AdminTextareaWidget()
+    #     return form
 
 
 class AdPhoneViewAdmin(admin.ModelAdmin):
@@ -164,18 +232,43 @@ class AdImpressionAdmin(admin.ModelAdmin):
 class TextAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'url', 'content']
 
+    def __init__(self, *args, **kwargs):
+        super(AdBaseAdmin, self).__init__(*args, **kwargs)
+        self.fieldsets.insert(1,(_('Content'), {'fields': ('content', 'content_mobile')}))
+
+class BannerAdAdmin(AdBaseAdmin):
+    search_fields = ['title', 'url', 'advertiser']
+    fieldsets = [(None, {'fields': ('title', 'slug', 'description', 'advertiser', 'url')}),
+                 (_('Banner'), {'fields': ('content', 'content_mobile')}),
+                 (_('Call to action'), {'fields': ('actionform', 'file')}),
+                 (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
+                 (_('Filters'), {'fields': ('category', 'tags')}),
+                ]
+
+
 class VideoAdAdmin(AdBaseAdmin):
-    search_fields = ['title', 'url', 'content']
+    search_fields = ['title', 'url', 'advertiser']
+
+    fieldsets = [(None, {'fields': ('title', 'slug', 'description', 'advertiser', 'url')}),
+                 (_('Video'), {'fields': ('content', 'content_mobile', 'video_url')}),
+                 (_('Call to action'), {'fields': ('actionform', 'file')}),
+                 (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
+                 (_('Filters'), {'fields': ('category', 'tags')}),
+                ]
+
+
+
 
 admin.site.register(Advertiser, AdvertiserAdmin)
 
-admin.site.register(AdType, AdTypeAdmin)
+#admin.site.register(AdType, AdTypeAdmin)
 
+admin.site.register(AdBase, AdBaseAdmin)
 admin.site.register(AdCategory, AdCategoryAdmin)
-admin.site.register(AdZone, AdZoneAdmin)
-admin.site.register(TextAd, TextAdAdmin)
-admin.site.register(BannerAd, AdBaseAdmin)
+#admin.site.register(AdZone, AdZoneAdmin)
+#admin.site.register(TextAd, TextAdAdmin)
+admin.site.register(BannerAd, BannerAdAdmin)
 admin.site.register(VideoAd, VideoAdAdmin)
-admin.site.register(AdPhoneView, AdPhoneViewAdmin)
-admin.site.register(AdClick, AdClickAdmin)
-admin.site.register(AdImpression, AdImpressionAdmin)
+#admin.site.register(AdPhoneView, AdPhoneViewAdmin)
+#admin.site.register(AdClick, AdClickAdmin)
+#admin.site.register(AdImpression, AdImpressionAdmin)

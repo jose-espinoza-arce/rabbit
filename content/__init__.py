@@ -5,4 +5,4 @@ from __future__ import unicode_literals
 # Please see the text file LICENCE for more information
 # If this script is distributed, it must be accompanied by the Licence
 
-#from models import BannerAd
+default_app_config = 'content.apps.ContentConfig'

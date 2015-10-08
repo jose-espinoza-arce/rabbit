@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <ul class="breadcrumb roof-breadcrumb">
                 <li>
-                    <a href="/">Inicio</a>
+                    <i class="fa fa-home"></i><a href="/">Inicio</a>
                 </li>
                 {% for category in category.get_ancestors %}
                     <li>
@@ -53,8 +53,8 @@
                                 </a>
                             </div>
                             <div class="statistic">
-                                {% adlikes object template='partials/likes.html' %}
-                                <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                                {% comment %}{% adlikes object template='partials/likes.html' %}
+                                <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>{% endcomment %}
                                 <hr>
                                 <h5 class="detail__share-title">Compartir:</h5>
                                 <ul class="list-unstyled sharer">
@@ -66,6 +66,12 @@
                                     </li>
                                     <li class="sharer__item sharer__item--pin">
                                         <a href=""><i class="fa fa-pinterest"></i></a>
+                                    </li>
+                                    <li>
+                                        {% adlikes object template='partials/likes.html' %}
+                                    </li>
+                                    <li>
+                                        <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -82,12 +88,14 @@
                                 <p class="detail__description">
                                     {{ object.description }}
                                 </p>
+                                <span class="detail__site">
                                 <a href="{% url 'content:ad_view' pk=object.id %}">
-                                    <span class="detail__site">Ver sitio</span>
+                                    <i class="fa fa-external-link"></i> Ir a sitio
                                 </a>
-                                <div class="detail__actions">
+                                </span>
+                                <div class="detail__actions row">
                                     <a href="javascript:;" class="simple-button" data-pk="{{ object.id }}">
-                                        <span class="simple-button__label">Llámanos</span>
+                                        <span class="simple-button__label ">Llámanos</span>
                                         <span class="simple-button__number">{{ object.advertiser.phone_number }}</span>
                                     </a>
                                     <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}"

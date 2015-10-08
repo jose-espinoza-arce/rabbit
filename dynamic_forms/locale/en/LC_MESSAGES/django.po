@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-19 00:26+0100\n"
+"POT-Creation-Date: 2015-10-05 12:51-0500\n"
 "PO-Revision-Date: 2013-09-16 17:39+0200\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: Markus Holtermann <info@markusholtermann.eu>\n"
@@ -17,24 +17,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions.py:49
-msgid "Send via email"
+#: actions.py:60
+msgid "Send email to client"
 msgstr ""
 
-#: actions.py:53
+#: actions.py:64
 #, python-format
 msgid "Form “%(formname)s” submitted"
 msgstr ""
 
-#: actions.py:66
+#: actions.py:83
 msgid "Store in database"
 msgstr ""
 
-#: admin.py:168 models.py:99
+#: actions.py:92
+msgid "Send download email"
+msgstr ""
+
+#: actions.py:113
+#, python-format
+msgid "Descarga de archivo del anuncio “%(advert)s” submitted"
+msgstr ""
+
+#: admin.py:151 models.py:94
 msgid "Options"
 msgstr ""
 
-#: admin.py:171
+#: admin.py:154
 msgid ""
 "The options for this field will be available once it has been stored the "
 "first time."
@@ -44,73 +53,89 @@ msgstr ""
 msgid "Dynamic Forms"
 msgstr ""
 
-#: conf.py:16
+#: conf.py:15
 msgid "Default form template"
+msgstr ""
+
+#: conf.py:16
+msgid "My form template"
 msgstr ""
 
 #: conf.py:24
 msgid "Default success template"
 msgstr ""
 
+#: conf.py:25
+msgid "My success template"
+msgstr ""
+
+#: conf.py:26
+msgid "Download success template"
+msgstr ""
+
 #: contrib/simple_captcha/models.py:14
 msgid "CAPTCHA"
 msgstr ""
 
-#: formfields.py:197
+#: contrib/simple_captcha/models.py:28
+msgid "NoCreCAPTCHA"
+msgstr ""
+
+#: formfields.py:191
 msgid "Boolean"
 msgstr ""
 
-#: formfields.py:207
+#: formfields.py:201
 msgid "Choices"
 msgstr ""
 
-#: formfields.py:227
+#: formfields.py:221
 msgid "Date"
 msgstr ""
 
-#: formfields.py:237
+#: formfields.py:231
 msgid "Date and Time"
 msgstr ""
 
-#: formfields.py:247
+#: formfields.py:242
 msgid "Email"
 msgstr ""
 
-#: formfields.py:254
+#: formfields.py:250
 msgid "Integer"
 msgstr ""
 
-#: formfields.py:266
+#: formfields.py:263
 msgid "Multi Line Text"
 msgstr ""
 
-#: formfields.py:274
+#: formfields.py:271
 msgid "Single Line Text"
 msgstr ""
 
-#: formfields.py:285
+#: formfields.py:282
 msgid "Time"
 msgstr ""
 
-#: models.py:34 models.py:98
+#: models.py:29 models.py:93
 msgid "Name"
 msgstr ""
 
-#: models.py:35
+#: models.py:30
 msgid "Submit URL"
 msgstr ""
 
-#: models.py:36
+#: models.py:31
 msgid ""
 "The full URL path to the form. It should start and end with a forward slash "
 "(<code>/</code>)."
 msgstr ""
 
-#: models.py:38
+#: models.py:33
 msgid "Success URL"
 msgstr ""
 
-#: models.py:39
+#: models.py:34
 msgid ""
 "The full URL path where the user will be redirected after successfully "
 "sending the form. It should start and end with a forward slash (<code>/</"
@@ -118,89 +143,89 @@ msgid ""
 "code> to the “Submit URL”."
 msgstr ""
 
-#: models.py:44
+#: models.py:39
 msgid "Actions"
 msgstr ""
 
-#: models.py:46
+#: models.py:41
 msgid "Form template path"
 msgstr ""
 
-#: models.py:49
+#: models.py:44
 msgid "Success template path"
 msgstr ""
 
-#: models.py:52
+#: models.py:47
 msgid "Allow display"
 msgstr ""
 
-#: models.py:53
+#: models.py:48
 msgid ""
 "Allow a user to view the input at a later time. This requires the “Store in "
 "database” action to be active. The sender will be given a unique URL to "
 "recall the data."
 msgstr ""
 
-#: models.py:56
+#: models.py:51
 msgid "Recipient email"
 msgstr ""
 
-#: models.py:57
+#: models.py:52
 msgid "Email address to send form data."
 msgstr ""
 
-#: models.py:61
+#: models.py:56
 msgid "Dynamic form"
 msgstr ""
 
-#: models.py:62
+#: models.py:57
 msgid "Dynamic forms"
 msgstr ""
 
-#: models.py:95
+#: models.py:90
 msgid "Type"
 msgstr ""
 
-#: models.py:97
+#: models.py:92
 msgid "Label"
 msgstr ""
 
-#: models.py:100
+#: models.py:95
 msgid "Position"
 msgstr ""
 
-#: models.py:105
+#: models.py:100
 msgid "Form field"
 msgstr ""
 
-#: models.py:106
+#: models.py:101
 msgid "Form fields"
 msgstr ""
 
-#: models.py:109
+#: models.py:104
 #, python-format
 msgid "Field “%(field_name)s” in form “%(form_name)s”"
 msgstr ""
 
-#: models.py:165 models.py:173 models.py:174
+#: models.py:161 models.py:169 models.py:170
 msgid "Form data"
 msgstr ""
 
-#: models.py:166
+#: models.py:162
 msgid "Submitted on"
 msgstr ""
 
-#: models.py:167
+#: models.py:163
 msgid "Display key"
 msgstr ""
 
-#: models.py:169
+#: models.py:165
 msgid ""
 "A unique identifier that is used to allow users to view their sent data. "
 "Unique over all stored data sets."
 msgstr ""
 
-#: models.py:177
+#: models.py:173
 #, python-format
 msgid "Form: “%(form)s” on %(date)s"
 msgstr ""
@@ -218,27 +243,29 @@ msgid ""
 "you receive this e-mail because someone submitted the form “%(form)s”."
 msgstr ""
 
-#: templates/dynamic_forms/form.html:6
+#: templates/dynamic_forms/form.html:6 templates/dynamic_forms/myform.html:39
 msgid "Submit"
 msgstr ""
 
 #: templates/dynamic_forms/form_success.html:2
+#: templates/dynamic_forms/myform_success.html:10
 msgid "Success"
 msgstr ""
 
 #: templates/dynamic_forms/form_success.html:3
+#: templates/dynamic_forms/myform_success.html:12
 msgid "Form submitted successfully"
 msgstr ""
 
-#: templates/dynamic_forms/form_success.html:4
+#: templates/dynamic_forms/form_success.html:6
 #, python-format
 msgid "For your convenience you can see your data at %(link)s."
 msgstr ""
 
-#: views.py:67
+#: views.py:103
 msgid "Thank you for submitting this form."
 msgstr ""
 
-#: views.py:72
+#: views.py:110
 msgid "An error occurred during submitting this form."
 msgstr ""

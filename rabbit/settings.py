@@ -15,6 +15,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Path helper
+location = lambda x: os.path.join(BASE_DIR, x)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -39,14 +41,28 @@ FEEDBACK_EMAIL_CONFIRMATION = True
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
-    'django.contrib.admin',
+    #'admin_tools_stats',
+    #'django_nvd3',
+    #'djangobower',
+    #'mediagenerator',
+    #'admintools_bootstrap',
+    #'admin_tools',
+    #'admin_tools.theming',
+    #'admin_tools.menu',
+    #'admin_tools.dashboard',
+    #'django_admin_bootstrapped',
+    #'grappelli',
+    'jet.dashboard',
+    'jet',
+    'django.contrib.admin',#.apps.SimpleAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    #'adminplus',
+    'admin_views',
     'captcha',
     'content',
     'mptt',
@@ -59,7 +75,8 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'secretballot',
     'likes',
-    'feedback_form'
+    'feedback_form',
+    'analytics',
 )
 
 # App configs
@@ -70,6 +87,34 @@ TAGGIT_CASE_INSENSITIVE = True
 NORECAPTCHA_SITE_KEY = '6LcubA0TAAAAADJpvkzqT5GEWqBKnbupiYsrWJMT'
 
 NORECAPTCHA_SECRET_KEY = '6LcubA0TAAAAADU6flcOh8h_CxNQ3p671gsJuGs6'
+
+#jet admin
+#JET_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultIndexDashboard'
+
+#jet_admin_views
+ADMIN_VIEWS_URL_PREFIX = "/intranetRoof"
+
+#admin_tools
+#ADMIN_TOOLS_THEMING_CSS = 'admin_tools/styles/theming.css'
+
+#ADMIN_TOOLS_MENU = 'menu.CustomMenu'
+
+#ADMIN_TOOLS_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
+
+# Django-bower
+# ------------
+
+# Specifie path to components root (you need to use absolute path)
+#BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+
+#BOWER_PATH = '/usr/local/bin/bower'
+
+#BOWER_INSTALLED_APPS = (
+#    'd3#3.3.13',
+#    'nvd3#1.7.1',
+#)
+
+
 
 #feedback
 FROM_EMAIL = 'feedback@roofmedia.mx'
@@ -83,6 +128,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'dynamic_forms.middlewares.FormModelMiddleware',
     'secretballot.middleware.SecretBallotIpUseragentMiddleware',
     'likes.middleware.SecretBallotUserIpUseragentMiddleware',
@@ -93,20 +139,27 @@ ROOT_URLCONF = 'rabbit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [
+            #location('templates'),
+        ],
+        #'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                #'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'content.context_processors.get_category_nodes',
-                "django.core.context_processors.media",
-                "django.core.context_processors.static",
-                'django.core.context_processors.request',
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                'django.template.context_processors.request',
 
             ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                #'admin_tools.template_loaders.Loader'
+            ]
         },
     },
 ]
@@ -142,6 +195,15 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
+LANGUAGES = (
+    ('es-MX', 'Spanish'),
+)
+
+LOCALE_PATHS = (
+#    os.path.join(BASE_DIR, 'sales', 'locale'),
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 LANGUAGE_CODE = 'es-MX'
 
 TIME_ZONE = 'America/Mexico_City'
@@ -156,11 +218,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    #'/home/jose/dev/djangodev/rabbit/rabbit/static'
+)
+
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+from admintools_bootstrap import ADMIN_MEDIA_BUNDLES
+
+MEDIA_BUNDLES = ADMIN_MEDIA_BUNDLES
+
+
 
 try:
     from settings_local import *

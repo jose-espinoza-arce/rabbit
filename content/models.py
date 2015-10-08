@@ -49,7 +49,7 @@ class Advertiser(models.Model):
     email = models.EmailField(_('Email'))
 
     class Meta:
-        verbose_name = _(u'Ad Provider')
+        verbose_name = _('Ad Provider')
         verbose_name_plural = _(u'Advertisers')
         ordering = ('company_name',)
 
@@ -88,6 +88,11 @@ class AdCategory(MPTTModel):
 
     def __init__(self, *args, **kwargs):
         super(AdCategory, self).__init__(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _('Ad category')
+        verbose_name_plural = _('Ad categories')
+        #ordering = ('title',)
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -229,18 +234,28 @@ class TextAd(AdBase):
 class BannerAd(AdBase):
     """ A standard banner Ad """
     content = models.ImageField(
-        verbose_name=_(u'Content'), upload_to="content/bannerads/")
+        verbose_name=_(u'Banner'), upload_to="content/bannerads/")
     content_mobile = models.ImageField(
-        verbose_name=_(u'Mobile Content'), upload_to="content/bannerads/mobile", blank=True, default='')
+        verbose_name=_(u'Mobile Banner'), upload_to="content/bannerads/mobile", blank=True, default='')
+
+    class Meta:
+        verbose_name = _('Banner Ad')
+        verbose_name_plural = _('Banner Ads')
 
 
 class VideoAd(AdBase):
     """ A standard video ad """
-    video_url = models.URLField(verbose_name=_(u'Url'))
+    video_url = models.URLField(verbose_name=_(u'Video'), )
     content = models.ImageField(
-        verbose_name=_(u'Content'), upload_to="content/videoads/", default='')
+        verbose_name=_(u'Image'), upload_to="content/videoads/", default='',
+        help_text=_("This image will be used in the list views."))
     content_mobile = models.ImageField(
-        verbose_name=_(u'Mobile Content'), upload_to="content/videoads/mobile", blank=True, default='')
+        verbose_name=_(u'Mobile Image'), upload_to="content/videoads/mobile", blank=True,
+        default='', help_text=_("This image will be used in the list views for mobiles."))
+
+    class Meta:
+        verbose_name = _('Video Ad')
+        verbose_name_plural = _('Video Ads')
 
     def save(self, *args, **kwargs):
         if 'youtube' in self.content:

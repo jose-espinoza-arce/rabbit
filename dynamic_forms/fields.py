@@ -4,17 +4,39 @@ from __future__ import unicode_literals
 import six
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple, MultipleChoiceField
+from django.forms.widgets import CheckboxFieldRenderer, CheckboxChoiceInput
 from django.utils.text import capfirst
+from django.utils.html import format_html
 
 from dynamic_forms.forms import MultiSelectFormField
+
+
+class MyCheckboxChoiceInput(CheckboxChoiceInput):
+
+    def render(self, name=None, value=None, attrs=None, choices=()):
+        if self.id_for_label:
+            label_for = format_html(' for="{}"', self.id_for_label)
+        else:
+            label_for = ''
+        attrs = dict(self.attrs, **attrs) if attrs else self.attrs
+        return format_html(
+            '{}<label{}>{}</label>', self.tag(attrs), label_for, self.choice_label
+        )
+
+class MyCheckboxFieldRenderer(CheckboxFieldRenderer):
+    choice_input_class = MyCheckboxChoiceInput
+
+class MyCheckboxSelectMultiple(CheckboxSelectMultiple):
+    renderer = MyCheckboxFieldRenderer
+
 
 
 class TextMultiSelectField(six.with_metaclass(models.SubfieldBase,
                                               models.TextField)):
     # http://djangosnippets.org/snippets/2753/
 
-    widget = CheckboxSelectMultiple
+    widget = MyCheckboxSelectMultiple
 
     def __init__(self, *args, **kwargs):
         self.separate_values_by = kwargs.pop('separate_values_by', '\n')

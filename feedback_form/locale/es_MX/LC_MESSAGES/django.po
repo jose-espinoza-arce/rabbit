@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-05 12:46-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:19
+msgid "Message excerpt"
+msgstr ""
+
+#: admin.py:25 templates/feedback_form/email/body.txt:16
+#: templates/feedback_form/email/body.txt:18
+msgid "Email"
+msgstr ""
+
+#: apps.py:6
+msgid "Feedback"
+msgstr ""
+
+#: models.py:23
+msgid "User"
+msgstr ""
+
+#: models.py:29
+msgid "Correo-e"
+msgstr ""
+
+#: models.py:34
+msgid "Current URL"
+msgstr ""
+
+#: models.py:40
+msgid "Mensaje"
+msgstr ""
+
+#: models.py:46
+msgid "Creation Date"
+msgstr ""
+
+#: templates/feedback_form/email/body.txt:4
+msgid "A new report has been posted:"
+msgstr ""
+
+#: templates/feedback_form/email/body.txt:6
+msgid "A new feedback has been posted:"
+msgstr ""
+
+#: templates/feedback_form/email/body.txt:10
+msgid "URL"
+msgstr ""
+
+#: templates/feedback_form/email/body.txt:12
+msgid "Object type"
+msgstr ""
+
+#: templates/feedback_form/email/body.txt:13
+msgid "Object PK"
+msgstr ""
+
+#: templates/feedback_form/email/body.txt:20
+msgid "Date"
+msgstr ""
+
+#: templates/feedback_form/email/confirmation_body.txt:1
+msgid "Hi"
+msgstr ""
+
+#: templates/feedback_form/email/confirmation_body.txt:3
+msgid "Thanks for your feedback! We'll get back to you soon."
+msgstr ""
+
+#: templates/feedback_form/email/confirmation_body.txt:5
+msgid "See you soon!"
+msgstr ""
+
+#: templates/feedback_form/email/confirmation_subject.txt:1
+msgid "Thank you"
+msgstr ""
+
+#: templates/feedback_form/email/subject.txt:1
+msgid "New report has arrived"
+msgstr ""
+
+#: templates/feedback_form/email/subject.txt:1
+msgid "New feedback has arrived"
+msgstr ""
+
+#: templates/feedback_form/partials/form.html:6
+msgid "You are about to report:"
+msgstr ""
+
+#: templates/feedback_form/partials/form.html:8
+msgid "Send Feedback"
+msgstr ""
+
+#: templates/feedback_form/partials/form.html:15
+msgid "Thank you!"
+msgstr ""
+
+#: templates/feedback_form/partials/form_content.html:19
+msgid "Enviar Mensaje"
+msgstr ""

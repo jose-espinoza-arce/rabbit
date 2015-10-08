@@ -167,8 +167,8 @@ class FormFieldModelInlineAdmin(admin.StackedInline):
 class FormModelAdmin(admin.ModelAdmin):
     form = AdminFormModelForm
     inlines = (FormFieldModelInlineAdmin,)
-    list_display = ('name', 'submit_url', 'success_url', 'allow_display')
-    model = FormModel
+    list_display = ('name', 'submit_url')
+    exclude = ('allow_display', 'recipient_email', 'success_url')
 
 admin.site.register(FormModel, FormModelAdmin)
 
