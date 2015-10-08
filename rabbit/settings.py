@@ -240,9 +240,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-from admintools_bootstrap import ADMIN_MEDIA_BUNDLES
+#from admintools_bootstrap import ADMIN_MEDIA_BUNDLES
 
-MEDIA_BUNDLES = ADMIN_MEDIA_BUNDLES
+#MEDIA_BUNDLES = ADMIN_MEDIA_BUNDLES
 
 
 
