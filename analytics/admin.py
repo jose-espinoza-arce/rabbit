@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from django.template.response import TemplateResponse
-from django.conf.urls import include, url
+from django.conf.urls import url
 from admin_views.admin import AdminViews
 from analytics.models import *
-from functools import update_wrapper
+from content.admin import AdBaseAdmin, AdBase
+
 
 class FacebookStatInline(admin.StackedInline):
     model = FacebookStat
@@ -30,6 +31,8 @@ class SaleOportunityAdmin(admin.ModelAdmin):
 
 class StatRegisterAdmin(AdminViews):
     raw_id_fields = ('ad',)
+    adbaseadmin = AdBaseAdmin(AdBase, AdBaseAdmin)
+
     # inlines = [
     #     FacebookStatInline, GoogleAdWordsStatInline, LinkedinStatInline,
     #     GooglePlusStatInline, GoogleAnalyticsInline
@@ -61,10 +64,6 @@ class StatRegisterAdmin(AdminViews):
 
     def get_urls(self):
         urls = super(StatRegisterAdmin,self).get_urls()
-        def wrap(view):
-            def wrapper(*args, **kwargs):
-                return self.admin_site.admin_view(view)(*args, **kwargs)
-            return update_wrapper(wrapper, view)
 
         urls += [
             url(r'statistics/(?P<ad_id>\d+)', self.statistic, name='statistic')
