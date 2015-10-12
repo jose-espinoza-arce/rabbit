@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 17:20-0500\n"
+"POT-Creation-Date: 2015-10-09 11:48-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,187 +18,234 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:6 models.py:231 models.py:237 models.py:250
-msgid "Content"
-msgstr "Contenido"
-
-#: forms.py:15 forms.py:17
-msgid "Search"
+#: content/admin.py:41 content/admin.py:48
+msgid "Personal info"
 msgstr ""
 
-#: models.py:43
-msgid "Company Name"
+#: content/admin.py:42 content/admin.py:49
+msgid "Permissions"
 msgstr ""
 
-#: models.py:44
-msgid "Company Site"
+#: content/admin.py:43 content/admin.py:51
+msgid "Important dates"
 msgstr ""
 
-#: models.py:48
-msgid "Phone number"
-msgstr ""
-
-#: models.py:49
-msgid "Email"
-msgstr ""
-
-#: models.py:52 models.py:149
-msgid "Ad Provider"
-msgstr "Anunciante"
-
-#: models.py:53
-msgid "Advertisers"
-msgstr "Anunciantes"
-
-#: models.py:68 models.py:111 models.py:134
-msgid "Title"
-msgstr ""
-
-#: models.py:69 models.py:85 models.py:112 models.py:135
-msgid "Slug"
-msgstr ""
-
-#: models.py:70 models.py:86 models.py:113 models.py:137
-msgid "Description"
-msgstr ""
-
-#: models.py:73 models.py:151
-msgid "Type"
-msgstr ""
-
-#: models.py:74
-msgid "Types"
-msgstr ""
-
-#: models.py:84
-msgid "Name"
-msgstr ""
-
-#: models.py:93
-msgid "Ad category"
-msgstr "Categoría"
-
-#: models.py:94
-msgid "Ad categories"
-msgstr "Categorías"
-
-#: models.py:136
-msgid "Advertised URL"
-msgstr "URL publicitad"
-
-#: models.py:138 models.py:276
-msgid "Since"
-msgstr ""
-
-#: models.py:139
-msgid "Updated"
-msgstr ""
-
-#: models.py:140
-msgid "File"
-msgstr ""
-
-#: models.py:143
-msgid "Start showing"
-msgstr ""
-
-#: models.py:145
-msgid "Stop showing"
-msgstr ""
-
-#: models.py:150
-msgid "Category"
-msgstr ""
-
-#: models.py:154
+#: content/admin.py:119 content/admin.py:231 content/admin.py:242
+#: content/models.py:154
 msgid "Call to action"
 msgstr ""
 
-#: models.py:166
+#: content/admin.py:120 content/admin.py:232 content/admin.py:243
+msgid "Period"
+msgstr ""
+
+#: content/admin.py:121 content/admin.py:233 content/admin.py:244
+msgid "Filters"
+msgstr ""
+
+#: content/admin.py:225 content/apps.py:6 content/models.py:231
+msgid "Content"
+msgstr "Contenido"
+
+#: content/admin.py:230 content/models.py:237
+#, fuzzy
+#| msgid "Banner Ad"
+msgid "Banner"
+msgstr "Publicación"
+
+#: content/admin.py:241 content/models.py:248
+#, fuzzy
+#| msgid "Video Ad"
+msgid "Video"
+msgstr "Video"
+
+#: content/forms.py:15 content/forms.py:17
+msgid "Search"
+msgstr ""
+
+#: content/models.py:43
+msgid "Company Name"
+msgstr ""
+
+#: content/models.py:44
+msgid "Company Site"
+msgstr ""
+
+#: content/models.py:48
+msgid "Phone number"
+msgstr ""
+
+#: content/models.py:49
+msgid "Email"
+msgstr ""
+
+#: content/models.py:52 content/models.py:149
+msgid "Ad Provider"
+msgstr "Anunciante"
+
+#: content/models.py:53
+msgid "Advertisers"
+msgstr "Anunciantes"
+
+#: content/models.py:68 content/models.py:111 content/models.py:134
+msgid "Title"
+msgstr ""
+
+#: content/models.py:69 content/models.py:85 content/models.py:112
+#: content/models.py:135
+msgid "Slug"
+msgstr ""
+
+#: content/models.py:70 content/models.py:86 content/models.py:113
+#: content/models.py:137
+msgid "Description"
+msgstr ""
+
+#: content/models.py:73 content/models.py:151
+msgid "Type"
+msgstr ""
+
+#: content/models.py:74
+msgid "Types"
+msgstr ""
+
+#: content/models.py:84
+msgid "Name"
+msgstr ""
+
+#: content/models.py:93
+msgid "Ad category"
+msgstr "Categoría"
+
+#: content/models.py:94
+msgid "Ad categories"
+msgstr "Categorías"
+
+#: content/models.py:136
+msgid "Advertised URL"
+msgstr "URL publicitad"
+
+#: content/models.py:138 content/models.py:278
+msgid "Since"
+msgstr ""
+
+#: content/models.py:139
+msgid "Updated"
+msgstr ""
+
+#: content/models.py:140
+msgid "File"
+msgstr ""
+
+#: content/models.py:143
+msgid "Start showing"
+msgstr ""
+
+#: content/models.py:145
+msgid "Stop showing"
+msgstr ""
+
+#: content/models.py:150
+msgid "Category"
+msgstr ""
+
+#: content/models.py:166
 msgid "Ad Base"
 msgstr "Anuncio base"
 
-#: models.py:167
+#: content/models.py:167
 msgid "Ad Bases"
 msgstr "Anuncios"
 
-#: models.py:188 models.py:203 models.py:218
+#: content/models.py:188 content/models.py:203 content/models.py:218
 msgid "When"
 msgstr ""
 
-#: models.py:190 models.py:205 models.py:220
+#: content/models.py:190 content/models.py:205 content/models.py:220
 msgid "Who"
 msgstr ""
 
-#: models.py:194
+#: content/models.py:194
 msgid "Ad Impression"
 msgstr "Impresión"
 
-#: models.py:195
+#: content/models.py:195
 msgid "Ad Impressions"
 msgstr "Impresiones"
 
-#: models.py:209
+#: content/models.py:209
 msgid "Ad Click"
 msgstr "Click"
 
-#: models.py:210
+#: content/models.py:210
 msgid "Ad Clicks"
 msgstr "Clicks"
 
-#: models.py:224
+#: content/models.py:224
 msgid "Ad Phone View"
 msgstr "Vista de teléfono"
 
-#: models.py:225
+#: content/models.py:225
 msgid "Ad Phone Views"
 msgstr "Vistas de teléfono"
 
-#: models.py:239 models.py:252
-msgid "Mobile Content"
+#: content/models.py:239
+msgid "Mobile Banner"
 msgstr ""
 
-#: models.py:242
+#: content/models.py:242
 msgid "Banner Ad"
 msgstr "Publicación"
 
-#: models.py:243
+#: content/models.py:243
 msgid "Banner Ads"
 msgstr "Imágenes"
 
-#: models.py:248
-msgid "Url"
+#: content/models.py:250
+msgid "Image"
 msgstr ""
 
-#: models.py:255
+#: content/models.py:251
+msgid "This image will be used in the list views."
+msgstr ""
+
+#: content/models.py:253
+msgid "Mobile Image"
+msgstr ""
+
+#: content/models.py:254
+msgid "This image will be used in the list views for mobiles."
+msgstr ""
+
+#: content/models.py:257
 msgid "Video Ad"
 msgstr "Video"
 
-#: models.py:256
+#: content/models.py:258
 msgid "Video Ads"
 msgstr "Videos"
 
-#: models.py:269
+#: content/models.py:271
 msgid "List Image"
 msgstr ""
 
-#: models.py:274
+#: content/models.py:276
 msgid "Key"
 msgstr ""
 
-#: models.py:275
+#: content/models.py:277
 msgid "Link Path"
 msgstr ""
 
-#: models.py:277
+#: content/models.py:279
 msgid "Url Path"
 msgstr ""
 
-#: templates/partials/pagination.html:8
+#: content/templates/partials/pagination.html:8
 msgid "previous"
 msgstr ""
 
-#: templates/partials/pagination.html:11
+#: content/templates/partials/pagination.html:11
 #, python-format
 msgid ""
 "\n"
@@ -206,11 +253,11 @@ msgid ""
 "            "
 msgstr ""
 
-#: templates/partials/pagination.html:16
+#: content/templates/partials/pagination.html:16
 msgid "more"
 msgstr ""
 
-#: views.py:100
+#: content/views.py:100
 #, python-format
 msgid "Empty list and '%(class_name)s.allow_empty' is False."
 msgstr ""

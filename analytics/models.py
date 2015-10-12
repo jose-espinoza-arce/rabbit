@@ -34,11 +34,11 @@ class SaleOportunity(models.Model):
         ordering = ('created_at',)
 
     def __str__(self):
-        return _('Client: %s, Advertiser: %s') % (self.ad.advertiser, self.name)
+        return _('Client: %s, Advertiser: %s') % self.ad.advertiser, self.name
 
 @python_2_unicode_compatible
 class StatRegister(models.Model):
-    ad = models.ForeignKey(AdBase)
+    ad = models.OneToOneField(AdBase)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -51,26 +51,38 @@ class StatRegister(models.Model):
     def __str__(self):
         return self.ad.title
 
+def upload_path_handler(instance, filename):
+    import os.path
+    fn, ext = os.path.splitext(filename)
+    model_name = instance.__class__.__name__.lower()
+    register_id = instance.register.ad.slug
+    return "analytics/images/{register}/{model}s/{id}{ext}".format(model=model_name,
+                                                                  register=register_id,
+                                                                  id=instance.pk, ext=ext)
 
 @python_2_unicode_compatible
 class FacebookStat(models.Model):
     register = models.OneToOneField(StatRegister)
+    fbpostid = models.CharField(verbose_name=_('Post ID'), max_length=255)
+    image = models.ImageField(verbose_name=_('Facebook Image'), upload_to=upload_path_handler, blank=True)
     reached = models.PositiveIntegerField(verbose_name=_('Reached people'))
-    likes = models.PositiveIntegerField(verbose_name=_('Liekes'))
+    likes = models.PositiveIntegerField(verbose_name=_('Likes'))
     comments = models.PositiveIntegerField(verbose_name=_('Comments'))
     shares = models.PositiveIntegerField(verbose_name=_('Shares'))
     clicks = models.PositiveIntegerField(verbose_name=_('Advert Clicks'))
-    link_clicks = models.PositiveIntegerField(verbose_name=_('Link Clicks'))
+    link_clicks = models.PositiveIntegerField(verbose_name=_('Link Clicks'), blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.regitry.__str__()
+        return self.register.__str__()
 
 @python_2_unicode_compatible
 class LinkedinStat(models.Model):
     register = models.OneToOneField(StatRegister)
+    lnkpostid = models.CharField(verbose_name=_('Post ID'), max_length=255)
+    image = models.ImageField(verbose_name=_('Linkedin Image'), upload_to=upload_path_handler, blank=True)
     reached = models.PositiveIntegerField(verbose_name=_('Linkedin Members'))
     clicks = models.PositiveIntegerField(verbose_name=_('Advert Clicks'))
     impressions = models.PositiveIntegerField(verbose_name=_('Advert Impressions'))
@@ -79,11 +91,12 @@ class LinkedinStat(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.regitry.__str__()
+        return self.register.__str__()
 
 @python_2_unicode_compatible
 class GoogleAdWordsStat(models.Model):
     register = models.OneToOneField(StatRegister)
+    adsgroupid = models.CharField(verbose_name=_('Ad Group ID'), max_length=255)
     clicks = models.PositiveIntegerField(verbose_name=_('Advert Clicks'))
     impressions = models.PositiveIntegerField(verbose_name=_('Advert Impressions'))
 
@@ -91,5 +104,66 @@ class GoogleAdWordsStat(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.regitry.__str__()
+        return self.register.__str__()
+
+@python_2_unicode_compatible
+class GooglePlusStat(models.Model):
+    register = models.OneToOneField(StatRegister)
+    gpidpost = models.CharField(verbose_name=_('Post ID'), max_length=255)
+    reached = models.PositiveIntegerField(verbose_name=_('Gplus scope'))
+    pluses = models.PositiveIntegerField(verbose_name=_('Likes'))
+    comments = models.PositiveIntegerField(verbose_name=_('Comments'))
+    impressions = models.PositiveIntegerField(verbose_name=_('Advert Impressions'))
+    shares = models.PositiveIntegerField(verbose_name=_('Shares'))
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.register.__str__()
+
+@python_2_unicode_compatible
+class GoogleAnalytics(models.Model):
+    register = models.OneToOneField(StatRegister)
+    visitors = models.PositiveIntegerField(verbose_name=_('Visitors'))
+    users = models.PositiveIntegerField(verbose_name=_('Users'))
+    averagetime = models.PositiveIntegerField(verbose_name=_('Average time(mins)'))
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.register.__str__()
+
+@python_2_unicode_compatible
+class VideoStat(models.Model):
+    register = models.OneToOneField(StatRegister)
+    plays = models.PositiveIntegerField(verbose_name=_('Times played'))
+
+    def __str__(self):
+        return self.register.__str__()
+
+
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+
+_UNSAVED_FILEFIELD = 'unsaved_filefield'
+
+@receiver(pre_save)
+def skip_saving_file(sender, instance, **kwargs):
+    list_of_models = ('FacebookStat', 'LinkedinStat')
+    if sender.__name__ in list_of_models:
+        if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
+            setattr(instance, _UNSAVED_FILEFIELD, instance.image)
+            instance.image = None
+
+@receiver(post_save)
+def save_file(sender, instance, created, **kwargs):
+    list_of_models = ('FacebookStat', 'LinkedinStat')
+    if sender.__name__ in list_of_models:
+        if created and hasattr(instance, _UNSAVED_FILEFIELD):
+            instance.image = getattr(instance, _UNSAVED_FILEFIELD)
+            instance.save()
+        # delete it if you feel uncomfortable...
+        # instance.__dict__.pop(_UNSAVED_FILEFIELD)
 

@@ -23,35 +23,15 @@ from django.utils.translation import ugettext_lazy as _
 class MyReadOnlyPaaswordHashWidget(ReadOnlyPasswordHashWidget):
 
     def render(self, name, value, attrs):
-        encoded = value
         final_attrs = self.build_attrs(attrs)
 
-        if not encoded or encoded.startswith(UNUSABLE_PASSWORD_PREFIX):
-            summary = mark_safe("<strong>%s</strong>" % ugettext("No password set."))
-        else:
-            try:
-                hasher = identify_hasher(encoded)
-            except ValueError:
-                summary = mark_safe("<strong>%s</strong>" % ugettext(
-                    "Invalid password format or unknown hashing algorithm."))
-            else:
-                summary = format_html_join('',
-                                           "<strong>{}</strong>: {} ",
-                                           ((ugettext(key), value)
-                                            for key, value in hasher.safe_summary(encoded).items())
-                                           )
-
-        return format_html("<div{}>{}</div>", flatatt(final_attrs), 'eco')
+        return format_html("<div{}>{}</div>", flatatt(final_attrs), '')
 
 class MyUserAdmin(UserAdmin):
 
     def __init__(self, model, admin_site):
-        print('en el init de myuseradmin')
-        print(self.__class__.form) #.password.widget = MyReadOnlyPaaswordHashWidget
+        self.__class__.form.declared_fields['password'].widget = MyReadOnlyPaaswordHashWidget(attrs=None)
         super(UserAdmin, self).__init__(model, admin_site)
-
-
-
 
     def get_fieldsets(self, request, obj=None):
 
@@ -60,6 +40,14 @@ class MyUserAdmin(UserAdmin):
                 (None, {'fields': ('username', 'password')}),
                 (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
                 (_('Permissions'), {'fields': ('is_active', 'is_staff', 'groups')}),
+                (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+            )
+        else:
+            self.fieldsets = (
+                (None, {'fields': ('username', 'password')}),
+                (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+                (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
                 (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
             )
 

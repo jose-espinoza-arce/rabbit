@@ -258,10 +258,11 @@ class VideoAd(AdBase):
         verbose_name_plural = _('Video Ads')
 
     def save(self, *args, **kwargs):
-        if 'youtube' in self.content:
-            self.content = self.content.replace('watch?v=', 'embed/')
-        if 'vimeo' in self.content:
-            self.content = 'https://player.vimeo.com/video/' + self.content.split('/')[-1]
+        print('saving video')
+        if 'youtube' in self.video_url:
+            self.video_url = self.video_url.replace('watch?v=', 'embed/')
+        if 'vimeo' in self.video_url:
+            self.video_url = 'https://player.vimeo.com/video/' + self.video_url.split('/')[-1]
         super(VideoAd, self).save(*args, **kwargs)
 
 

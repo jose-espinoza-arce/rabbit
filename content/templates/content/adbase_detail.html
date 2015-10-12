@@ -34,6 +34,29 @@
                                 <iframe class="embed-responsive" src="{{ object.videoad.video_url }}" frameborder="0"
                                         webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                             </div>
+                            <div class="statistic">
+                                {% comment %}{% adlikes object template='partials/likes.html' %}
+                                <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>{% endcomment %}
+                                <hr>
+                                <h5 class="detail__share-title">Compartir:</h5>
+                                <ul class="list-unstyled sharer">
+                                    <li class="sharer__item sharer__item--fb">
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li class="sharer__item sharer__item--tw">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li class="sharer__item sharer__item--pin">
+                                        <a href=""><i class="fa fa-pinterest"></i></a>
+                                    </li>
+                                    <li>
+                                        {% adlikes object template='partials/likes.html' %}
+                                    </li>
+                                    <li>
+                                        <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                                    </li>
+                                </ul>
+                            </div>
                         {% elif object.bannerad %}
                             <div class="detail__media">
                                 {% comment %}<ul class="list-unstyled stadistic">
