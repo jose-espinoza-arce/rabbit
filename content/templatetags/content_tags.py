@@ -250,3 +250,4 @@ def get_video_img(video_url):
         img_url = video_dict[0]['thumbnail_large']
 
     return img_url
+

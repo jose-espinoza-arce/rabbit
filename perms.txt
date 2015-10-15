@@ -1,0 +1,40 @@
+Permisos para el grupo: managers 
+-- analytics | facebook stat | Can add facebook stat 
+-- analytics | facebook stat | Can change facebook stat 
+-- analytics | google ad words stat | Can add google ad words stat 
+-- analytics | google ad words stat | Can change google ad words stat 
+-- analytics | google analytics | Can add google analytics 
+-- analytics | google analytics | Can change google analytics 
+-- analytics | google plus stat | Can add google plus stat 
+-- analytics | google plus stat | Can change google plus stat 
+-- analytics | linkedin stat | Can add linkedin stat 
+-- analytics | linkedin stat | Can change linkedin stat 
+-- analytics | Oportunidad de venta | Can add Oportunidad de venta 
+-- analytics | Oportunidad de venta | Can change Oportunidad de venta 
+-- analytics | Register | Can add Register 
+-- analytics | Register | Can change Register 
+-- analytics | video stat | Can add video stat 
+-- analytics | video stat | Can change video stat 
+-- auth | user | Can add user 
+-- auth | user | Can change user 
+-- content | Ad Base | Can change Ad Base 
+-- content | Ad category | Can add ad category 
+-- content | Ad category | Can change ad category 
+-- content | Ad Provider | Can add Ad Provider 
+-- content | Ad Provider | Can change Ad Provider 
+-- content | Banner Ad | Can add banner ad 
+-- content | Banner Ad | Can change banner ad 
+-- content | content list image | Can add content list image 
+-- content | content list image | Can change content list image 
+-- content | Video Ad | Can add video ad 
+-- content | Video Ad | Can change video ad 
+-- dynamic_forms | Form field | Can add Form field 
+-- dynamic_forms | Form field | Can change Form field 
+-- dynamic_forms | Dynamic form | Can add Dynamic form 
+-- dynamic_forms | Dynamic form | Can change Dynamic form 
+-- dynamic_forms | Form data | Can change Form data 
+-- feedback_form | feedback | Can change feedback 
+-- jet | bookmark | Can add bookmark 
+-- jet | bookmark | Can change bookmark 
+-- jet | bookmark | Can delete bookmark 
+Permisos para el grupo: Clientes 

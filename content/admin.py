@@ -20,6 +20,30 @@ from django.contrib.auth.forms import *
 from django.utils.translation import ugettext_lazy as _
 
 
+
+class HasRegisterFilter(admin.SimpleListFilter):
+    title = _('Has register')
+    parameter_name = 'has_filter'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('0', _('No')),
+            ('1', _('Yes')),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == '0':
+            print(queryset)
+            q = queryset.filter(stats_register__isnull=True)
+            print(q)
+            return q
+        if self.value() == '1':
+            print(queryset)
+            q = queryset.filter(stats_register__isnull=False)
+            print(q)
+            return q
+
+
 class MyReadOnlyPaaswordHashWidget(ReadOnlyPasswordHashWidget):
 
     def render(self, name, value, attrs):
@@ -75,9 +99,11 @@ class AdBaseForm(forms.ModelForm):
         cleaned_data = super(AdBaseForm, self).clean()
         file = cleaned_data.get('file')
         actionform = cleaned_data.get('actionform')
+        download_actionform = None
 
         download_action_list = [u'dynamic_forms.actions.dynamic_form_send_download_email']
-        download_actionform = set(actionform.actions).intersection(download_action_list)
+        if actionform:
+            download_actionform = set(actionform.actions).intersection(download_action_list)
 
         if download_actionform and not file:
             msg = 'Seleccionó un formulario de descarga pero no asigno ningún archivo'
@@ -109,17 +135,24 @@ class AdZoneAdmin(admin.ModelAdmin):
 
 class AdBaseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
-    list_display = ['title', 'advertiser', 'since', 'updated', 'start_showing', 'stop_showing']
-    list_filter = ['stop_showing']
-    search_fields = ['title', 'url']
+    list_display = ['title', 'advertiser', 'has_register', 'start_showing', 'stop_showing']
+    list_filter = ['stop_showing', HasRegisterFilter]
+    search_fields = ['title', 'advertiser__company_name']
     raw_id_fields = ['advertiser']
     form = AdBaseForm
 
-    fieldsets = [(None, {'fields': ('title', 'slug', 'description', 'advertiser', 'url')}),
+    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                     (_('Call to action'), {'fields': ('actionform', 'file')}),
-                    (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
-                    (_('Filters'), {'fields': ('category', 'tags')}),
+                    (_('Period'), {'fields': ('start_showing', 'stop_showing')})
                 ]
+
+
+    def has_register(self, obj):
+        if getattr(obj, 'stats_register', None):
+            return _('Yes')
+        else:
+            return _('No')
+
 
     #inlines = [ContentListImageInline,]
 
@@ -226,22 +259,22 @@ class TextAdAdmin(AdBaseAdmin):
 
 class BannerAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'url', 'advertiser']
-    fieldsets = [(None, {'fields': ('title', 'slug', 'description', 'advertiser', 'url')}),
+    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                  (_('Banner'), {'fields': ('content', 'content_mobile')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
-                 (_('Filters'), {'fields': ('category', 'tags')}),
+                 (_('Tags'), {'fields': ('tags',)}),
                 ]
 
 
 class VideoAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'url', 'advertiser']
 
-    fieldsets = [(None, {'fields': ('title', 'slug', 'description', 'advertiser', 'url')}),
+    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                  (_('Video'), {'fields': ('content', 'content_mobile', 'video_url')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
-                 (_('Filters'), {'fields': ('category', 'tags')}),
+                 (_('Tags'), {'fields': ('tags',)}),
                 ]
 
 

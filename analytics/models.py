@@ -6,6 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 from content.models import AdBase
+from dynamic_forms.models import FormModelData
 
 @python_2_unicode_compatible
 class SaleOportunity(models.Model):
@@ -17,8 +18,9 @@ class SaleOportunity(models.Model):
         (4, 'GoogleAdWords'),
         (5, 'Linkedin'),
     )
-    ad = models.ForeignKey(AdBase)
-    name = models.CharField(verbose_name=_('Name'), max_length=255)
+    ad = models.ForeignKey(AdBase, related_name='sales_oportunities')
+    form_data = models.OneToOneField(FormModelData, blank=True)
+    name = models.CharField(verbose_name=_('Client Name'), max_length=255)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(verbose_name=_('Phone number'), validators=[phone_regex], max_length=16, blank=True, default='')
@@ -34,11 +36,11 @@ class SaleOportunity(models.Model):
         ordering = ('created_at',)
 
     def __str__(self):
-        return _('Client: %s, Advertiser: %s') % self.ad.advertiser, self.name
+        return 'Client: {0}, Advertiser: {1}'.format(self.name, self.ad.advertiser)
 
 @python_2_unicode_compatible
 class StatRegister(models.Model):
-    ad = models.OneToOneField(AdBase)
+    ad = models.OneToOneField(AdBase, related_name='stats_register')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -62,7 +64,7 @@ def upload_path_handler(instance, filename):
 
 @python_2_unicode_compatible
 class FacebookStat(models.Model):
-    register = models.OneToOneField(StatRegister)
+    register = models.OneToOneField(StatRegister, related_name='facebook_stats')
     fbpostid = models.CharField(verbose_name=_('Post ID'), max_length=255)
     image = models.ImageField(verbose_name=_('Facebook Image'), upload_to=upload_path_handler, blank=True)
     reached = models.PositiveIntegerField(verbose_name=_('Reached people'))
@@ -80,7 +82,7 @@ class FacebookStat(models.Model):
 
 @python_2_unicode_compatible
 class LinkedinStat(models.Model):
-    register = models.OneToOneField(StatRegister)
+    register = models.OneToOneField(StatRegister, related_name='linkedin_stats')
     lnkpostid = models.CharField(verbose_name=_('Post ID'), max_length=255)
     image = models.ImageField(verbose_name=_('Linkedin Image'), upload_to=upload_path_handler, blank=True)
     reached = models.PositiveIntegerField(verbose_name=_('Linkedin Members'))
@@ -95,7 +97,7 @@ class LinkedinStat(models.Model):
 
 @python_2_unicode_compatible
 class GoogleAdWordsStat(models.Model):
-    register = models.OneToOneField(StatRegister)
+    register = models.OneToOneField(StatRegister, related_name='googleadword_stats')
     adsgroupid = models.CharField(verbose_name=_('Ad Group ID'), max_length=255)
     clicks = models.PositiveIntegerField(verbose_name=_('Advert Clicks'))
     impressions = models.PositiveIntegerField(verbose_name=_('Advert Impressions'))
@@ -108,10 +110,10 @@ class GoogleAdWordsStat(models.Model):
 
 @python_2_unicode_compatible
 class GooglePlusStat(models.Model):
-    register = models.OneToOneField(StatRegister)
+    register = models.OneToOneField(StatRegister, related_name='googleplus_stats')
     gpidpost = models.CharField(verbose_name=_('Post ID'), max_length=255)
     reached = models.PositiveIntegerField(verbose_name=_('Gplus scope'))
-    pluses = models.PositiveIntegerField(verbose_name=_('Likes'))
+    pluses = models.PositiveIntegerField(verbose_name=_('Pluses(+1)'))
     comments = models.PositiveIntegerField(verbose_name=_('Comments'))
     impressions = models.PositiveIntegerField(verbose_name=_('Advert Impressions'))
     shares = models.PositiveIntegerField(verbose_name=_('Shares'))
@@ -124,7 +126,7 @@ class GooglePlusStat(models.Model):
 
 @python_2_unicode_compatible
 class GoogleAnalytics(models.Model):
-    register = models.OneToOneField(StatRegister)
+    register = models.OneToOneField(StatRegister, related_name='googlean_stats')
     visitors = models.PositiveIntegerField(verbose_name=_('Visitors'))
     users = models.PositiveIntegerField(verbose_name=_('Users'))
     averagetime = models.PositiveIntegerField(verbose_name=_('Average time(mins)'))
@@ -137,7 +139,7 @@ class GoogleAnalytics(models.Model):
 
 @python_2_unicode_compatible
 class VideoStat(models.Model):
-    register = models.OneToOneField(StatRegister)
+    register = models.OneToOneField(StatRegister, related_name='video_stats')
     plays = models.PositiveIntegerField(verbose_name=_('Times played'))
 
     def __str__(self):

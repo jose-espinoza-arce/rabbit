@@ -56,9 +56,10 @@ class FormModelForm(forms.Form):
         data = self.cleaned_data
         mapped_data = OrderedDict()
         for key, field in six.iteritems(self.model_fields):
+            print(key, field)
             df = formfield_registry.get(field.field_type)
-            if df and df.do_display_data():
-                name = field.label
+            if df and df.do_display_data() and key != 'agree': #Dont save agreement
+                name = field.name
                 value = data.get(key, None)
                 if exclude_missing and not bool(value):
                     continue

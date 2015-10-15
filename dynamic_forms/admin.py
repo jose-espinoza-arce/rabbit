@@ -6,6 +6,7 @@ import json
 import six
 from django import forms
 from django.contrib import admin
+from django.forms.models import BaseInlineFormSet
 from django.forms.utils import flatatt
 from django.utils.encoding import force_text
 from django.utils.html import format_html
@@ -125,6 +126,23 @@ class OptionsField(forms.MultiValueField):
                 data[name] = value
         return json.dumps(data)
 
+# Overrides baseinlineformset to add initials formfields
+class FormFieldsBaseInlineFormset(BaseInlineFormSet):
+    model = FormFieldModel
+
+    def __init__(self, *args, **kwargs):
+        super(FormFieldsBaseInlineFormset, self).__init__(*args, **kwargs)
+        if 'add' in self.request.path:
+            self.initial = [{'field_type': 'dynamic_forms.formfields.SingleLineTextField',
+                             'label': 'Nombre', 'name': 'name', 'position': '-2'},
+                            {'field_type': 'dynamic_forms.formfields.EmailField',
+                            'label': 'Correo', 'name': 'email', 'position': '-1'},
+                            {'field_type': 'dynamic_forms.formfields.BooleanField',
+                            'label': 'Términos y condiciones', 'name': 'agree', 'position': '99'},
+                            {'field_type': 'dynamic_forms.contrib.simple_captcha.models.NoReCaptchaField',
+                            'label': ' ', 'name': 'recapt', 'position': '100'}]
+
+
 
 class AdminFormModelForm(forms.ModelForm):
 
@@ -157,11 +175,17 @@ class AdminFormFieldInlineForm(forms.ModelForm):
 
 
 class FormFieldModelInlineAdmin(admin.StackedInline):
-    extra = 3
+    extra = 7
     form = AdminFormFieldInlineForm
     list_display = ('field_type', 'name', 'label')
     model = FormFieldModel
     prepopulated_fields = {"name": ("label",)}
+    formset = FormFieldsBaseInlineFormset
+
+    def get_formset(self, request, obj=None, **kwargs):
+        formset = super(FormFieldModelInlineAdmin, self).get_formset(request, obj, **kwargs)
+        formset.request = request
+        return formset
 
 
 class FormModelAdmin(admin.ModelAdmin):
@@ -174,7 +198,7 @@ admin.site.register(FormModel, FormModelAdmin)
 
 
 class FormModelDataAdmin(admin.ModelAdmin):
-    fields = ('form', 'value', 'submitted', 'show_url_link')
+    fields = ('form', 'value', 'submitted')
     list_display = ('form', 'pretty_value', 'submitted')
     model = FormModelData
     readonly_fields = ('submitted', 'show_url_link',)

@@ -93,7 +93,6 @@ class DynamicFormView(FormView):
                 args = args + (self.request,)
 
             self.action_results[actionkey] = action(*args)
-        print 'Meta_url'
         try:
             dl_url = self.request.META['DL_URL']
         except:

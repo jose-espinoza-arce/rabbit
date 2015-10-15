@@ -13,6 +13,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
+from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
 from mptt.models import MPTTModel, TreeForeignKey
@@ -151,7 +152,7 @@ class AdBase(models.Model):
     type = models.ForeignKey(AdType, verbose_name=_(u'Type'), blank=True, null=True)
     # zone = models.ForeignKey(AdZone, verbose_name=_("Zone"))
 
-    actionform = models.ForeignKey(FormModel, verbose_name=_('Call to action'))
+    actionform = models.ForeignKey(FormModel, verbose_name=_('Call to action'), blank=False)
 
     # Our Custom Manager
     objects = AdManager()
@@ -172,12 +173,18 @@ class AdBase(models.Model):
     def get_path(self):
         return self.category.my_get_path() + '/ad/' + self.slug
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
-        return ('adzone_ad_view', [self.id])
+        print reverse('content:ad_categories', args=[self.get_path()])
+        return reverse('content:ad_categories', args=[self.get_path()])
 
     def get_ad_content(self):
         return self.content
+
+    def is_active(self):
+        nw = now()
+        return self.start_showing < nw < self.stop_showing
+
 
 
 class AdImpression(models.Model):
@@ -203,7 +210,7 @@ class AdClick(models.Model):
         verbose_name=_(u'When'), auto_now_add=True)
     source_ip = models.GenericIPAddressField(
         verbose_name=_(u'Who'), null=True, blank=True)
-    ad = models.ForeignKey(AdBase)
+    ad = models.ForeignKey(AdBase, related_name='clicks')
 
     class Meta:
         verbose_name = _('Ad Click')
@@ -218,7 +225,7 @@ class AdPhoneView(models.Model):
         verbose_name=_(u'When'), auto_now_add=True)
     source_ip = models.GenericIPAddressField(
         verbose_name=_(u'Who'), null=True, blank=True)
-    ad = models.ForeignKey(AdBase)
+    ad = models.ForeignKey(AdBase, related_name='phone_views')
 
     class Meta:
         verbose_name = _('Ad Phone View')
@@ -258,7 +265,6 @@ class VideoAd(AdBase):
         verbose_name_plural = _('Video Ads')
 
     def save(self, *args, **kwargs):
-        print('saving video')
         if 'youtube' in self.video_url:
             self.video_url = self.video_url.replace('watch?v=', 'embed/')
         if 'vimeo' in self.video_url:

@@ -68,7 +68,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
         'data': sorted(mapped_data.items()),
     })
 
-    from_email = form.cleaned_data['correo']
+    from_email = form.cleaned_data['email']
     if form_model.recipient_email:
         hidden_recipient_list = [form_model.recipient_email]
     else:
@@ -83,18 +83,25 @@ def dynamic_form_send_email(form_model, form, advert, request):
 @formmodel_action(_('Store in database'))
 def dynamic_form_store_database(form_model, form, advert, request):
     from dynamic_forms.models import FormModelData
+    from analytics.models import SaleOportunity
+
+    name = form.cleaned_data['name']
+    email = form.cleaned_data['email']
+    sopt = SaleOportunity(name=name, email=email, ad=advert, source=2)
     mapped_data = form.get_mapped_data()
     value = json.dumps(mapped_data, cls=DjangoJSONEncoder)
     data = FormModelData.objects.create(form=form_model, value=value, advert=advert)
+    sopt.form_data = data
+    sopt.save()
     return data
 
 
 @formmodel_action(_('Send download email'))
 def dynamic_form_send_download_email(form_model, form, advert, request):
     from content.models import DownloadLink
-    import hashlib, random
-    #print form.cleaned_data
-    #salt1 = ''.join([str(random.randrange(10)) for i in range(10)])
+    import hashlib
+    import random
+
     salt2 = ''.join(['{0}'.format(random.randrange(10)) for i in range(10)])
     key = hashlib.md5('{0}{1}'.format(salt2, advert.file.name)).hexdigest()
 
@@ -122,7 +129,7 @@ def dynamic_form_send_download_email(form_model, form, advert, request):
     else:
         hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
 
-    interested_email = [form.cleaned_data['correo']]
+    interested_email = [form.cleaned_data['email']]
 
     send_mail(subject, '', from_email, interested_email, hidden_recipient_list, html_message=message)
 

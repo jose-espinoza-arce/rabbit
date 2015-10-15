@@ -1,0 +1,228 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list jet_tags static %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+            &rsaquo; <a href="{% url 'admin:app_list' app_label='analytics' %}">Analytics </a>
+            &rsaquo; <a href="{% url 'admin:statistics' %}"> Estadísticas </a>
+            &rsaquo; {{ title }}
+        </div>
+    {% endblock %}
+{% endif %}
+{% block content %}
+    <div id="content-main">
+
+        <hr>
+        <h3>Información general</h3>
+
+        <div>
+            <div>Nombre: {{ ad.advertiser.user.first_name }} {{ ad.advertiser.user.last_name }}</div>
+            <div>Compañis: {{ ad.advertiser.company_name }}</div>
+            <div>
+                <span>Producto:</span>
+                <ul>
+                    {% for tag in ad.tags.all %}
+                        <li>{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <div>
+                <span>Periodo de publicación:</span>
+
+                <div>{{ ad.start_showing }}</div>
+                <div>{{ ad.stop_showing }}</div>
+            </div>
+            <div><span>Estatus: {% if is_active %}Activo{% else %}Inactivo{% endif %}</span></div>
+        </div>
+
+        <hr>
+        <h3>RoofMedia</h3>
+
+        <div>
+            {% if ad.bannerad %}
+                <div><img src="{{ ad.bannerad.content.url }}" alt=""></div>
+                <div>Imagen</div>
+            {% elif ad.videoad %}
+                <div>
+                    <iframe class="embed-responsive" src="{{ ad.videoad.video_url }}" frameborder="0"
+                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+                <div>Video</div>
+            {% endif %}
+        </div>
+        <div>
+            <span>ID: {{ ad.pk }}</span>
+        </div>
+        <div>
+            <div>{{ ad.views }}</div>
+            <div>Visitas</div>
+        </div>
+        <div>
+            <div>{{ ad.total_upvotes }}</div>
+            <div>Me gusta</div>
+        </div>
+        <div>
+            <div>{{ ad.ph_views }}</div>
+            <div>Vistas de teléfono</div>
+        </div>
+        <div>
+            <div>{{ ad.clics }}</div>
+            <div>Clics a enlace</div>
+        </div>
+
+        {% if facebook %}
+            <hr>
+            <h3>Facebook</h3>
+            <div>
+                <div>{{ facebook.fbpostid }}</div>
+                <div>Post ID</div>
+            </div>
+            <div>
+                <div><img src="{{ facebook.image.url }}" alt=""></div>
+                <div>Imagen</div>
+            </div>
+            <div>
+                <div>{{ facebook.reached }}</div>
+                <div>Alcance</div>
+            </div>
+            <div>
+                <div>{{ facebook.clicks }}</div>
+                <div>Clics en la publicación</div>
+            </div>
+            <div>
+                <div>{{ facebook.likes }}</div>
+                <div>Me gusta</div>
+            </div>
+            <div>
+                <div>{{ facebook.comments }}</div>
+                <div>Comentarios</div>
+            </div>
+            <div>
+                <div>{{ facebook.shares }}</div>
+                <div>Veces Compartida</div>
+            </div>
+            <div>
+                <div>{% if facebook.link_clicks  %}{{ facebook.link_clicks }}{% else %}0{% endif %}</div>
+                <div>Clics al enlace</div>
+            </div>
+        {% endif %}
+
+        {% if linkedin %}
+            <hr>
+            <h3>Linkedin</h3>
+            <div>
+                <div>{{ linkedin.lnkpostid }}</div>
+                <div>Post ID</div>
+            </div>
+            <div>
+                <div><img src="{{ linkedin.image.url }}" alt=""></div>
+                <div>Imagen</div>
+            </div>
+            <div>
+                <div>{{ linkedin.reached }}</div>
+                <div>Alcance</div>
+            </div>
+            <div>
+                <div>{{ linkedin.clicks }}</div>
+                <div>Clics en la publicación</div>
+            </div>
+            <div>
+                <div>{{ linkedin.impressions }}</div>
+                <div>Impresiones</div>
+            </div>
+
+        {% endif %}
+
+        {% if googleplus %}
+            <hr>
+            <h3>GooglePlus</h3>
+            <div>
+                <div>{{ googleplus.gpidpost }}</div>
+                <div>Post ID</div>
+            </div>
+            <div>
+                <div>{{ googleplus.impressions }}</div>
+                <div>Alcance</div>
+            </div>
+            <div>
+                <div>{{ googleplus.reached }}</div>
+                <div>Alcance</div>
+            </div>
+            <div>
+                <div>{{ googleplus.shares }}</div>
+                <div>Veces compartida</div>
+            </div>
+            <div>
+                <div>{{ googleplus.pluses }}</div>
+                <div>Pluses</div>
+            </div>
+            <div>
+                <div>{{ googleplus.comments }}</div>
+                <div>Comentarios</div>
+            </div>
+        {% endif %}
+
+        {% if googleadword %}
+            <hr>
+            <h3>GoogleAdWord</h3>
+            <div>
+                <div>{{ googleadword.adsgroupid }}</div>
+                <div>ID de grupo de anuncios</div>
+            </div>
+            <div>
+                <div>{{ googleadword.impressions }}</div>
+                <div>Impresiones</div>
+            </div>
+            <div>
+                <div>{{ googleadword.clicks }}</div>
+                <div>Clics en el anuncio</div>
+            </div>
+        {% endif %}
+
+        {% if googlean %}
+            <hr>
+            <h3>GoogleAnalytics</h3>
+            <div>
+                <div>{{ ad_url }}</div>
+                <div>Url del anuncios</div>
+            </div>
+            <div>
+                <div>{{ googlean.visitors }}</div>
+                <div>Visitantes</div>
+            </div>
+            <div>
+                <div>{{ googlean.users }}</div>
+                <div>Número de usuarios</div>
+            </div>
+            <div>
+                <div>{{ googlean.averagetime }} mins.</div>
+                <div>Tiempo promedio</div>
+            </div>
+        {% endif %}
+
+        {% if video_stats %}
+            <hr>
+
+            <h3>{% if 'youtube' in video_url %}Youtube{% elif 'vimeo' in video_url %}Vimeo{% endif %}</h3>
+            <div>
+                <div>{{ video_url }}</div>
+                <div>Url</div>
+            </div>
+            <div>
+                <div>{{ video_stats.plays }}</div>
+                <div>Reproduciones</div>
+            </div>
+        {% endif %}
+
+
+
+
+
+
+
+
+    </div>
+{% endblock %}
