@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin.utils import quote
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
@@ -59,8 +60,30 @@ class GooglePlusStatInline(admin.StackedInline):
 class SaleOportunityAdmin(admin.ModelAdmin):
     raw_id_fields = ['ad']
     exclude = ['form_data']
-    list_display = ['id', 'ad', 'name', 'email', 'phone_number', 'form_data']
-    search_fields = ['id', 'ad',]
+    list_display = ['ad', 'name', 'email', 'phone_number', 'source', 'get_form_name', 'created_at']
+    search_fields = [ 'ad',]
+    actions = None
+
+    def get_form_name(self, obj):
+        #print(obj.form_data.form)
+        if getattr(obj.form_data, 'form', False):
+            return obj.form_data.form.name
+        else:
+            return ' '
+
+    def get_queryset(self, request):
+        qs = super(SaleOportunityAdmin, self).get_queryset(request)
+
+        clnt_group = Group.objects.get(name='Clientes')
+        if clnt_group in request.user.groups.all():
+            qs = qs.filter(ad__advertiser__user=request.user)
+
+        return qs
+
+    get_form_name.short_description = 'Formulario'
+    get_form_name.admin_order_field = 'form_data__form__name'
+
+
 
 class StatRegisterAdmin(AdminViews):
     raw_id_fields = ('ad',)
@@ -96,6 +119,7 @@ class StatRegisterAdmin(AdminViews):
         return urls
 
     def statistic(self, request, ad_id):
+
         ad = AdBase.objects.filter(pk=ad_id).annotate(views=Count('impressions', distinct=True),
                                                    clics=Count('clicks', distinct=True),
                                                    ph_views=Count('phone_views', distinct=True))[0]
@@ -116,7 +140,7 @@ class StatRegisterAdmin(AdminViews):
             video_stats = getattr(ad_register, 'video_stats', None)
             facebook = getattr(ad_register, 'facebook_stats', None)
         video_url = None
-        if ad.videoad:
+        if getattr(ad, 'videoad', False):
             if 'youtube' in ad.videoad.video_url:
                 video_url = ad.videoad.video_url.replace('embed/', 'watch?v=')
             if 'vimeo' in ad.videoad.video_url:
@@ -140,7 +164,7 @@ class StatRegisterAdmin(AdminViews):
         return TemplateResponse(request, template, context)
 
     def statistics(self, request, *args, **kwargs):
-
+        print('client perms')
         context = dict(
             title=_('Statistics'),
             module_name='analytics'

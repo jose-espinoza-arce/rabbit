@@ -68,7 +68,7 @@
                                         {% adlikes object template='partials/likes.html' %}
                                     </li>
                                 </ul>{% endcomment %}
-                                <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}"
+                                <a href="{{ object.actionform.submit_url }}?content={{ object.id }}"
                                    class="action-image">
                                     {% thumbnail object.bannerad.content "740" as im %}
                                         <img src="{{ im.url }}" alt="" class="img-responsive">
@@ -121,7 +121,7 @@
                                         <span class="simple-button__label ">Llámanos</span>
                                         <span class="simple-button__number">{{ object.advertiser.phone_number }}</span>
                                     </a>
-                                    <a href="{{ object.actionform.submit_url }}?advert={{ object.id }}"
+                                    <a href="{{ object.actionform.submit_url }}?content={{ object.id }}"
                                        class="action-button">{{ object.actionform.name }}</a>
                                 </div>
 

@@ -10,7 +10,11 @@ from django import forms
 from django.utils.decorators import classonlymethod
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import RegexValidator
 
+
+phone_validator = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message=_("Enter a valid phone number"))
 
 def format_display_label(cls_name):
     if cls_name.endswith('Field'):
@@ -25,6 +29,8 @@ def load_class_from_string(cls_string):
     module = import_module(mod)
     return getattr(module, cls)
 
+class PhoneNumberField(forms.CharField):
+    default_validators = [phone_validator]
 
 class DynamicFormFieldRegistry(object):
 
@@ -223,6 +229,9 @@ class DateField(BaseDynamicFormField):
     class Meta:
         localize = [bool, True, forms.NullBooleanField]
 
+    def contribute_to_form(self, form):
+        form.fields['fecha'] = self.construct()
+
 
 @dynamic_form_field
 class DateTimeField(BaseDynamicFormField):
@@ -241,6 +250,9 @@ class EmailField(BaseDynamicFormField):
     cls = 'django.forms.EmailField'
     display_label = _('Email')
     widget = 'django.forms.widgets.EmailInput'
+
+    def contribute_to_form(self, form):
+        form.fields['email'] = self.construct()
 
 
 @dynamic_form_field
@@ -283,3 +295,15 @@ class TimeField(BaseDynamicFormField):
 
     class Meta:
         localize = [bool, True, forms.NullBooleanField]
+
+    def contribute_to_form(self, form):
+        form.fields['hora'] = self.construct()
+
+@dynamic_form_field
+class DynamicPhoneNumberField(BaseDynamicFormField):
+
+    cls = PhoneNumberField
+    display_label = _('Phone')
+
+    def contribute_to_form(self, form):
+        form.fields['phone_number'] = self.construct()

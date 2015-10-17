@@ -20,8 +20,10 @@ class DynamicFormView(FormView):
     form_class = FormModelForm
 
     def dispatch(self, request, *args, **kwargs):
-        if 'advert' in self.request.GET.keys():
-            self.initial['advert'] = self.request.GET['advert']
+        if 'content' in self.request.GET.keys():
+            # If you change this key, You should also change
+            # the name if the hidden input in FormModelForm.__iniy__()
+            self.initial['content'] = self.request.GET['content']
         self.form_model = self.kwargs.pop('model')
         return super(DynamicFormView, self).dispatch(request, *args, **kwargs)
 
@@ -78,8 +80,9 @@ class DynamicFormView(FormView):
         """
 
         #print 'in dynformview.form_valid'
+
         self.action_results = {}
-        advert = AdBase.objects.get(id=form.cleaned_data['advert'])
+        advert = AdBase.objects.get(id=form.cleaned_data['content'])
         #print advert.advertiser
 
 

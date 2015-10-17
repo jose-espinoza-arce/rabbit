@@ -15,7 +15,7 @@ from content.models import *
 from django import forms
 
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import *
 from django.utils.translation import ugettext_lazy as _
 
@@ -33,14 +33,14 @@ class HasRegisterFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == '0':
-            print(queryset)
+
             q = queryset.filter(stats_register__isnull=True)
-            print(q)
+
             return q
         if self.value() == '1':
-            print(queryset)
+
             q = queryset.filter(stats_register__isnull=False)
-            print(q)
+
             return q
 
 
@@ -152,6 +152,15 @@ class AdBaseAdmin(admin.ModelAdmin):
             return _('Yes')
         else:
             return _('No')
+
+    def get_queryset(self, request):
+        qs = super(AdBaseAdmin, self).get_queryset(request)
+
+        clnt_group = Group.objects.get(name='Clientes')
+        if clnt_group in request.user.groups.all():
+            qs = qs.filter(advertiser__user=request.user)
+
+        return qs
 
 
     #inlines = [ContentListImageInline,]

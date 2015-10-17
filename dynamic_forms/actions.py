@@ -85,13 +85,14 @@ def dynamic_form_store_database(form_model, form, advert, request):
     from dynamic_forms.models import FormModelData
     from analytics.models import SaleOportunity
 
-    name = form.cleaned_data['name']
-    email = form.cleaned_data['email']
-    sopt = SaleOportunity(name=name, email=email, ad=advert, source=2)
     mapped_data = form.get_mapped_data()
     value = json.dumps(mapped_data, cls=DjangoJSONEncoder)
     data = FormModelData.objects.create(form=form_model, value=value, advert=advert)
-    sopt.form_data = data
+    name = form.cleaned_data['name']
+    email = form.cleaned_data['email']
+    sopt = SaleOportunity(name=name, email=email, form_data=data, ad=advert, source=2)
+    if 'phone_number' in form.cleaned_data.keys():
+        sopt.phone_number = form.cleaned_data['phone_number']
     sopt.save()
     return data
 

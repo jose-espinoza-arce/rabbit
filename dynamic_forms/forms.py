@@ -42,7 +42,7 @@ class FormModelForm(forms.Form):
             field.generate_form_field(self)
 
         #Add a hidden field to keep track of the advert recipient
-        self.fields['advert'] = forms.IntegerField(widget=forms.HiddenInput)
+        self.fields['content'] = forms.IntegerField(widget=forms.HiddenInput)
 
     def get_mapped_data(self, exclude_missing=False):
         """
@@ -56,7 +56,6 @@ class FormModelForm(forms.Form):
         data = self.cleaned_data
         mapped_data = OrderedDict()
         for key, field in six.iteritems(self.model_fields):
-            print(key, field)
             df = formfield_registry.get(field.field_type)
             if df and df.do_display_data() and key != 'agree': #Dont save agreement
                 name = field.name

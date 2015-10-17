@@ -69,7 +69,6 @@ class AdListView(ListView):
         count = self.object_list.count()
 
         if request.is_ajax():
-            print 'ajax'
             pass
             #return JsonResponse(self.object_list, safe=False)
         elif not request.path == '/': #reverse()

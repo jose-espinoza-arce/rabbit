@@ -189,23 +189,20 @@ var Detail = (function ($) {
 
       function loadsuccess(response) {
               var markup = $.parseHTML(response);
-              console.log(markup);
               var form = null, exito = null;
               if ( $('.form-wrapper').length ) {
                   self.el.find('.form-wrapper').remove();
-                  console.log('form-wrapper');
               }
 
               $.each(markup, function (i, el) {
                 if ($(el).hasClass('form-wrapper')) {
                   form = $(el);
                   self.el.find('.detail__form').append(form);
-                  $.getScript("https://www.google.com/recaptcha/api.js?hl=es-419");
+                  $.getScript("http://www.google.com/recaptcha/api.js?hl=es-419");
                   setTimeout(bindform, 500);
                   return
                 };
                 if ($(el).hasClass('success-wrapper')) {
-                  console.log('success');
                   exito = $(el);
                   self.el.find('.detail__form').append(exito);
                   return

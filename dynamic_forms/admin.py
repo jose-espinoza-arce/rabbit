@@ -134,9 +134,11 @@ class FormFieldsBaseInlineFormset(BaseInlineFormSet):
         super(FormFieldsBaseInlineFormset, self).__init__(*args, **kwargs)
         if 'add' in self.request.path:
             self.initial = [{'field_type': 'dynamic_forms.formfields.SingleLineTextField',
-                             'label': 'Nombre', 'name': 'name', 'position': '-2'},
+                             'label': 'Nombre', 'name': 'name', 'position': '-3'},
                             {'field_type': 'dynamic_forms.formfields.EmailField',
-                            'label': 'Correo', 'name': 'email', 'position': '-1'},
+                            'label': 'Correo', 'name': 'email', 'position': '-2'},
+                            {'field_type': 'dynamic_forms.formfields.DynamicPhoneNumberField',
+                            'label': 'Teléfono', 'name': 'phone_number', 'position': '-1'},
                             {'field_type': 'dynamic_forms.formfields.BooleanField',
                             'label': 'Términos y condiciones', 'name': 'agree', 'position': '99'},
                             {'field_type': 'dynamic_forms.contrib.simple_captcha.models.NoReCaptchaField',
@@ -194,6 +196,7 @@ class FormModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'submit_url')
     exclude = ('allow_display', 'recipient_email', 'success_url')
 
+
 admin.site.register(FormModel, FormModelAdmin)
 
 
@@ -202,5 +205,7 @@ class FormModelDataAdmin(admin.ModelAdmin):
     list_display = ('form', 'pretty_value', 'submitted')
     model = FormModelData
     readonly_fields = ('submitted', 'show_url_link',)
+    list_display_links = None
+    actions = None
 
 admin.site.register(FormModelData, FormModelDataAdmin)

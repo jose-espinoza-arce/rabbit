@@ -19,10 +19,10 @@ class SaleOportunity(models.Model):
         (5, 'Linkedin'),
     )
     ad = models.ForeignKey(AdBase, related_name='sales_oportunities')
-    form_data = models.OneToOneField(FormModelData, blank=True)
+    form_data = models.OneToOneField(FormModelData, blank=True, null=True)
     name = models.CharField(verbose_name=_('Client Name'), max_length=255)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+                                 message="Enter a valid phone number.")
     phone_number = models.CharField(verbose_name=_('Phone number'), validators=[phone_regex], max_length=16, blank=True, default='')
     email = models.EmailField('Correo')
     source = models.PositiveSmallIntegerField(verbose_name=_('Source'), choices=CHOICES)

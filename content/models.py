@@ -152,7 +152,7 @@ class AdBase(models.Model):
     type = models.ForeignKey(AdType, verbose_name=_(u'Type'), blank=True, null=True)
     # zone = models.ForeignKey(AdZone, verbose_name=_("Zone"))
 
-    actionform = models.ForeignKey(FormModel, verbose_name=_('Call to action'), blank=False)
+    actionform = models.ForeignKey(FormModel, verbose_name=_('Call to action'), on_delete=models.SET_NULL, null=True)
 
     # Our Custom Manager
     objects = AdManager()
@@ -175,7 +175,7 @@ class AdBase(models.Model):
 
     #@models.permalink
     def get_absolute_url(self):
-        print reverse('content:ad_categories', args=[self.get_path()])
+
         return reverse('content:ad_categories', args=[self.get_path()])
 
     def get_ad_content(self):

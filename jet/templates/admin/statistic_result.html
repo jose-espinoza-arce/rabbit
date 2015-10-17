@@ -18,6 +18,7 @@
         <h3>Información general</h3>
 
         <div>
+            <div>Camapaña: {{ ad.title }}</div>
             <div>Nombre: {{ ad.advertiser.user.first_name }} {{ ad.advertiser.user.last_name }}</div>
             <div>Compañis: {{ ad.advertiser.company_name }}</div>
             <div>
@@ -45,7 +46,8 @@
             {% if ad.bannerad %}
                 <div><img src="{{ ad.bannerad.content.url }}" alt=""></div>
                 <div>Imagen</div>
-            {% elif ad.videoad %}
+            {% elif ad.videoad %}Nombre:
+Compañi
                 <div>
                     <iframe class="embed-responsive" src="{{ ad.videoad.video_url }}" frameborder="0"
                             webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
