@@ -11,7 +11,7 @@ except:
     managers_group = None
 
 def get_current_dashboard(location, user):
-
+    path = None
     if location == 'index':
         if user.is_superuser:
             path = settings.JET_INDEX_DASHBOARD
