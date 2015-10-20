@@ -1,4 +1,4 @@
-Permisos para el grupo: managers 
+Permisos para el grupo: Managers 
 -- analytics | facebook stat | Can add facebook stat 
 -- analytics | facebook stat | Can change facebook stat 
 -- analytics | google ad words stat | Can add google ad words stat 
@@ -38,3 +38,7 @@ Permisos para el grupo: managers
 -- jet | bookmark | Can change bookmark 
 -- jet | bookmark | Can delete bookmark 
 Permisos para el grupo: Clientes 
+-- analytics | Oportunidad de venta | Can change Oportunidad de venta 
+-- content | Ad Base | Can change Ad Base 
+-- content | Banner Ad | Can change banner ad 
+-- content | Video Ad | Can change video ad 

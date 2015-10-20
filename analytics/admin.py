@@ -1,3 +1,5 @@
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib import admin
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group
@@ -38,6 +40,9 @@ class AdBaseStatAdmin(AdBaseAdmin):
 
         return StatList
 
+    def get_list_display_links(self, request, list_display):
+        return super(AdBaseAdmin, self).get_list_display_links(request, list_display)
+
 
 class FacebookStatInline(admin.StackedInline):
     model = FacebookStat
@@ -61,8 +66,11 @@ class SaleOportunityAdmin(admin.ModelAdmin):
     raw_id_fields = ['ad']
     exclude = ['form_data']
     list_display = ['ad', 'name', 'email', 'phone_number', 'source', 'get_form_name', 'created_at']
-    search_fields = [ 'ad',]
-    actions = None
+    search_fields = [ 'ad__title', 'name', 'form_data__form__name']
+    actions = ['default_data']
+    clients_group = Group.objects.get(name='Clientes')
+    list_per_page = 20
+    list_filter = ['source', 'created_at']
 
     def get_form_name(self, obj):
         #print(obj.form_data.form)
@@ -73,13 +81,41 @@ class SaleOportunityAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(SaleOportunityAdmin, self).get_queryset(request)
-
-        clnt_group = Group.objects.get(name='Clientes')
-        if clnt_group in request.user.groups.all():
+        if self.clients_group in request.user.groups.all():
             qs = qs.filter(ad__advertiser__user=request.user)
-
         return qs
 
+    def get_list_display_links(self, request, list_display):
+        list_display_links = super(SaleOportunityAdmin, self).get_list_display_links(request, list_display)
+        #if self.clients_group in request.user.groups.all():
+        #    list_display_links = None
+        return list_display_links
+
+    def get_fields(self, request, obj=None):
+        fields = super(SaleOportunityAdmin, self).get_fields(request, obj)
+        if self.clients_group in request.user.groups.all():
+            fields = ['name', 'phone_number', 'email']
+        return fields
+
+    def get_actions(self, request):
+        actions = super(SaleOportunityAdmin, self).get_actions(request)
+        if self.clients_group in request.user.groups.all():
+            if 'delete_selected' in actions:
+                del actions['delete_selected']
+        return actions
+
+    def default_data(self, request, queryset):
+        for obj in queryset:
+            data = json.loads(obj.form_data.value)
+            obj.name = data['name']
+            obj.email = data['email']
+            if 'phone_number' in data:
+                obj.phone_number = data['phone_number']
+            obj.save()
+
+
+
+    default_data.short_description = "Regresar las oportunidades marcadas a su estado inicial."
     get_form_name.short_description = 'Formulario'
     get_form_name.admin_order_field = 'form_data__form__name'
 

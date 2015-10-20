@@ -85,6 +85,7 @@ def dynamic_form_store_database(form_model, form, advert, request):
     from dynamic_forms.models import FormModelData
     from analytics.models import SaleOportunity
 
+
     mapped_data = form.get_mapped_data()
     value = json.dumps(mapped_data, cls=DjangoJSONEncoder)
     data = FormModelData.objects.create(form=form_model, value=value, advert=advert)

@@ -85,6 +85,13 @@ class MyUserAdmin(UserAdmin):
         else:
             return qs.filter(is_superuser=0)
 
+    def get_list_filter(self, request):
+        list_filters = ('is_staff', 'is_active', 'groups')
+        if request.user.is_superuser:
+            return super(MyUserAdmin, self).get_list_filter(request)
+        else:
+            return list_filters
+
 
 
 admin.site.unregister(User)
@@ -140,6 +147,7 @@ class AdBaseAdmin(admin.ModelAdmin):
     search_fields = ['title', 'advertiser__company_name']
     raw_id_fields = ['advertiser']
     form = AdBaseForm
+    clients_group = Group.objects.get(name='Clientes')
 
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                     (_('Call to action'), {'fields': ('actionform', 'file')}),
@@ -155,15 +163,38 @@ class AdBaseAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(AdBaseAdmin, self).get_queryset(request)
-
-        clnt_group = Group.objects.get(name='Clientes')
-        if clnt_group in request.user.groups.all():
+        if self.is_client(request):
             qs = qs.filter(advertiser__user=request.user)
-
         return qs
 
+    def get_actions(self, request):
+        actions = super(AdBaseAdmin, self).get_actions(request)
+        if self.is_client(request):
+            actions = None
+        return actions
+
+    def get_list_display_links(self, request, list_display):
+        list_display_links = super(AdBaseAdmin, self).get_list_display_links(request, list_display)
+        #if self.is_client(request):
+        #    list_display_links = None
+        return list_display_links
 
     #inlines = [ContentListImageInline,]
+
+    def get_changelist(self, request, **kwargs):
+        cl = super(AdBaseAdmin, self).get_changelist(request, **kwargs)
+        if self.is_client(request):
+            class mcl(cl):
+                def url_for_result(self, result):
+                    pk = getattr(result, self.pk_attname)
+                    obj = AdBase.objects.get(pk=pk)
+                    return obj.get_absolute_url()
+        else:
+            mcl = cl
+        return mcl
+
+    def is_client(self, request):
+        return self.clients_group in request.user.groups.all()
 
 
     # def get_form(self, request, obj=None, **kwargs):

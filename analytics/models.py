@@ -27,16 +27,16 @@ class SaleOportunity(models.Model):
     email = models.EmailField('Correo')
     source = models.PositiveSmallIntegerField(verbose_name=_('Source'), choices=CHOICES)
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(verbose_name=_('Created'), auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Oportunidad de venta'
         verbose_name_plural = 'Oportunidades de venta'
-        ordering = ('created_at',)
+        ordering = ('-created_at',)
 
     def __str__(self):
-        return 'Client: {0}, Advertiser: {1}'.format(self.name, self.ad.advertiser)
+        return 'Cliente: {0}'.format(self.name)
 
 @python_2_unicode_compatible
 class StatRegister(models.Model):

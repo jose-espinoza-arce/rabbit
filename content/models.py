@@ -135,7 +135,7 @@ class AdBase(models.Model):
     title = models.CharField(verbose_name=_(u'Title'), max_length=255)
     slug = models.SlugField(verbose_name=_(u'Slug'), unique=True)
     url = models.URLField(verbose_name=_(u'Advertised URL'))
-    description = models.CharField(verbose_name=_('Description'), blank=True, max_length=450)
+    description = models.TextField(verbose_name=_('Description'), blank=True, max_length=450)
     since = models.DateTimeField(verbose_name=_(u'Since'), auto_now_add=True)
     updated = models.DateTimeField(verbose_name=_(u'Updated'), auto_now=True)
     file = models.FileField(verbose_name=_(u'File'), upload_to='content/uploads/',

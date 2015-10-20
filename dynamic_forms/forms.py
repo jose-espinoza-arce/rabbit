@@ -57,6 +57,10 @@ class FormModelForm(forms.Form):
         mapped_data = OrderedDict()
         for key, field in six.iteritems(self.model_fields):
             df = formfield_registry.get(field.field_type)
+            # Hook to DynamicPhoneNumberField to set key and field.name properly
+            if field.field_type == 'dynamic_forms.formfields.DynamicPhoneNumberField':
+                key = 'phone_number'
+                field.name = key
             if df and df.do_display_data() and key != 'agree': #Dont save agreement
                 name = field.name
                 value = data.get(key, None)

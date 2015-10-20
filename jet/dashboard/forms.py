@@ -64,9 +64,10 @@ class AddUserDashboardModuleForm(forms.ModelForm):
 
     def clean(self):
         data = super(AddUserDashboardModuleForm, self).clean()
+        print(data)
 
         if 'app_label' in data:
-            index_dashboard_cls = get_current_dashboard('app_index' if data['app_label'] else 'index')
+            index_dashboard_cls = get_current_dashboard('app_index' if data['app_label'] else 'index', self.request.user)
             index_dashboard = index_dashboard_cls({'request': self.request}, app_label=data['app_label'])
 
             if 'type' in data:
