@@ -150,7 +150,7 @@ class AdBaseAdmin(admin.ModelAdmin):
     try:
         clients_group = Group.objects.get(name='Clientes')
     except:
-        pass
+        clients_group = None
 
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                     (_('Call to action'), {'fields': ('actionform', 'file')}),

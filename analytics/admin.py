@@ -68,7 +68,10 @@ class SaleOportunityAdmin(admin.ModelAdmin):
     list_display = ['ad', 'name', 'email', 'phone_number', 'source', 'get_form_name', 'created_at']
     search_fields = [ 'ad__title', 'name', 'form_data__form__name']
     actions = ['default_data']
-    clients_group = Group.objects.get(name='Clientes')
+    try:
+        clients_group = Group.objects.get(name='Clientes')
+    except:
+        clients_group = None
     list_per_page = 20
     list_filter = ['source', 'created_at']
 
