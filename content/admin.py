@@ -301,7 +301,7 @@ class TextAdAdmin(AdBaseAdmin):
         self.fieldsets.insert(1,(_('Content'), {'fields': ('content', 'content_mobile')}))
 
 class BannerAdAdmin(AdBaseAdmin):
-    search_fields = ['title', 'url', 'advertiser']
+    search_fields = ['title', 'advertiser__company_name']
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                  (_('Banner'), {'fields': ('content', 'content_mobile')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
@@ -311,7 +311,7 @@ class BannerAdAdmin(AdBaseAdmin):
 
 
 class VideoAdAdmin(AdBaseAdmin):
-    search_fields = ['title', 'url', 'advertiser']
+    search_fields = ['title', 'advertiser__company_name']
 
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                  (_('Video'), {'fields': ('content', 'content_mobile', 'video_url')}),
