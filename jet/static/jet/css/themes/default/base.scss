@@ -92,6 +92,6 @@ $color__google: #dd4b39;
 
 .vTextField, .select2, .vLargeTextField,
 .vForeignKeyRawIdAdminField, .vURLField,
-#id_tags, input[type='password'] {
+#id_tags, #id_password1, #id_password2 {
   	width: 450px !important;
 }
