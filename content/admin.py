@@ -147,7 +147,10 @@ class AdBaseAdmin(admin.ModelAdmin):
     search_fields = ['title', 'advertiser__company_name']
     raw_id_fields = ['advertiser']
     form = AdBaseForm
-    clients_group = Group.objects.get(name='Clientes')
+    try:
+        clients_group = Group.objects.get(name='Clientes')
+    except:
+        pass
 
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
                     (_('Call to action'), {'fields': ('actionform', 'file')}),
