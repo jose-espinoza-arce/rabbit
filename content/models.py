@@ -87,8 +87,8 @@ class AdCategory(MPTTModel):
     description = models.TextField(verbose_name=_(u'Description'))
     parent = TreeForeignKey('self', blank=True, null=True, related_name='child')
 
-    def __init__(self, *args, **kwargs):
-        super(AdCategory, self).__init__(*args, **kwargs)
+    #def __init__(self, *args, **kwargs):
+    #    super(AdCategory, self).__init__(*args, **kwargs)
 
     class Meta:
         verbose_name = _('Ad category')

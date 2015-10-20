@@ -45,13 +45,14 @@
             <script src="{% static url %}"></script>
         {% endwith %}
     {% endif %}
-    {% block extrahead %}{% endblock %}
+
     <script type="text/javascript" charset="utf-8">
         var jet = jet || {};
         jet.jQuery = jQuery.noConflict(true);
     </script>
     <script src="{% static "jet/js/main.min.js" %}"></script>
     <script src="{% static "jet/js/select2.jet.min.js" %}"></script>
+    {% block extrahead %}{% endblock %}
     
 </head>
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
