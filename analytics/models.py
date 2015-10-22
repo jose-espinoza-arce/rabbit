@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
+from unidecode import unidecode
 
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -78,7 +79,9 @@ class FacebookStat(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.register.__str__()
+        return self.register.ad.title
+
+
 
 @python_2_unicode_compatible
 class LinkedinStat(models.Model):
@@ -93,7 +96,7 @@ class LinkedinStat(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.register.__str__()
+        return self.register.ad.title
 
 @python_2_unicode_compatible
 class GoogleAdWordsStat(models.Model):
@@ -106,7 +109,7 @@ class GoogleAdWordsStat(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.register.__str__()
+        return self.register.ad.title
 
 @python_2_unicode_compatible
 class GooglePlusStat(models.Model):
@@ -122,7 +125,7 @@ class GooglePlusStat(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.register.__str__()
+        return self.register.ad.title
 
 @python_2_unicode_compatible
 class GoogleAnalytics(models.Model):
@@ -135,7 +138,7 @@ class GoogleAnalytics(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.register.__str__()
+        return self.register.ad.title
 
 @python_2_unicode_compatible
 class VideoStat(models.Model):
@@ -143,7 +146,7 @@ class VideoStat(models.Model):
     plays = models.PositiveIntegerField(verbose_name=_('Times played'))
 
     def __str__(self):
-        return self.register.__str__()
+        return self.register.ad.title
 
 
 from django.db.models.signals import post_save, pre_save

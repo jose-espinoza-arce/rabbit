@@ -31,7 +31,11 @@ ALLOWED_HOSTS = []
 
 MANAGERS = (('Jose', 'jose@roofmedia.mx'),)
 
-DYNAMIC_FORMS_EMAIL_RECIPIENTS = ['info@roofmedia.mx']
+
+# Email settings
+EMAIL_HOST = 'mail.roofmedia.mx'
+
+DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = ['info@roofmedia.mx']
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 

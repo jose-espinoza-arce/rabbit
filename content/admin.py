@@ -142,7 +142,7 @@ class AdZoneAdmin(admin.ModelAdmin):
 
 class AdBaseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
-    list_display = ['title', 'advertiser', 'has_register', 'start_showing', 'stop_showing']
+    list_display = ['title', 'since', 'advertiser', 'has_register', 'start_showing', 'stop_showing']
     list_filter = ['stop_showing', HasRegisterFilter]
     search_fields = ['title', 'advertiser__company_name']
     raw_id_fields = ['advertiser']
@@ -266,7 +266,7 @@ class AdImpressionAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(AdImpressionAdmin, self).get_queryset(request)
         return qs.select_related('ad').only('ad__title',
-                                            'impression_date',
+                                            'impresfmedia.mx/sion_date',
                                             'source_ip')
 
     def download_impressions(self, request, queryset):

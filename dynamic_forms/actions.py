@@ -61,18 +61,20 @@ def formmodel_action(label):
 def dynamic_form_send_email(form_model, form, advert, request):
     mapped_data = form.get_mapped_data()
 
+    # Suject and message must be set dunamically
     subject = _('Form “%(formname)s” submitted') % {'formname': form_model}
 
     message = render_to_string('dynamic_forms/email.txt', {
         'form': form_model,
         'data': sorted(mapped_data.items()),
     })
+    # Suject and message must be set dunamically
 
     from_email = form.cleaned_data['email']
     if form_model.recipient_email:
         hidden_recipient_list = [form_model.recipient_email]
     else:
-        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
+        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
 
     client_email = [advert.advertiser.email]
 
@@ -129,7 +131,7 @@ def dynamic_form_send_download_email(form_model, form, advert, request):
     if form_model.recipient_email:
         hidden_recipient_list = [form_model.recipient_email]
     else:
-        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_RECIPIENTS
+        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
 
     interested_email = [form.cleaned_data['email']]
 
