@@ -35,6 +35,9 @@ MANAGERS = (('Jose', 'jose@roofmedia.mx'),)
 # Email settings
 EMAIL_HOST = 'mail.roofmedia.mx'
 
+EMAIL_USE_TLS = True
+
+
 DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = ['info@roofmedia.mx']
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
