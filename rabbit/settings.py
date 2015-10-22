@@ -194,7 +194,7 @@ DATABASES = {
         'NAME': 'roofmedia',
         'USER': 'roof',
         'PASSWORD': 'st$yh65KNe1',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': '198.199.110.115',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
