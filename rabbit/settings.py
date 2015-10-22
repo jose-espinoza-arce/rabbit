@@ -37,6 +37,8 @@ EMAIL_HOST = 'mail.roofmedia.mx'
 
 EMAIL_USE_TLS = True
 
+EMAIL_PORT = 587
+
 
 DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = ['info@roofmedia.mx']
 
