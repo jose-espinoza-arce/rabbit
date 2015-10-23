@@ -1,5 +1,5 @@
 """Models for the ``feedback_form`` app."""
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.conf import settings
@@ -53,7 +53,7 @@ class Feedback(models.Model):
         null=True, blank=True,
     )
     object_id = models.PositiveIntegerField(null=True, blank=True)
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     class Meta:
         ordering = ['-creation_date']

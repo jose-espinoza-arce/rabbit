@@ -190,13 +190,21 @@ SITE_ID = 1
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'roofmedia',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'roof',
         'USER': 'roof',
-        'PASSWORD': 'st$yh65KNe1',
-        'HOST': '198.199.110.115',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        #'PASSWORD': 'sword',
+        'HOST': '198.199.110.115',
+        'PORT': '5432',
     }
+    #'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'roofmedia',
+    #    'USER': 'roof',
+    #    'PASSWORD': 'st$yh65KNe1',
+    #    'HOST': '198.199.110.115',   # Or an IP Address that your DB is hosted on
+    #    'PORT': '3306',
+    #}
 }
 
 
@@ -254,7 +262,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-try:
-    from settings_local import *
-except ImportError:
-    pass
+#try:
+#    from settings_local import *
+#except ImportError:
+#    pass

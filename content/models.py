@@ -28,6 +28,7 @@ from django.contrib.sites.models import Site
 
 # Use a datetime a few days before the max to that timezone changes don't
 # cause an OverflowError.
+
 MAX_DATETIME = datetime.datetime.now() + datetime.timedelta(days=20)
 try:
     from django.utils.timezone import now, make_aware, utc
@@ -36,6 +37,8 @@ except ImportError:
 else:
     MAX_DATETIME = make_aware(MAX_DATETIME, utc)
 
+def max_datetime():
+    return MAX_DATETIME
 
 @python_2_unicode_compatible
 class Advertiser(models.Model):
@@ -144,7 +147,7 @@ class AdBase(models.Model):
     start_showing = models.DateTimeField(verbose_name=_(u'Start showing'),
                                          default=now)
     stop_showing = models.DateTimeField(verbose_name=_(u'Stop showing'),
-                                        default=MAX_DATETIME)
+                                        default=max_datetime)
 
     # Relations
     advertiser = models.ForeignKey(Advertiser, verbose_name=_("Ad Provider"))
