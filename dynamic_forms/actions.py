@@ -64,7 +64,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     # Suject and message must be set dunamically
     subject = _('Form “%(formname)s” submitted') % {'formname': form_model}
 
-    
+
     message = render_to_string('dynamic_forms/email.txt', {
         'form': form_model,
         'data': sorted(mapped_data.items()),
