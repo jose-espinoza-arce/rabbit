@@ -192,7 +192,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'roofmedia',
-        'USER': 'roof',
+        'USER': 'postgres',
         #'PASSWORD': 'sword',
         'HOST': '198.199.110.115',
         'PORT': '5432',
