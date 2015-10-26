@@ -8,8 +8,8 @@ interesado en tu publicación:
 {{ advert.title }}
 y está esperando a que llames para ser concretada.
 
-<p>La información del contacto es:</p>
-(Datos del Formulario)<br>
+La información del contacto es:
+(Datos del Formulario)
 {% for entry in data %}
  {{ form.model_fields|getfieldlabel:entry.0 }}:
  {{ entry.1 }}
