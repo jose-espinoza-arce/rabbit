@@ -108,7 +108,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
 
     client_email = [advert.advertiser.email]
 
-    send_mail(subject, '', from_email, client_email, hidden_recipient_list, html_message=message)
+    send_mail(subject, message, from_email, client_email, hidden_recipient_list)#, html_message=message)
 
 
 
