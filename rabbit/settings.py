@@ -191,7 +191,7 @@ SITE_ID = 1
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'roofmedia',
+        'NAME': 'roofdata',
         'USER': 'roof',
         #'PASSWORD': 'sword',
         'HOST': '198.199.110.115',

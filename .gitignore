@@ -20,6 +20,8 @@ bower_components/
 
 frontend/
 
+migrations/
+
 #static/
 
 rabbit/settings_local.py
