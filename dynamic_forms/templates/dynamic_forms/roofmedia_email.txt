@@ -11,8 +11,8 @@ interesado en tu publicación:</p>
 <p>La información del contacto es:</p>
 (Datos del Formulario)<br>
 {% for entry in data %}
-<span>{{ form.model_fields|getfieldlabel:entry.0 }}:</span>
- {{ entry.1 }}
+{{ form.model_fields|getfieldlabel:entry.0 }}:>
+ {{ entry.1 }}<br><br>
 {% endfor %}
 <p>
 Te recordamos que la única manera de que tu recibas este
