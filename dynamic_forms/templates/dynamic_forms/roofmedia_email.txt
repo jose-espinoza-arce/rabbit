@@ -12,7 +12,7 @@ interesado en tu publicación:</p>
 (Datos del Formulario)<br>
 {% for entry in data %}
 <span>{{ form.model_fields|getfieldlabel:entry.0 }}:</span>
-<p> {{ entry.1 }}</p>
+ {{ entry.1 }}
 {% endfor %}
 <p>
 Te recordamos que la única manera de que tu recibas este
