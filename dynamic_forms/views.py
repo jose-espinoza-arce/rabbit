@@ -38,10 +38,11 @@ class DynamicFormView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(DynamicFormView, self).get_context_data(**kwargs)
-
+        print(self.form_model.header)
         context.update({
             'model': self.form_model,
             'name': self.form_model.name,
+            'header': self.form_model.header,
             'submit_url': self.form_model.submit_url,
         })
 

@@ -40,6 +40,18 @@ else:
 def max_datetime():
     return MAX_DATETIME
 
+
+@python_2_unicode_compatible
+class Location(models.Model):
+    location = models.CharField(verbose_name=_('Ubicación'), max_length=255)
+
+    class Meta:
+        verbose_name = _('Ubicación')
+        verbose_name_plural = _('Ubicaciones')
+
+    def __str__(self):
+        return self.location
+
 @python_2_unicode_compatible
 class Advertiser(models.Model):
     """ A Model for our Advertiser.  """
@@ -51,6 +63,7 @@ class Advertiser(models.Model):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(verbose_name=_('Phone number'), validators=[phone_regex], max_length=16, blank=True, default='')
     email = models.EmailField(_('Email'))
+    location = models.ForeignKey(Location, verbose_name=_('Ubucación'))
 
     class Meta:
         verbose_name = _('Ad Provider')
@@ -128,6 +141,7 @@ class AdZone(models.Model):
         return self.title
 
 
+
 @python_2_unicode_compatible
 class AdBase(models.Model):
     """
@@ -143,6 +157,11 @@ class AdBase(models.Model):
     updated = models.DateTimeField(verbose_name=_(u'Updated'), auto_now=True)
     file = models.FileField(verbose_name=_(u'File'), upload_to='content/uploads/',
                              blank=True, default='')
+
+    location = models.ForeignKey(Location, verbose_name=_('Ubicación'))
+    confirmation_email_subject = models.CharField(verbose_name=_('Subject de correo.'), max_length=255)
+    confirmation_email = models.TextField(verbose_name=_('Correo de confirmación'))
+
 
     start_showing = models.DateTimeField(verbose_name=_(u'Start showing'),
                                          default=now)

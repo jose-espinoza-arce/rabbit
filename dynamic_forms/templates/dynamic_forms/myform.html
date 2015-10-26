@@ -11,6 +11,7 @@
 <div class="form-wrapper">
 
 <h2 class="detail__title">{{ name }}</h2>
+<div class="detail__form-header">{{ header|safe }}</div>
 <form id="action-call-form" method="post" action="{{ submit_url }}">
     {% csrf_token %}
     {% for field in form %}
@@ -36,7 +37,7 @@
         {% endif %}
     {% endfor %}
     <div class="field-group">
-        <button type="submit">{% trans "Submit" %}</button>
+        <button type="submit">{% trans "Enviar" %}</button>
     </div>
 </form>
 </div>

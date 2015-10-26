@@ -5224,9 +5224,19 @@ img[src$="admin/img/icon-unknown.gif"]:before {
     padding: 1em 0;
     margin-bottom: 1em; }
 
-.vTextField, .select2, .vLargeTextField,
-.vForeignKeyRawIdAdminField, .vURLField,
-#id_tags, #id_password1, #id_password2 {
+.changeform .module .vTextField, .changeform .module .select2, .changeform .module .vLargeTextField,
+.changeform .module .vForeignKeyRawIdAdminField, .changeform .module .vURLField,
+.changeform .module #id_tags, .changeform .module #id_password1, .changeform .module #id_password2 {
   width: 450px !important; }
+
+.changeform .module .vTextField.error, .changeform .module .select2.error, .changeform .module .vLargeTextField.error,
+.changeform .module .vForeignKeyRawIdAdminField.error, .changeform .module .vURLField.error,
+.changeform .module #id_tags.error, .changeform .module #id_password1.error, .changeform .module #id_password2.error {
+  border: 1px solid indianred; }
+.changeform .module label.error {
+  float: none;
+  display: block;
+  width: 100%;
+  color: indianred; }
 
 /*# sourceMappingURL=base.css.map */

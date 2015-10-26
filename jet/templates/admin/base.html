@@ -33,7 +33,8 @@
     <script src="{% static "jet/vendor/jquery-ui-timepicker/jquery.ui.timepicker.js" %}"></script>
     <script src="{% static "jet/vendor/select2/js/select2.full.min.js" %}"></script>
     <script src="{% static "jet/vendor/perfect-scrollbar/js/perfect-scrollbar.min.js" %}"></script>
-    <script src="{% static "jet/vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" %}"></script>    
+    <script src="{% static "jet/vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" %}"></script>
+    <script src="{% static "content/libs/jquery-validate/dist/jquery.validate.min.js" %}"></script>
     {% if LANGUAGE_CODE|slice:":2" != 'en' %}
         {% with "jet/vendor/jquery-ui/i18n/datepicker-"|add:LANGUAGE_CODE|add:".js" as url %}
             <script src="{% static url %}"></script>
@@ -52,6 +53,7 @@
     </script>
     <script src="{% static "jet/js/main.min.js" %}"></script>
     <script src="{% static "jet/js/select2.jet.min.js" %}"></script>
+    <script src="{% static "jet/js/validaciones.js" %}"></script>
     {% block extrahead %}{% endblock %}
     
 </head>

@@ -1,0 +1,16 @@
+{% load i18n %}
+{% if messages %}
+        <ul class="messages" style="position: absolute;">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<div class="success-wrapper">
+<h2>Muchas gracias.</h2>
+
+<p> Agradecemos su interés en el Taller de Redes Sociales
+    para Negocios, uno de los ejecutivos se pondrá en
+    contacto con usted de manera telefónica para completar
+    el registro.</p>
+</div>

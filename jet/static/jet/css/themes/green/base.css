@@ -2363,6 +2363,9 @@ input[type=checkbox] {
   input[type=checkbox]:checked + label:before {
     content: ""; }
 
+#id_actions li {
+  list-style: none; }
+
 .form-row .vDateField, .form-row .vTimeField {
   border-radius: 4px 0 0 4px !important; }
   .form-row .vDateField-link, .form-row .vTimeField-link {

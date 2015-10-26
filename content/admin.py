@@ -120,6 +120,10 @@ class AdBaseForm(forms.ModelForm):
         return self.cleaned_data
 
 
+class LocationAdmin(admin.ModelAdmin):
+    pass
+
+
 class AdvertiserAdmin(admin.ModelAdmin):
     search_fields = ['company_name', 'website']
     list_display = ['company_name', 'website', 'user']
@@ -152,8 +156,9 @@ class AdBaseAdmin(admin.ModelAdmin):
     except:
         clients_group = None
 
-    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
+    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'location', 'description', 'advertiser', 'url')}),
                     (_('Call to action'), {'fields': ('actionform', 'file')}),
+                    (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
                     (_('Period'), {'fields': ('start_showing', 'stop_showing')})
                 ]
 
@@ -302,9 +307,10 @@ class TextAdAdmin(AdBaseAdmin):
 
 class BannerAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'advertiser__company_name']
-    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
+    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'location', 'description', 'advertiser', 'url')}),
                  (_('Banner'), {'fields': ('content', 'content_mobile')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
+                 (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),
                 ]
@@ -313,9 +319,10 @@ class BannerAdAdmin(AdBaseAdmin):
 class VideoAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'advertiser__company_name']
 
-    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'description', 'advertiser', 'url')}),
+    fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'location', 'description', 'advertiser', 'url')}),
                  (_('Video'), {'fields': ('content', 'content_mobile', 'video_url')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
+                 (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),
                 ]
@@ -333,6 +340,7 @@ admin.site.register(AdCategory, AdCategoryAdmin)
 #admin.site.register(TextAd, TextAdAdmin)
 admin.site.register(BannerAd, BannerAdAdmin)
 admin.site.register(VideoAd, VideoAdAdmin)
+admin.site.register(Location)
 #admin.site.register(AdPhoneView, AdPhoneViewAdmin)
 #admin.site.register(AdClick, AdClickAdmin)
 #admin.site.register(AdImpression, AdImpressionAdmin)

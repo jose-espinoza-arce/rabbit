@@ -40,7 +40,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 
-DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = ['info@roofmedia.mx']
+DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = ['info@roofmedia.mx', 'oswaldo_alca@mucha-web.com']
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 
@@ -262,7 +262,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-#try:
-#    from settings_local import *
-#except ImportError:
-#    pass
+try:
+    from settings_local import *
+except ImportError:
+    pass

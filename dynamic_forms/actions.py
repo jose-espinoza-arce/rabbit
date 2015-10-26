@@ -56,26 +56,55 @@ def formmodel_action(label):
         return func
     return decorator
 
+@formmodel_action(_('Send confirmation email to posible client of our client'))
+def dynamic_form_send_confirmation_email(form_model, form, advert, request):
+    mapped_data = form.get_mapped_data()
 
-@formmodel_action(_('Send email to client'))
+    # Suject and message must be set dunamically
+    subject = advert.confirmation_email_subject
+    #_('Form “%(formname)s” submitted') % {'formname': form_model}
+
+
+    message = advert.confirmation_email
+        #render_to_string('', {
+        #'form': form_model,
+        #'data': sorted(mapped_data.items()),
+        #})
+    # Suject and message must be set dynamically
+
+    from_email = advert.advertiser.email
+    #if form_model.recipient_email:
+    #    hidden_recipient_list = [form_model.recipient_email]
+    #else:
+    hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+
+    client_email = [form.cleaned_data['email']]
+
+    send_mail(subject, '', from_email, client_email, hidden_recipient_list, html_message=message)
+
+
+
+@formmodel_action(_('Send email to our client'))
 def dynamic_form_send_email(form_model, form, advert, request):
     mapped_data = form.get_mapped_data()
 
     # Suject and message must be set dunamically
-    subject = _('Form “%(formname)s” submitted') % {'formname': form_model}
+    subject = _('Has recibido una nueva oportunidad de venta')
 
 
-    message = render_to_string('dynamic_forms/email.txt', {
-        'form': form_model,
+    message = render_to_string('dynamic_forms/roofmedia_email.txt', {
+        'form_model': form_model,
+        'form': form,
         'data': sorted(mapped_data.items()),
+        'advert': advert,
     })
     # Suject and message must be set dunamically
 
-    from_email = form.cleaned_data['email']
-    if form_model.recipient_email:
-        hidden_recipient_list = [form_model.recipient_email]
-    else:
-        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    from_email = 'info@roofmedia.mx'
+    #if form_model.recipient_email:
+    #    hidden_recipient_list = [form_model.recipient_email]
+    #else:
+    hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
 
     client_email = [advert.advertiser.email]
 

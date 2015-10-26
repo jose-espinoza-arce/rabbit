@@ -1,97 +1,119 @@
 @import "variables";
 @import "../../base";
 
-
 $color__facebook: #3b5998;
 $color__linkedin: #007bb5;
 $color__google: #dd4b39;
 
 %ib {
-	display: inline-block;
-	vertical-align: top;
-	width: 49%;
-	min-height: 420px;
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  min-height: 420px;
 }
+
 .widget {
-	padding: 1em;
-	background-color: #fff;
-	margin-bottom: 1em;
-	box-shadow:0 2px 5px rgba(0,0,0,0.15);
-	display: inline-block;
-	box-sizing: border-box;
-	clear:both;
-	overflow: hidden;
+  padding: 1em;
+  background-color: #fff;
+  margin-bottom: 1em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  box-sizing: border-box;
+  clear: both;
+  overflow: hidden;
 
-	&__block {
-		display: inline-block;
-		vertical-align: top;
-		&--right {
-			border-left: 1px solid #ccc;
-			padding: 0 1em;
-			margin-left: 1em;
-		}
-	}
+  &__block {
+    display: inline-block;
+    vertical-align: top;
+    &--right {
+      border-left: 1px solid #ccc;
+      padding: 0 1em;
+      margin-left: 1em;
+    }
+  }
 
-	&--roof {
-		border-bottom: 3px solid #313131;
-		width: 98%;
-		min-height: 400px;
-		.widget__title {
-			color: darken(#333, 10%);
-		}
-	}
-	&--facebook {
-		border-bottom: 3px solid $color__facebook;
-		@extend %ib;
-		.widget__title {
-			color: darken($color__facebook, 10%);
-		}
-	}
-	&--linkedin {
-		border-bottom: 3px solid $color__linkedin;
-		@extend %ib;
-		.widget__title {
-			color: darken($color__linkedin, 10%);
-		}
-	}
-	&--google {
-		border-bottom: 3px solid $color__google;
-		display: inline-block;
-		vertical-align: top;
-		min-height: 250px;
-		width: 25%;
-		.widget__title {
-			color: darken($color__google, 10%);
-		}
-	}
-	
-	&__list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		li {
-			span {
-				display: inline-block;
-				font-size: 12px;
-				&:nth-child(2){
-					font-size: 13px;
-					padding-left: 0.25em;
-					font-weight: bold;
-				}
-			}
-		}
-	}
+  &--roof {
+    border-bottom: 3px solid #313131;
+    width: 98%;
+    min-height: 400px;
+    .widget__title {
+      color: darken(#333, 10%);
+    }
+  }
+  &--facebook {
+    border-bottom: 3px solid $color__facebook;
+    @extend %ib;
+    .widget__title {
+      color: darken($color__facebook, 10%);
+    }
+  }
+  &--linkedin {
+    border-bottom: 3px solid $color__linkedin;
+    @extend %ib;
+    .widget__title {
+      color: darken($color__linkedin, 10%);
+    }
+  }
+  &--google {
+    border-bottom: 3px solid $color__google;
+    display: inline-block;
+    vertical-align: top;
+    min-height: 250px;
+    width: 25%;
+    .widget__title {
+      color: darken($color__google, 10%);
+    }
+  }
 
-	&-media {
-		display: block;
-		border-bottom: 1px solid #ccc;
-		padding: 1em 0;
-		margin-bottom: 1em;
-	}
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      span {
+        display: inline-block;
+        font-size: 12px;
+        &:nth-child(2) {
+          font-size: 13px;
+          padding-left: 0.25em;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &-media {
+    display: block;
+    border-bottom: 1px solid #ccc;
+    padding: 1em 0;
+    margin-bottom: 1em;
+  }
 }
 
-.vTextField, .select2, .vLargeTextField,
-.vForeignKeyRawIdAdminField, .vURLField,
-#id_tags, #id_password1, #id_password2 {
-  	width: 450px !important;
+
+
+%input-wide {
+  width: 450px !important;
+}
+
+.changeform {
+  .module {
+    .vTextField, .select2, .vLargeTextField,
+    .vForeignKeyRawIdAdminField, .vURLField,
+    #id_tags, #id_password1, #id_password2 {
+      @extend %input-wide;
+      &.error {
+        border: 1px solid indianred;
+      }
+    }
+    label {
+      &.error {
+        float: none;
+        display: block;
+        width: 100%;
+        color: indianred;
+      }
+    }
+
+  }
 }
