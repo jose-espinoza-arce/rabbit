@@ -9,7 +9,6 @@ from dynamic_forms.views import DynamicFormView, DynamicTemplateView
 class FormModelMiddleware(object):
 
     def process_response(self, request, response):
-        print 'in dynforms.middleware.formmodelmidle.processresp'
 
         if response.status_code != 404:
             # Don't check for a form if another request succeeds

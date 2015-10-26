@@ -1,31 +1,27 @@
 {% load dynforms_tags %}
-Hola espero te encuentres muy bien,
+<p>Hola espero te encuentres muy bien,</p
 
-Haz recibido una nueva oportunidad de venta generada por
+<p>Haz recibido una nueva oportunidad de venta generada por
 tu servicio de publicidad de RoofMedia, es muy importante
 que le des seguimiento al correo ya que el contacto está
-interesado en tu publicación:
-{{ advert.title }}
-y está esperando a que llames para ser concretada.
+interesado en tu publicación:</p>
+<p>{{ advert.title }}</p>
+<p>y está esperando a que llames para ser concretada.</p>
 
-
-
-
-
-
-La información del contacto es:
-(Datos del Formulario)
-{% for entry in data %}{{ form.model_fields|getfieldlabel:entry.0 }}: {{ entry.1 }}
+<p>La información del contacto es:</p>
+(Datos del Formulario)<br>
+{% for entry in data %}{{ form.model_fields|getfieldlabel:entry.0 }}: {{ entry.1 }}<br>
 {% endfor %}
-
+<p>
 Te recordamos que la única manera de que tu recibas este
 correo es porque realmente hay alguien que desea adquirir
 tu producto o servicio y en Roof Media trabajamos para
-que esto suceda.
+que esto suceda.</p>
 
+<p>
 Si tienes alguna duda, te invitamos a que nos contactes
 al número de teléfono 01 (443) 315 3118. Estamos para servirte.
-
-Atte.
+<p>
+Atte.<br><br>
 
 RoofMedia Team
