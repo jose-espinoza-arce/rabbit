@@ -206,6 +206,7 @@ class FormModelDataAdmin(admin.ModelAdmin):
     model = FormModelData
     readonly_fields = ('submitted', 'show_url_link',)
     list_display_links = None
+    search_fields = ('advert__title', 'advert__advertiser__company_name', 'advert__advertiser__user__username')
     actions = None
 
 admin.site.register(FormModelData, FormModelDataAdmin)

@@ -26,7 +26,7 @@ from content.forms import AdSearchForm
 
 class AdListView(ListView):
     model = AdBase
-    paginate_by = 3
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         ctx = super(AdListView, self).get_context_data(**kwargs)

@@ -24,17 +24,23 @@
             <div class="widget__block">
                 <h3 class="widget__title">Información general</h3>
                 <ul class="widget__list">
-                <li> <span>{{ ad.title }}</span> <span>Campaña:</span></li>
+                <li> <span>Campaña:</span> <span>{{ ad.title }}</span> </li>
                 <li><span>Nombre:</span> <span>{{ ad.advertiser.user.first_name }} {{ ad.advertiser.user.last_name }}</span></li>
                 <li><span>Compañia:</span> <span>{{ ad.advertiser.company_name }}</span></li>
             </ul>
             <ul class="widget__list">
                 <li>
-                    <span>Producto</span>
-                     <ul>
-                        {% for tag in ad.tags.all %}
-                            <li>{{ tag.name }}</li>
-                        {% endfor %}
+                    <span>Producto(s):</span>
+                     <ul style="list-style: none;">
+                        {% if ad.bannerad %}
+                            {% for tag in ad.bannerad.tags.all %}
+                                <li>{{ tag.name }}</li>
+                            {% endfor %}
+                        {% elif ad.videoad %}
+                            {% for tag in ad.videoad.tags.all %}
+                                <li>{{ tag.name }}</li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                 </li>
                 <li><span>Periodo de publicación:</span> <br><span>{{ ad.start_showing }}</span> - <span><strong> {{ ad.stop_showing }}</strong>   </span></li>
