@@ -62,3 +62,8 @@
 .main {
   padding-top: 90px;
 }
+
+/*Shares style for detail*/
+.stLarge{
+  margin-top: 7px;
+}
