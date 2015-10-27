@@ -69,16 +69,7 @@ def dynamic_form_send_confirmation_email(form_model, form, advert, request):
     new_message.html_content = advert.confirmation_email
     new_message.app = "dynamic_forms"
     new_message.save()
-    #subject = advert.confirmation_email_subject
 
-
-    #message = advert.confirmation_email
-
-
-    #from_email = advert.advertiser.email
-    #hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
-    #client_email = [form.cleaned_data['email']]
-    #send_mail(subject, '', from_email, client_email, hidden_recipient_list, html_message=message)
 
 
 
@@ -103,21 +94,11 @@ def dynamic_form_send_email(form_model, form, advert, request):
     new_message.to_address = advert.advertiser.email
     new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
     new_message.from_address = 'info@roofmedia.mx'
-    new_message.content = message
-    new_message.html_content = ''
+    new_message.content = ''
+    new_message.html_content = message
     new_message.app = "dynamic_forms"
     new_message.save()
 
-
-    #from_email = 'info@roofmedia.mx'
-    #if form_model.recipient_email:
-    #    hidden_recipient_list = [form_model.recipient_email]
-    #else:
-    #hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
-
-    #client_email = [advert.advertiser.email]
-
-    #send_mail(subject, message, from_email, client_email, hidden_recipient_list)#, html_message=message)
 
 
 
