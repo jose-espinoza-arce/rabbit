@@ -7,6 +7,13 @@
     <meta charset="utf-8"/>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    {% block facebookmeta %}
+    {% endblock %}
+    {% block twittermeta %}
+    {% endblock %}
+    {% block linkedinmeta %}
+    {% endblock %}
+
     <title>Roof Media</title>
     <link rel="shortcut icon" type="image/jpeg" href="{{STATIC_URL}}favicon.jpg"/>
     <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}"/>
@@ -33,6 +40,8 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="{% static 'content/libs/modernizr/modernizr.js' %}"></script>
     <!-- endbuild -->
+    {% block share %}
+    {% endblock %}
 
 </head>
 <body>

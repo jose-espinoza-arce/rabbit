@@ -123,6 +123,7 @@ class AdDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         request.META["CSRF_COOKIE_USED"] = True
+        ad_url = request.build_absolute_uri(request.get_full_path())
 
         if 'instance' not in kwargs.keys():
             return redirect('content:ad_list')
@@ -138,7 +139,7 @@ class AdDetailView(DetailView):
             pass
 
         self.object = self.get_object()
-        context = self.get_context_data(object=self.object, category=self.object.category)
+        context = self.get_context_data(object=self.object, category=self.object.category, ad_url=ad_url)
 
         return self.render_to_response(context)
 

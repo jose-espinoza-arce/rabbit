@@ -3,6 +3,29 @@
 {% load thumbnail %}
 {% load content_tags %}
 
+{% block facebookmeta %}
+    <meta property="og:url"           content="{{ ad_url }}" />
+    <meta property="og:type"          content="article" />
+    <meta property="og:title"         content="{{ object.title }}" />
+    <meta property="og:description"   content="{{ object.description }}" />
+    {% thumbnail object.bannerad.content "740" as im %}
+        <meta property="og:image"     content="{{ im.url }}" />
+    {% endthumbnail %}
+
+{% endblock %}
+
+
+{% block share %}
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">
+    stLight.options({
+        publisher: "6650a350-f4d7-4458-8949-767349579689",
+        doNotHash: false,
+        doNotCopy: false,
+        hashAddressBar: false});
+</script>
+{% endblock %}
+
 {% block breadcrumbs %}
     <div class="row text-center">
         <div class="col-lg-12">
@@ -81,7 +104,7 @@
                                 <hr>
                                 <h5 class="detail__share-title">Compartir:</h5>
                                 <ul class="list-unstyled sharer">
-                                    <li class="sharer__item sharer__item--fb">
+                                    {% comment %}<li class="sharer__item sharer__item--fb">
                                         <a href=""><i class="fa fa-facebook"></i></a>
                                     </li>
                                     <li class="sharer__item sharer__item--tw">
@@ -89,6 +112,15 @@
                                     </li>
                                     <li class="sharer__item sharer__item--pin">
                                         <a href=""><i class="fa fa-pinterest"></i></a>
+                                    </li>{% endcomment %}
+                                    <li class="sharer__item sharer__item--fb">
+                                        <span class='st_facebook_large' displayText='Facebook'></span>
+                                    </li>
+                                    <li class="sharer__item sharer__item--tw">
+                                        <span class='st_twitter_large' displayText='Tweet'></span>
+                                    </li>
+                                    <li class="sharer__item sharer__item--pin">
+                                        <span class='st_pinterest_large' displayText='Pinterest'></span>
                                     </li>
                                     <li>
                                         {% adlikes object template='partials/likes.html' %}
