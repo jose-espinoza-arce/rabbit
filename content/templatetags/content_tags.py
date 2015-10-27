@@ -45,21 +45,6 @@ T_MIN = getattr(settings, 'TAGCLOUD_MIN', 3.0)
 register = template.Library()
 #----------------------------------
 
-# @register.filter
-# def getattribute(value, arg):
-#     """Gets an attribute of an object dynamically from a string name"""
-#     print(value, arg)
-#
-#     if hasattr(value, str(arg)):
-#         return getattr(value, arg)
-#     elif hasattr(value, 'has_key') and value.has_key(arg):
-#         return value[arg]
-#     elif numeric_test.match(str(arg)) and len(value) > int(arg):
-#         return value[int(arg)]
-#     else:
-#         return settings.TEMPLATE_STRING_IF_INVALID
-
-#register.filter('getattribute', getattribute)
 
 def get_queryset(forvar=None):
     if None == forvar:
@@ -103,11 +88,16 @@ def get_taglist(context, asvar, forvar=None):
 @tag(register, [Constant('as'), Name(), Optional([Constant('for'), Variable()])])
 def get_tagcloud(context, asvar, forvar=None):
     queryset = get_queryset(forvar)
+    print(queryset)
     num_times = queryset.values_list('num_times', flat=True)
     if(len(num_times) == 0):
         context[asvar] = queryset
         return ''
-    weight_fun = get_weight_fun(T_MIN, T_MAX, min(num_times), max(num_times))
+    print(T_MIN, T_MAX, min(num_times), max(num_times), num_times)
+    if min(num_times) == max(num_times):
+        weight_fun = lambda x: (T_MAX + T_MIN)/2
+    else:
+        weight_fun = get_weight_fun(T_MIN, T_MAX, min(num_times), max(num_times))
     queryset = queryset.order_by('name')
     for tag in queryset:
         tag.weight = weight_fun(tag.num_times)
