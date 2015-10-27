@@ -1,4 +1,5 @@
 {% load dynforms_tags %}
+<div style="color: black">
 <p>
 Hola espero te encuentres muy bien,
 </p>
@@ -13,7 +14,7 @@ tu publicación {{ advert.title }} y está esperando a que llames para ser concr
 La información del contacto es:
 </p>
 
-<ul>
+<ul style='list-style: none;'>
 {% for entry in data %}
  <li>
  <b>{{ form.model_fields|getfieldlabel:entry.0 }}</b>:
@@ -36,3 +37,4 @@ al número de teléfono 01 (443) 315 3118. Estamos para servirte.
 Atte.<br><br>
 
 RoofMedia Team
+</div>
