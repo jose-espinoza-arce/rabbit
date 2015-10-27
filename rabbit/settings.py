@@ -40,7 +40,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 
-DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = 'oswaldo_alca@mucha-web.com, info@roofmedia.mx'
+DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = 'oswaldo_alca@mucha-web.com, oswaldoalca@gmail.com, info@roofmedia.mx'
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 
