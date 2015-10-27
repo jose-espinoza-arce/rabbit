@@ -9,7 +9,7 @@
     <meta property="og:title"         content="{{ object.title }}" />
     <meta property="og:description"   content="{{ object.description }}" />
     {% thumbnail object.bannerad.content "740" as im %}
-        <meta property="og:image"     content="{{ im.url }}" />
+        <meta property="og:image"     content="http://roofmedia.mx{{ im.url }}" />
     {% endthumbnail %}
 
 {% endblock %}
