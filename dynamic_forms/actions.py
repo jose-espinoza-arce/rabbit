@@ -15,6 +15,8 @@ from dynamic_forms.conf import settings
 from dynamic_forms.utils import is_old_style_action
 from dynamic_forms.mail import send_mail
 
+from mailqueue.models import MailerMessage
+
 
 class ActionRegistry(object):
 
@@ -58,29 +60,25 @@ def formmodel_action(label):
 
 @formmodel_action(_('Send confirmation email to posible client of our client'))
 def dynamic_form_send_confirmation_email(form_model, form, advert, request):
-    mapped_data = form.get_mapped_data()
+    new_message = MailerMessage()
+    new_message.subject = advert.confirmation_email_subject
+    new_message.to_address = form.cleaned_data['email']
+    new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    new_message.from_address = advert.advertiser.email
+    new_message.content = ""
+    new_message.html_content = advert.confirmation_email
+    new_message.app = "dynamic_forms"
+    new_message.save()
+    #subject = advert.confirmation_email_subject
 
-    # Suject and message must be set dunamically
-    subject = advert.confirmation_email_subject
-    #_('Form “%(formname)s” submitted') % {'formname': form_model}
+
+    #message = advert.confirmation_email
 
 
-    message = advert.confirmation_email
-        #render_to_string('', {
-        #'form': form_model,
-        #'data': sorted(mapped_data.items()),
-        #})
-    # Suject and message must be set dynamically
-
-    from_email = advert.advertiser.email
-    #if form_model.recipient_email:
-    #    hidden_recipient_list = [form_model.recipient_email]
-    #else:
-    hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
-
-    client_email = [form.cleaned_data['email']]
-
-    send_mail(subject, '', from_email, client_email, hidden_recipient_list, html_message=message)
+    #from_email = advert.advertiser.email
+    #hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    #client_email = [form.cleaned_data['email']]
+    #send_mail(subject, '', from_email, client_email, hidden_recipient_list, html_message=message)
 
 
 
@@ -98,17 +96,28 @@ def dynamic_form_send_email(form_model, form, advert, request):
         'data': sorted(mapped_data.items()),
         'advert': advert,
     })
-    # Suject and message must be set dunamically
 
-    from_email = 'info@roofmedia.mx'
+
+    new_message = MailerMessage()
+    new_message.subject = subject
+    new_message.to_address = advert.advertiser.email
+    new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    new_message.from_address = 'info@roofmedia.mx'
+    new_message.content = message
+    new_message.html_content = ''
+    new_message.app = "dynamic_forms"
+    new_message.save()
+
+
+    #from_email = 'info@roofmedia.mx'
     #if form_model.recipient_email:
     #    hidden_recipient_list = [form_model.recipient_email]
     #else:
-    hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    #hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
 
-    client_email = [advert.advertiser.email]
+    #client_email = [advert.advertiser.email]
 
-    send_mail(subject, message, from_email, client_email, hidden_recipient_list)#, html_message=message)
+    #send_mail(subject, message, from_email, client_email, hidden_recipient_list)#, html_message=message)
 
 
 

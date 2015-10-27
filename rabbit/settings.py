@@ -40,7 +40,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 
-DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = ['info@roofmedia.mx', 'oswaldo_alca@mucha-web.com']
+DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = 'info@roofmedia.mx oswaldo_alca@mucha-web.com'
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 
@@ -86,9 +86,13 @@ INSTALLED_APPS = (
     'likes',
     'feedback_form',
     'analytics',
+    'mailqueue',
 )
 
 # App configs
+
+#mailqueu
+MAILQUEUE_QUEUE_UP = True
 
 #taggit
 TAGGIT_CASE_INSENSITIVE = True

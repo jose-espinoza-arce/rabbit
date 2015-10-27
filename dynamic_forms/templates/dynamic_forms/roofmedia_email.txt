@@ -9,6 +9,7 @@ interesado en tu publicación:
 y está esperando a que llames para ser concretada.
 
 La información del contacto es:
+
 (Datos del Formulario)
 {% for entry in data %}
  {{ form.model_fields|getfieldlabel:entry.0 }}:
