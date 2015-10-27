@@ -85,7 +85,6 @@ var Header = (function($){
       var self = this;
 
       $(window).on('scroll', function(){
-        console.log('scroll');
         $('.ui-widget').fadeOut();
       });
 

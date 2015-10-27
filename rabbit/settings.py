@@ -44,7 +44,7 @@ DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS = 'oswaldo_alca@mucha-web.com, oswaldoalca
 
 DEFAULT_FROM_EMAIL = 'admin@roofmedia.mx'
 
-FEEDBACK_EMAIL_CONFIRMATION = True
+FEEDBACK_EMAIL_CONFIRMATION = False
 
 
 # Application definition

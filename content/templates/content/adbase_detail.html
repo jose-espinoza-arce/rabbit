@@ -12,8 +12,16 @@
         <meta property="og:image"     content="http://roofmedia.mx{{ im.url }}" />
     {% endthumbnail %}{% endcomment %}
     <meta property="og:image"     content="http://roofmedia.mx{{ object.bannerad.content.url }}" />
+{% endblock %}
 
+{% block twittermeta %}
+    {% comment %}<meta name="twitter:card" content="summary_large_image">{% endcomment %}
+    
+    <meta name="twitter:title" content="{{ object.title }}">
+    <meta name="twitter:description" content="{{ object.description }}">
 
+    <meta name="twitter:image:src" content="http://roofmedia.mx{{ object.bannerad.content.url }}">
+    <meta name="twitter:domain" content="roofmedia.mx">
 {% endblock %}
 
 
