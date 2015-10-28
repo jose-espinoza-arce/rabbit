@@ -8,9 +8,9 @@
                 <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
             </a>{% endcomment %}
 
-        <a href="{% url 'content:ad_categories' path=object.get_path %}" class="img-link">
+        <a href="{% url 'content:ad_categories' path=object.get_path %}" class="img-link hover">
             <div class="overlay">
-                <span class="views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                <span class="list-views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
                 <span><i class="fa fa-heart"></i>{{ object.vote_total }}</span>
             </div>
             <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">

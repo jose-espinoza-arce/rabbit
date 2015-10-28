@@ -185,6 +185,7 @@ var Detail = (function ($) {
     bind: function() {
 
       var self = this;
+      this.loadform = loadsuccess;
 
       function loadsuccess(response) {
               var markup = $.parseHTML(response);
@@ -244,9 +245,10 @@ var Detail = (function ($) {
 
       this.trigger.on('click', function (ev) {
         ev.preventDefault();
-        var url = $(this).attr('href');
         if ( !$('.form-wrapper').length && !$('.success-wrapper').length ) {
-            $.get(url, loadsuccess);
+            //$.get($(this).attr('href'), loadsuccess);
+            //self.openForm();
+            alert('El formulario está cargándose');
             self.openForm();
         }
         else {
@@ -290,8 +292,9 @@ var Detail = (function ($) {
       this.el.removeClass('detail--open');
     }
   };
-
-  return detail.init();
+  var ret = detail.init();
+  $.get($(ret.trigger).attr('href'), ret.loadform);
+  return ret
 })(jQuery);
 
 
@@ -381,7 +384,18 @@ var List = (function($){
         }
     };
 
+    $(document).ready(function() {
+        $('.hover').bind('touchstart touchend', function(e) {
+            e.preventDefault();
+            $(this).toggleClass('hover_effect');
+        });
+        $('.img-link').on('touchend', function(e){
+            window.location.href = $(this).attr("href");
+        })
+    });
+
     return list.init();
+
 })(jQuery);
 
 

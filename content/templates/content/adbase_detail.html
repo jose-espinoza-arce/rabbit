@@ -80,10 +80,10 @@
                                     <li class="sharer__item sharer__item--pin">
                                         <a href=""><i class="fa fa-pinterest"></i></a>
                                     </li>
-                                    <li>
+                                    <li class="sharer__item" >
                                         {% adlikes object template='partials/likes.html' %}
                                     </li>
-                                    <li>
+                                    <li class="sharer__item">
                                         <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
                                     </li>
                                 </ul>
@@ -130,11 +130,11 @@
                                     <li class="sharer__item sharer__item--pin">
                                         <span class='st_pinterest_large' displayText='Pinterest'></span>
                                     </li>
-                                    <li>
+                                    <li class="sharer__item">
                                         {% adlikes object template='partials/likes.html' %}
                                     </li>
-                                    <li>
-                                        <span class="statistic-item statistic__views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
+                                    <li class="sharer__item">
+                                        <span class="statistic-item views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>
                                     </li>
                                 </ul>
                             </div>
