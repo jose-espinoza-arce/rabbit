@@ -385,13 +385,13 @@ var List = (function($){
     };
 
     $(document).ready(function() {
-        var dragging = false;
-        $('.hover').bind('touchstart touchend', function(e) {
-            e.preventDefault();
-            $(this).toggleClass('hover_effect');
-        });
+        var dragging = false,
+            overlay = $('.overlay');
+
         $('.img-link').on('touchstart', function(e){
             dragging = false;
+            //$(this).addClass('hover_effect');
+            overlay.css('display', 'block');
         });
         $('.img-link').on('touchmove', function(e){
             dragging = true;
@@ -400,6 +400,8 @@ var List = (function($){
             if(!dragging){
                 window.location.href = $(this).attr("href");
             }
+            //$(this).removeClass('hover_effect');
+            overlay.css('display', 'none');
         });
     });
 

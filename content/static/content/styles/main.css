@@ -11380,7 +11380,12 @@ body.nav-active .trigger-nav__icon-bar:nth-of-type(3) {
   margin-right: 30px;
 }
 
-.img-link:hover .overlay, .hover_effect .overlay {
+.img-link {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.img-link:hover .overlay {
   display: block;
 }
 
