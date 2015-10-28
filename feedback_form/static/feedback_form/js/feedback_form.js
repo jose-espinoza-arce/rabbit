@@ -13,7 +13,11 @@ function initiateForm(mobile) {
         w : $('#feedbackForm').width(),
         h : $('#feedbackForm').height(),
     }
-
+    if(mobile){
+        $('#feedbackSuccess').css({'right': 30, 'left': 'auto', 'top': 'auto', 'bottom': 43});
+    } else {
+        $('#feedbackSuccess').css({'right': 'auto', 'left': 40, 'top': '50%', 'bottom': 'auto'});
+    }
 
 
     $('#feedbackForm').unbind('submit');
