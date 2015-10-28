@@ -385,13 +385,22 @@ var List = (function($){
     };
 
     $(document).ready(function() {
+        var dragging = false;
         $('.hover').bind('touchstart touchend', function(e) {
             e.preventDefault();
             $(this).toggleClass('hover_effect');
         });
+        $('.img-link').on('touchstart', function(e){
+            dragging = false;
+        });
+        $('.img-link').on('touchmove', function(e){
+            dragging = true;
+        });
         $('.img-link').on('touchend', function(e){
-            window.location.href = $(this).attr("href");
-        })
+            if(!dragging){
+                window.location.href = $(this).attr("href");
+            }
+        });
     });
 
     return list.init();
