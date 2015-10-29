@@ -375,20 +375,8 @@ var List = (function($){
                 }
                 self.end.attr('data-clicked', 1);
             });
+            this.bindbricks(this.imglink);
 
-            this.imglink.on('touchstart', function(e){
-                self.dragging = false;
-                $(this).find('.overlay').css('display', 'block');
-            });
-            this.imglink.on('touchmove', function(e){
-                self.dragging = true;
-            });
-            this.imglink.on('touchend', function(e){
-                if(!self.dragging){
-                    window.location.href = $(this).attr("href");
-                }
-                $(this).find('.overlay').css({'display': ''});
-            });
         },
         loadmasonry: function(newImages){
             var self = this;
@@ -397,6 +385,24 @@ var List = (function($){
                $newImages.animate({"opacity": 1});
                self.container.append($newImages);
                self.container.masonry("appended", $newImages, true);
+               self.bindbricks(newImages);
+            });
+
+        },
+        bindbricks: function(images){
+            var self = this;
+            images.on('touchstart', function(e){
+                self.dragging = false;
+                $(this).find('.overlay').css('display', 'block');
+            });
+            images.on('touchmove', function(e){
+                self.dragging = true;
+            });
+            images.on('touchend', function(e){
+                if(!self.dragging){
+                    window.location.href = $(this).attr("href");
+                }
+                $(this).find('.overlay').css({'display': ''});
             });
         }
     };
