@@ -316,6 +316,9 @@ var List = (function($){
             this.container = $('ul.wall .row');
             this.end = $('a.the-end');
             this.window = $(window);
+            this.imglink = $('.img-link');
+            this.dragging = false;
+
 
             this.tour = $('.rm-tour');
             if (this.tour.length>0) {
@@ -371,7 +374,21 @@ var List = (function($){
                     self.call();
                 }
                 self.end.attr('data-clicked', 1);
-            })
+            });
+
+            this.imglink.on('touchstart', function(e){
+                self.dragging = false;
+                $(this).find('.overlay').css('display', 'block');
+            });
+            this.imglink.on('touchmove', function(e){
+                self.dragging = true;
+            });
+            this.imglink.on('touchend', function(e){
+                if(!self.dragging){
+                    window.location.href = $(this).attr("href");
+                }
+                $(this).find('.overlay').css({'display': ''});
+            });
         },
         loadmasonry: function(newImages){
             var self = this;
@@ -383,27 +400,6 @@ var List = (function($){
             });
         }
     };
-
-    $(document).ready(function() {
-        var dragging = false,
-            overlay = $('.overlay');
-
-        $('.img-link').on('touchstart', function(e){
-            dragging = false;
-            //$(this).addClass('hover_effect');
-            overlay.css('display', 'block');
-        });
-        $('.img-link').on('touchmove', function(e){
-            dragging = true;
-        });
-        $('.img-link').on('touchend', function(e){
-            if(!dragging){
-                window.location.href = $(this).attr("href");
-            }
-            //$(this).removeClass('hover_effect');
-            overlay.css('display', 'none');
-        });
-    });
 
     return list.init();
 
