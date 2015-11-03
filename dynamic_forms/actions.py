@@ -65,7 +65,7 @@ def dynamic_form_send_confirmation_email(form_model, form, advert, request):
     new_message.to_address = form.cleaned_data['email']
     new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
     new_message.reply_to = advert.advertiser.email
-    new_message.from_address = 'info@roofmedia.mx'
+    new_message.from_address = 'RoofMedia <info@roofmedia.mx>'
     new_message.content = ""
     new_message.html_content = advert.confirmation_email
     new_message.app = "dynamic_forms"
