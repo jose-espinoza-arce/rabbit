@@ -5239,4 +5239,23 @@ img[src$="admin/img/icon-unknown.gif"]:before {
   width: 100%;
   color: indianred; }
 
+.numberCircle {
+  border-radius: 50%;
+  behavior: url(PIE.htc);
+  /* remove if you don't care about IE8 */
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: #fff;
+  border: 2px solid #d0dbe6;
+  text-align: center; }
+
+.changeform-tabs-item a {
+  line-height: 20px; }
+  .changeform-tabs-item a:hover .numberCircle {
+    border: 2px solid #6F7E95; }
+
+.changeform-tabs-item.selected .numberCircle {
+  border: 2px solid #6F7E95; }
+
 /*# sourceMappingURL=base.css.map */

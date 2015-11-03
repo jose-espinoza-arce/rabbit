@@ -88,12 +88,10 @@ def get_taglist(context, asvar, forvar=None):
 @tag(register, [Constant('as'), Name(), Optional([Constant('for'), Variable()])])
 def get_tagcloud(context, asvar, forvar=None):
     queryset = get_queryset(forvar)
-    print(queryset)
     num_times = queryset.values_list('num_times', flat=True)
     if(len(num_times) == 0):
         context[asvar] = queryset
         return ''
-    print(T_MIN, T_MAX, min(num_times), max(num_times), num_times)
     if min(num_times) == max(num_times):
         weight_fun = lambda x: (T_MAX + T_MIN)/2
     else:

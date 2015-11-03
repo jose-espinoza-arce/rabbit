@@ -1,13 +1,8 @@
 {% load content_tags %}
 {% load thumbnail %}
 
-<li class="brick {% if im.x < im.y %}col-sm-6 col-md-3{% else %}col-sm-12 col-md-6{% endif %}">
+<li class="brick {% if im.x < im.y %}col-sm-6 col-md-4{% else %}col-sm-12 col-md-8{% endif %}">
     <div class="thumbnail">
-
-            {% comment %}<a href="/categorias/{{ object.get_path }}" class="img-link">
-                <img class="img-responsive" src="{{ im.url }}" alt="{{ object.title }}">
-            </a>{% endcomment %}
-
         <a href="{% url 'content:ad_categories' path=object.get_path %}" class="img-link hover">
             <div class="overlay">
                 <span class="list-views-counter"><i class="fa fa-eye"></i>{{ object.impressions.count }}</span>

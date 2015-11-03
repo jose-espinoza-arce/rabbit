@@ -12,6 +12,9 @@ from jet.utils import get_app_list, get_model_instance_label
 
 register = template.Library()
 
+@register.filter
+def to_char(value):
+    return chr(96+value)
 
 @register.simple_tag
 def get_date_format():

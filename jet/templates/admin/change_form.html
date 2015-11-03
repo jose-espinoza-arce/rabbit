@@ -57,9 +57,9 @@
                             <li class="changeform-tabs-item{% if selected %} selected{% endif %}{% if fieldset_with_errors %} errors{% endif %}">
                                 <a href="#" class="changeform-tabs-item-link" data-module-id="module_{{ forloop.counter0 }}">
                                     {% if fieldset.name %}
-                                        {{ fieldset.name }}
+                                       <div class="numberCircle">{{ forloop.counter }}</div> {{ fieldset.name }}
                                     {% else %}
-                                        {% trans "General" %}
+                                       <div class="numberCircle">{{ forloop.counter }}</div> {% trans "General" %}
                                     {% endif %}
                                 </a>
                             </li>
@@ -69,6 +69,7 @@
 
                             <li class="changeform-tabs-item{% if errors %} errors{% endif %}">
                                 <a href="#" class="changeform-tabs-item-link" data-module-id="inline_module_{{ forloop.counter0 }}">
+                                    <div class="numberCircle">{{ forloop.counter|to_char }}</div>
                                     {{ inline_admin_formset.opts.verbose_name_plural|capfirst }}
                                 </a>
                             </li>
