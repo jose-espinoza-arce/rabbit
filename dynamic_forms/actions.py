@@ -94,7 +94,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     new_message.subject = subject
     new_message.to_address = advert.advertiser.email
     new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
-    new_message.from_address = 'info@roofmedia.mx'
+    new_message.from_address = 'RoofMedia <info@roofmedia.mx>'
     new_message.content = ''
     new_message.html_content = message
     new_message.app = "dynamic_forms"

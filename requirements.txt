@@ -12,6 +12,7 @@ django-bower==5.0.4
 django-cache-utils==0.7.2
 django-jsonfield==0.9.15
 django-likes==0.2
+django-mail-queue==2.2.2
 django-mailer==1.1
 django-mediagenerator==1.11
 django-mptt==0.7.4
