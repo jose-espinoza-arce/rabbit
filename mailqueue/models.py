@@ -50,6 +50,7 @@ class MailerMessage(models.Model):
     to_address = models.TextField(_('To'))
     bcc_address = models.TextField(_('BCC'), blank=True)
     from_address = models.EmailField(_('From'), max_length=250)
+    from_name = models.CharField(_('From name'), max_length=250)
     reply_to = models.TextField(_('Reply to'), max_length=250, blank=True, null=True)
     content = models.TextField(_('Content'), blank=True)
     html_content = models.TextField(_('HTML Content'), blank=True)
@@ -98,7 +99,7 @@ class MailerMessage(models.Model):
         if not self.sent:
             self.last_attempt = timezone.now()
 
-            subject, from_email = self.subject, self.from_address
+            subject, from_email = self.subject, '{0} <{1}>'.format(self.from_name, self.from_address)
             text_content = self.content
             
             msg = EmailMultiAlternatives(subject, text_content, from_email)
