@@ -80,13 +80,8 @@ class DynamicFormView(FormView):
         of that action is ``None``.
         """
 
-        #print 'in dynformview.form_valid'
-
         self.action_results = {}
         advert = AdBase.objects.get(id=form.cleaned_data['content'])
-        #print advert.advertiser
-
-
         for actionkey in self.form_model.actions:
             action = action_registry.get(actionkey)
             if action is None:
@@ -104,8 +99,8 @@ class DynamicFormView(FormView):
 
         messages.success(self.request,
             _('Thank you for submitting this form.'))
-
-        return render(self.request, self.get_success_template(), {'dl_url': dl_url})
+        ctx = {'dl_url': dl_url, 'success_message': self.form_model.success_message}
+        return render(self.request, self.get_success_template(), ctx)
         #super(DynamicFormView, self).form_valid(form)
 
     def form_invalid(self, form):

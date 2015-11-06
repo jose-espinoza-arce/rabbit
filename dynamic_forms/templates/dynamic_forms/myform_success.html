@@ -7,7 +7,13 @@
         </ul>
     {% endif %}
 <div class="success-wrapper">
-<h2>{% trans "Success" %}</h2>
 
-<p>{% trans "Form submitted successfully" %}</p>
+<div class="success-message">
+    {% if success_message %}
+        {{ success_message|safe }}
+    {% else %}
+        Información enviada. Muchas Gracias!
+    {% endif %}
+</div>
+
 </div>

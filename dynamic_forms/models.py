@@ -45,6 +45,7 @@ class FormModel(models.Model):
         max_length=100, default='dynamic_forms/form_success.html',
         choices=settings.DYNAMIC_FORMS_SUCCESS_TEMPLATES)
     header = models.TextField(verbose_name=_('Header'), blank=True)
+    success_message = models.TextField(verbose_name=_('Success message'), blank=True)
     allow_display = models.BooleanField(_('Allow display'), default=False,
         help_text=_('Allow a user to view the input at a later time. This '
             'requires the “Store in database” action to be active. The sender '
