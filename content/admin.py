@@ -104,18 +104,31 @@ class ContentListImageInline(admin.TabularInline):
 class AdBaseForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(AdBaseForm, self).clean()
-        file = cleaned_data.get('file')
         actionform = cleaned_data.get('actionform')
-        download_actionform = None
 
-        download_action_list = [u'dynamic_forms.actions.dynamic_form_send_download_email']
         if actionform:
-            download_actionform = set(actionform.actions).intersection(download_action_list)
-
-        if download_actionform and not file:
-            msg = 'Seleccionó un formulario de descarga pero no asigno ningún archivo'
-            self.add_error('file', msg)
-            self.add_error('actionform', msg)
+            file = cleaned_data.get('file')
+            conf_email = cleaned_data.get('confirmation_email')
+            conf_email_subj = cleaned_data.get('confirmation_email_subject')
+            download_action_list = [u'dynamic_forms.actions.dynamic_form_send_download_email']
+            confirm_action_list = [u'dynamic_forms.actions.dynamic_form_send_confirmation_email']
+            if set(actionform.actions).intersection(download_action_list):
+                if not file:
+                    msg = 'Seleccionó un formulario de descarga \
+                           pero no asigno ningún archivo'
+                    self.add_error('file', msg)
+                    self.add_error('actionform', msg)
+            if set(actionform.actions).intersection(confirm_action_list):
+                if not conf_email:
+                    msg = 'Seleccionó un formulario con envío de confirmación \
+                           pero no asignó ningún correo electrónico.'
+                    self.add_error('confirmation_email', msg)
+                    self.add_error('actionform', msg)
+                if not conf_email_subj:
+                    msg = 'Seleccionó un formulario con envío de confirmación \
+                           pero no asignó asunto para el correo electrónico'
+                    self.add_error('confirmation_email_subject', msg)
+                    self.add_error('actionform', msg)
 
         return self.cleaned_data
 

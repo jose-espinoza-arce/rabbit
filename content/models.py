@@ -159,8 +159,8 @@ class AdBase(models.Model):
                              blank=True, default='')
 
     location = models.ForeignKey(Location, verbose_name=_('Ubicación'))
-    confirmation_email_subject = models.CharField(verbose_name=_('Subject de correo.'), max_length=255)
-    confirmation_email = models.TextField(verbose_name=_('Correo de confirmación'))
+    confirmation_email_subject = models.CharField(verbose_name=_('Subject de correo.'), max_length=255, blank=True)
+    confirmation_email = models.TextField(verbose_name=_('Correo de confirmación'), blank=True)
 
 
     start_showing = models.DateTimeField(verbose_name=_(u'Start showing'),
