@@ -55,7 +55,7 @@ class MailerMessage(models.Model):
     content = models.TextField(_('Content'), blank=True)
     html_content = models.TextField(_('HTML Content'), blank=True)
     app = models.CharField(_('App'), max_length=250, blank=True)
-    sent = models.BooleanField(_('Sent'), default=False, editable=False)
+    sent = models.BooleanField(_('Sent'), default=False, editable=True)
     last_attempt = models.DateTimeField(_('Last attempt'), auto_now=False, auto_now_add=False, blank=True, null=True, editable=False)
 
     objects = MailerMessageManager()
