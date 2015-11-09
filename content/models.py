@@ -210,6 +210,12 @@ class AdBase(models.Model):
         nw = now()
         return self.start_showing < nw < self.stop_showing
 
+    def clean_stats(self):
+        self.votes.all().delete()
+        self.clicks.all().delete()
+        self.impressions.all().delete()
+        self.phone_views.all().delete()
+
 
 
 class AdImpression(models.Model):
