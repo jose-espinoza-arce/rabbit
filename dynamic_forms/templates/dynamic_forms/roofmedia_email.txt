@@ -9,11 +9,9 @@ Haz recibido una nueva oportunidad de venta generada por tu servicio de publicid
 es muy importante que le des seguimiento al correo ya que el contacto está interesado en
 tu publicación {{ advert.title }} y está esperando a que llames para ser concretada.
 </p>
-
 <p>
 La información del contacto es:
 </p>
-
 <ul style='list-style: none;'>
 {% for entry in data %}
  <li>

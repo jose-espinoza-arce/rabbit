@@ -171,7 +171,8 @@ class AdBaseAdmin(admin.ModelAdmin):
 
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'location', 'description', 'advertiser', 'url')}),
                     (_('Call to action'), {'fields': ('actionform', 'file')}),
-                    (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
+                    #(_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
+                    #(_('Notification email'), {'fields' : ('notification_email_subject', 'notification_email')}),
                     (_('Period'), {'fields': ('start_showing', 'stop_showing')})
                 ]
 
@@ -216,17 +217,6 @@ class AdBaseAdmin(admin.ModelAdmin):
 
     def is_client(self, request):
         return self.clients_group in request.user.groups.all()
-
-
-    # def get_form(self, request, obj=None, **kwargs):
-    #     """
-    #     Overrides the widget for description so it displays as a textarea.
-    #     The original field is a CharField because of the 450 max_length requirement;
-    #     textarea field don't have max_length attribute.
-    #     """
-    #     form = super(AdBaseAdmin, self).get_form(request, obj, **kwargs)
-    #     #form.base_fields['description'].widget = admin.widgets.AdminTextareaWidget()
-    #     return form
 
 
 class AdPhoneViewAdmin(admin.ModelAdmin):
@@ -324,6 +314,7 @@ class BannerAdAdmin(AdBaseAdmin):
                  (_('Banner'), {'fields': ('content', 'content_mobile')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
                  (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
+                 (_('Notification email'), {'fields' : ('notification_email_subject', 'notification_email')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),
                 ]
@@ -336,6 +327,7 @@ class VideoAdAdmin(AdBaseAdmin):
                  (_('Video'), {'fields': ('content', 'content_mobile', 'video_url')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
                  (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
+                 (_('Notification email'), {'fields' : ('notification_email_subject', 'notification_email')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),
                 ]

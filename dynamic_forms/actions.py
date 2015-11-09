@@ -60,15 +60,20 @@ def formmodel_action(label):
 
 @formmodel_action(_('Send confirmation email to posible client of our client'))
 def dynamic_form_send_confirmation_email(form_model, form, advert, request):
+    from django.template import Template, Context
+
+    #TODO: crear un correo dew confirmación por defecto.
+    message = Template(advert.confirmation_email). render(Context({'advert': advert}))
+
     new_message = MailerMessage()
     new_message.subject = advert.confirmation_email_subject
     new_message.to_address = form.cleaned_data['email']
-    new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    new_message.bcc_address = '%s, info@roofmedia.mx' % advert.advertiser.roof_contact #settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
     new_message.reply_to = advert.advertiser.email
     new_message.from_address = 'info@roofmedia.mx'
     new_message.from_name = 'Roof Media'
     new_message.content = ""
-    new_message.html_content = advert.confirmation_email
+    new_message.html_content = message
     new_message.app = "dynamic_forms"
     new_message.save()
 
@@ -77,24 +82,28 @@ def dynamic_form_send_confirmation_email(form_model, form, advert, request):
 
 @formmodel_action(_('Send email to our client'))
 def dynamic_form_send_email(form_model, form, advert, request):
+    from django.template import Template, Context
+
     mapped_data = form.get_mapped_data()
-
-    # Suject and message must be set dunamically
-    subject = _('Has recibido una nueva oportunidad de venta')
-
-
-    message = render_to_string('dynamic_forms/roofmedia_email.txt', {
+    ctx = {
         'form_model': form_model,
         'form': form,
         'data': sorted(mapped_data.items()),
         'advert': advert,
-    })
-
+    }
+    if advert.notification_email_subject:
+        subject = advert.notification_email_subject
+    else:
+        subject = _('Has recibido una nueva oportunidad de venta')
+    if advert.notification_email:
+        message = Template(advert.notification_email).render(Context(ctx))
+    else:
+        message = render_to_string('dynamic_forms/roofmedia_email.txt', ctx)
 
     new_message = MailerMessage()
     new_message.subject = subject
     new_message.to_address = advert.advertiser.email
-    new_message.bcc_address = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    new_message.bcc_address = '%s, info@roofmedia.mx' % advert.advertiser.roof_contact #settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
     new_message.from_address = 'info@roofmedia.mx'
     new_message.from_name = 'Roof Media'
     new_message.content = ''

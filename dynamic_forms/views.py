@@ -6,11 +6,13 @@ from django.contrib import messages
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, FormView, TemplateView
+from django.template import Template, Context
 
 from dynamic_forms.actions import action_registry
 from dynamic_forms.forms import FormModelForm
 from dynamic_forms.models import FormModelData
 from dynamic_forms.utils import is_old_style_action
+
 
 from content.models import AdBase, DownloadLink
 
@@ -97,9 +99,10 @@ class DynamicFormView(FormView):
         except:
             dl_url = ''
 
-        messages.success(self.request,
-            _('Thank you for submitting this form.'))
-        ctx = {'dl_url': dl_url, 'success_message': self.form_model.success_message}
+        #messages.success(self.request,
+        #    _('Thank you for submitting this form.'))
+        success_message = Template(self.form_model.success_message).render(Context({'advert': advert}))
+        ctx = {'dl_url': dl_url, 'success_message': success_message}
         return render(self.request, self.get_success_template(), ctx)
         #super(DynamicFormView, self).form_valid(form)
 

@@ -9,11 +9,14 @@
 <div class="success-wrapper">
 
 <div class="success-message">
+    <h2>Información enviada con éxito</h2>
+    <p>
     {% if success_message %}
         {{ success_message|safe }}
     {% else %}
-        Información enviada. Muchas Gracias!
+        Muchas Gracias!
     {% endif %}
+    </p>
 </div>
 
 </div>
