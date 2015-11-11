@@ -56,18 +56,6 @@ class searchview():
         if request.GET:
             q = request.GET['q']
             path = '/'.join([slugify(unidecode(tag)) for tag in parse_tags(q)])
-
-            #Complete the following if a redirect is note required
-
-            #search_slugs = [slugify(unidecode(tag)) for tag in parse_tags(q)]
-            #tag_slugs = [tag.slug for tag in Tag.objects.all()]
-            #search_tag_slugs = list(set(search_slugs).intersection(tag_slugs))
-
-            #print 'search path'
-            #print path
-            #kwargs['path'] = path
-            #kwargs['from_search'] = True
-            #return tagview(Tag, AdListView, 'slug')(request, *args, **kwargs)
             return redirect('content:tagged_ads', path=path)
 
 
@@ -78,7 +66,7 @@ def _load(module):
 class view():
     """
     Taken (and modified) from mptt_urls. Manage category/ad urls and calls view=AdLisView or AdDetailView depending on
-    last url slot of the path.
+    last url slot of the path.({instance: category, object_instance: Adbase})
     """
     def __init__(self, model, model_object, view, view_object, slug_field):
         self.model = _load(model)
@@ -110,8 +98,7 @@ class view():
                 candidates = self.model_object.objects.filter(**{self.slug_field: instance_slug})
                 view = self.view_object
             else:
-                candidates = self.model.objects.filter(**{self.slug_field: instance_slug})  # candidates to be the instance
-                #view = self.view
+                candidates = self.model.objects.filter(**{self.slug_field: instance_slug})
             for candidate in candidates:
                 # here we compare each candidate's path to the path passed to this view
                 if candidate.get_path() == path:

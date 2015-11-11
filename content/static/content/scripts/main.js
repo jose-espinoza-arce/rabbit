@@ -301,7 +301,45 @@ var Detail = (function ($) {
 
 // Autor: Jose
 
+var Side = (function($){
+    var side = {
+        init: function(){
+            this.cache();
+            this.bind();
+            this.openremodal();
+            return this
+        },
+        cache: function(){
+            this.cfunc = $('#como-funciona');
+            this.pretour = $('.pre-rm-tour');
+            this.tour = $('.rm-tour');
+        },
+        bind: function(){
+            var self = this;
 
+            this.cfunc.on('click', function(e){
+                e.preventDefault();
+                self.pretour.addClass('rm-tour');
+                self.cache();
+                self.openremodal();
+            });
+        },
+        openremodal: function(){
+            if (this.tour.length>0) {
+              var inst = $('[data-remodal-id=modal]').remodal();
+              inst.open();
+              $('.owl-carousel').owlCarousel({
+                  loop:false,
+                  margin:10,
+                  nav:false,
+                  dots: true,
+                  items: 1
+              })
+            }
+        }
+    };
+    return side.init();
+})(jQuery);
 
 
 var List = (function($){
@@ -320,7 +358,7 @@ var List = (function($){
             this.dragging = false;
 
 
-            this.tour = $('.rm-tour');
+            /*this.tour = $('.rm-tour');
             if (this.tour.length>0) {
               var inst = $('[data-remodal-id=modal]').remodal();
               inst.open();
@@ -331,7 +369,7 @@ var List = (function($){
                   dots: true,
                   items: 1
               })
-            };
+            };*/
         },
         call: function(){
             var self = this;
