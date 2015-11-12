@@ -1,7 +1,8 @@
 {% load content_tags %}
 {% load thumbnail %}
 
-<li class="brick {% if im.x < im.y %}col-sm-6 col-md-4{% else %}col-sm-12 col-md-8{% endif %}">
+{% comment %}<li class="brick {% if im.x < im.y %}col-sm-6 col-md-4{% else %}col-sm-12 col-md-8{% endif %}">{% endcomment %}
+<li class="brick col-sm-6 col-md-4">
     <div class="thumbnail">
         <a href="{% url 'content:ad_categories' path=object.get_path %}" class="img-link hover">
             <div class="overlay">
