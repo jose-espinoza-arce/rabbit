@@ -83,8 +83,10 @@ class view():
             raise ValueError('Path was not captured! Please capture it in your urlconf. Example: url(r\'^categories/(?P<path>.*)\', mptt_urls.view(...), ...)')
 
         instance = None  # actual instance the path is pointing to (None by default)
-        path = kwargs['path']
+        path = kwargs['path'].rstrip('/')
+        print('path', path)
         instance_slug = path.split('/')[-1]  # slug of the instance
+        print('inst_slug', instance_slug)
         is_object_instance = False
         view = self.view
 
@@ -95,17 +97,37 @@ class view():
 
         if instance_slug:
             if is_object_instance:
-                candidates = self.model_object.objects.filter(**{self.slug_field: instance_slug})
-                view = self.view_object
+                try:
+                    instance = self.model_object.objects.get(slug=instance_slug)
+                    print('inst_get_path', instance.get_path())
+                    if instance.get_path() != path:
+                        return redirect('content:ad_categories', path=instance.get_path())
+                    view = self.view_object
+                except:
+                    return redirect('content:ad_list')
             else:
-                candidates = self.model.objects.filter(**{self.slug_field: instance_slug})
-            for candidate in candidates:
-                # here we compare each candidate's path to the path passed to this view
-                if candidate.get_path() == path:
-
-                    instance = candidate
-                    break
-
+                try:
+                    instance = self.model.objects.get(slug=instance_slug)
+                    print('inst_get_path', instance.get_path())
+                    if instance.get_path() != path:
+                        return redirect('content:ad_categories', path=instance.get_path())
+                except:
+                    return redirect('content:ad_list')
+            # if is_object_instance:
+            #     candidates = self.model_object.objects.filter(**{self.slug_field: instance_slug})
+            #     view = self.view_object
+            # else:
+            #     candidates = self.model.objects.filter(**{self.slug_field: instance_slug})
+            #     print('candidates', candidates)
+            # for candidate in candidates:
+            #     # here we compare each candidate's path to the path passed to this view
+            #     print('cnd_path', candidate.get_path())
+            #     if candidate.get_path() == path:
+            #         instance = candidate
+            #         break
+        else:
+            return redirect('content:ad_list')
+        print('instance', instance)
         kwargs['instance'] = instance
 
         if instance:
