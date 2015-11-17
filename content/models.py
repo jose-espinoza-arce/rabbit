@@ -29,7 +29,7 @@ from django.contrib.sites.models import Site
 # Use a datetime a few days before the max to that timezone changes don't
 # cause an OverflowError.
 
-MAX_DATETIME = datetime.datetime.now() + datetime.timedelta(days=20)
+MAX_DATETIME = datetime.datetime.now() + datetime.timedelta(days=30)
 try:
     from django.utils.timezone import now, make_aware, utc
 except ImportError:

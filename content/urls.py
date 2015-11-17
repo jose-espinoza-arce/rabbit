@@ -6,12 +6,15 @@ from django.conf.urls import url
 from taggit.models import Tag
 
 import content.url_processors as url_processors
-from content.views import ad_view, ad_phone_view, tag_hint, AdListView
+from content.views import ad_view, ad_phone_view, tag_hint, AdListView, AvisoView
+
+
 
 
 urlpatterns = [
     #url(r'^ad/(?P<slug>[-\w]+)$', DetailBannerView.as_view(), name='banner_ad_view'),
     url(r'^$', AdListView.as_view(), name='ad_list'),
+    url(r'^aviso/$', AvisoView.as_view(), name='aviso'),
     url(r'^view/(?P<pk>[\d]+)/$', ad_view, name='ad_view'),
     url(r'^phone/', ad_phone_view, name='ad_phone_view'),
     url(r'^taghint/', tag_hint, name='tag_hint'),

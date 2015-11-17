@@ -1,0 +1,47 @@
+{% load dynforms_tags %}
+<div style="color: black">
+<p>
+Hola espero te encuentres muy bien,
+</p>
+<p>
+Haz recibido una nueva oportunidad de venta generada por tu servicio de publicidad de <b>Roof Media</b>,
+es muy importante que le des seguimiento al correo ya que el contacto está interesado en
+tu publicación, {{ sopt.ad.title }}, y está esperando a que llames para ser concretada.
+</p>
+<p>
+La información del contacto es:
+</p>
+<ul style='list-style: none;'>
+
+ <li>
+   <b>Nombre</b>: {{sopt.name}}
+ </li>
+ <li>
+   <b>Correo</b>: {{sopt.email}}
+ </li>
+ <li>
+   <b>Teléfono</b>: {{sopt.phone_number}}
+ </li>
+ {% if sopt.notes %}
+ <li>
+   <b>Notas</b>: {{ sopt.notes }}
+ </li>
+ {% endif %}
+</ul>
+
+<p>
+Te recordamos que la única manera de que tu recibas este
+correo es porque realmente hay alguien que desea adquirir
+tu producto o servicio y en Roof Media trabajamos para
+que esto suceda.
+</p>
+<p>
+Si tienes alguna duda, te invitamos a que nos contactes
+al número de teléfono 01 (443) 315 3118. Estamos para servirte.
+</p>
+
+Atte.<br><br>
+
+RoofMedia Team<br>
+<a href="http://roofmedia.mx/" >www.RoofMedia.mx</a>
+</div>

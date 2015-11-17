@@ -11,6 +11,7 @@ from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import ListView, DetailView
 from django.http import Http404
+from django.views.generic import TemplateView
 
 from django.contrib import messages
 from django.utils import timezone
@@ -23,6 +24,9 @@ from taggit.models import Tag
 
 from content.forms import AdSearchForm
 
+
+class AvisoView(TemplateView):
+    template_name = 'content/aviso.html'
 
 class AdListView(ListView):
     model = AdBase

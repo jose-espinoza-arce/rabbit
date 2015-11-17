@@ -17,6 +17,7 @@ from dynamic_forms.utils import is_old_style_action
 from content.models import AdBase, DownloadLink
 
 
+
 class DynamicFormView(FormView):
 
     form_class = FormModelForm
@@ -101,7 +102,8 @@ class DynamicFormView(FormView):
 
         #messages.success(self.request,
         #    _('Thank you for submitting this form.'))
-        success_message = Template(self.form_model.success_message).render(Context({'advert': advert}))
+        ctx = {'ad': advert, 'advert': advert, 'dl_url': dl_url}
+        success_message = Template(self.form_model.success_message).render(Context(ctx))
         ctx = {'dl_url': dl_url, 'success_message': success_message}
         return render(self.request, self.get_success_template(), ctx)
         #super(DynamicFormView, self).form_valid(form)

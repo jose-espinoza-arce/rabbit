@@ -84,22 +84,16 @@ class view():
 
         instance = None  # actual instance the path is pointing to (None by default)
         path = kwargs['path'].rstrip('/')
-        print('path', path)
         instance_slug = path.split('/')[-1]  # slug of the instance
-        print('inst_slug', instance_slug)
-        is_object_instance = False
         view = self.view
-
         try:
             is_object_instance = path.split('/')[-2] == 'ad'
         except:
-            pass
-
+            is_object_instance = False
         if instance_slug:
             if is_object_instance:
                 try:
                     instance = self.model_object.objects.get(slug=instance_slug)
-                    print('inst_get_path', instance.get_path())
                     if instance.get_path() != path:
                         return redirect('content:ad_categories', path=instance.get_path())
                     view = self.view_object
@@ -108,7 +102,6 @@ class view():
             else:
                 try:
                     instance = self.model.objects.get(slug=instance_slug)
-                    print('inst_get_path', instance.get_path())
                     if instance.get_path() != path:
                         return redirect('content:ad_categories', path=instance.get_path())
                 except:
@@ -127,11 +120,8 @@ class view():
             #         break
         else:
             return redirect('content:ad_list')
-        print('instance', instance)
         kwargs['instance'] = instance
-
         if instance:
             kwargs['pk'] = instance.pk
-
         return view.as_view()(*args, **kwargs)
 

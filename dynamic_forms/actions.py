@@ -10,12 +10,14 @@ import six
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from django.template import Template, Context
 
 from dynamic_forms.conf import settings
 from dynamic_forms.utils import is_old_style_action
 from dynamic_forms.mail import send_mail
 
 from mailqueue.models import MailerMessage
+
 
 
 class ActionRegistry(object):
@@ -62,11 +64,19 @@ def formmodel_action(label):
 def dynamic_form_send_confirmation_email(form_model, form, advert, request):
     from django.template import Template, Context
 
-    #TODO: crear un correo dew confirmación por defecto.
-    message = Template(advert.confirmation_email). render(Context({'advert': advert}))
+    ctx = {'ad': advert, 'advert': advert}
+
+    if advert.confirmation_email_subject:
+        subject = Template(advert.confirmation_email_subject).render(Context(ctx))
+    else:
+        subject = advert.title
+    if advert.confirmation_email:
+        message = Template(advert.confirmation_email).render(Context(ctx))
+    else:
+        message = render_to_string('dynamic_forms/confirmation_email.txt', ctx)
 
     new_message = MailerMessage()
-    new_message.subject = advert.confirmation_email_subject
+    new_message.subject = subject
     new_message.to_address = form.cleaned_data['email']
     new_message.bcc_address = '%s, info@roofmedia.mx' % advert.advertiser.roof_contact #settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
     new_message.reply_to = advert.advertiser.email
@@ -82,23 +92,22 @@ def dynamic_form_send_confirmation_email(form_model, form, advert, request):
 
 @formmodel_action(_('Send email to our client'))
 def dynamic_form_send_email(form_model, form, advert, request):
-    from django.template import Template, Context
 
     mapped_data = form.get_mapped_data()
     ctx = {
         'form_model': form_model,
         'form': form,
         'data': sorted(mapped_data.items()),
-        'advert': advert,
+        'ad': advert,
     }
     if advert.notification_email_subject:
-        subject = advert.notification_email_subject
+        subject = Template(advert.notification_email_subject).render(Context(ctx))
     else:
         subject = _('Has recibido una nueva oportunidad de venta')
     if advert.notification_email:
         message = Template(advert.notification_email).render(Context(ctx))
     else:
-        message = render_to_string('dynamic_forms/roofmedia_email.txt', ctx)
+        message = render_to_string('dynamic_forms/notification_email.txt', ctx)
 
     new_message = MailerMessage()
     new_message.subject = subject
@@ -119,13 +128,13 @@ def dynamic_form_store_database(form_model, form, advert, request):
     from dynamic_forms.models import FormModelData
     from analytics.models import SaleOportunity
 
-
     mapped_data = form.get_mapped_data()
     value = json.dumps(mapped_data, cls=DjangoJSONEncoder)
     data = FormModelData.objects.create(form=form_model, value=value, advert=advert)
+    data_value =json.dumps(mapped_data, cls=DjangoJSONEncoder).encode('utf8')
     name = form.cleaned_data['name']
     email = form.cleaned_data['email']
-    sopt = SaleOportunity(name=name, email=email, form_data=data, ad=advert, source=2)
+    sopt = SaleOportunity(name=name, email=email, form_data=data, data=data_value, ad=advert, source=2)
     if 'phone_number' in form.cleaned_data.keys():
         sopt.phone_number = form.cleaned_data['phone_number']
     sopt.save()
@@ -152,22 +161,28 @@ def dynamic_form_send_download_email(form_model, form, advert, request):
     site_url = request.build_absolute_uri('/')
     dl_url = site_url[:-1] + dst_url
     request.META['DL_URL'] = dl_url
+    ctx = {'dl_url': dl_url, 'ad': advert}
 
-    subject = _('Descarga de archivo del anuncio “%(advert)s” submitted') % {'advert': advert.title}
-
-    message = render_to_string('dynamic_forms/download_email.txt', {
-        'dl_url': dl_url,
-    })
-
-    from_email = advert.advertiser.email
-    if form_model.recipient_email:
-        hidden_recipient_list = [form_model.recipient_email]
+    if advert.confirmation_email_subject:
+        subject = Template(advert.confirmation_email_subject).render(Context({'ad': advert}))
     else:
-        hidden_recipient_list = settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+        subject = _('Descarga: “%(advert)s”') % {'advert': advert.title}
+    if advert.confirmation_email:
+        message = Template(advert.confirmation_email).render(Context(ctx))
+    else:
+        message = render_to_string('dynamic_forms/download_email.txt', ctx)
 
-    interested_email = [form.cleaned_data['email']]
-
-    send_mail(subject, '', from_email, interested_email, hidden_recipient_list, html_message=message)
+    new_message = MailerMessage()
+    new_message.subject = subject
+    new_message.to_address = form.cleaned_data['email']
+    new_message.bcc_address = '%s, info@roofmedia.mx' % advert.advertiser.roof_contact #settings.DYNAMIC_FORMS_EMAIL_HIDDEN_RECIPIENTS
+    new_message.reply_to = advert.advertiser.email
+    new_message.from_address = 'info@roofmedia.mx'
+    new_message.from_name = 'Roof Media'
+    new_message.content = ""
+    new_message.html_content = message
+    new_message.app = "dynamic_forms"
+    new_message.save()
 
     link.save()
     if not os.path.isdir(os.path.dirname(dst)):

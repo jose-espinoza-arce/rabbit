@@ -64,9 +64,11 @@ class GooglePlusStatInline(admin.StackedInline):
 
 class SaleOportunityAdmin(admin.ModelAdmin):
     raw_id_fields = ['ad']
-    exclude = ['form_data']
+    #exclude = ['form_data']
     list_display = ['ad', 'name', 'email', 'phone_number', 'source', 'get_form_name', 'created_at']
-    search_fields = [ 'ad__title', 'name', 'form_data__form__name']
+    search_fields = [ 'ad__id', 'ad__title', 'name', 'form_data__form__name',
+                      'ad__advertiser__company_name', 'ad__advertiser__user__first_name',
+                      'ad__advertiser__user__last_name']
     actions = ['default_data']
     try:
         clients_group = Group.objects.get(name='Clientes')

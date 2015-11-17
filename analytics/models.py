@@ -7,6 +7,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 from content.models import AdBase
+
 from dynamic_forms.models import FormModelData
 
 @python_2_unicode_compatible
@@ -21,12 +22,14 @@ class SaleOportunity(models.Model):
     )
     ad = models.ForeignKey(AdBase, related_name='sales_oportunities')
     form_data = models.OneToOneField(FormModelData, blank=True, null=True)
+    data = models.TextField(_('Datos'), blank=True, default='')
     name = models.CharField(verbose_name=_('Client Name'), max_length=255)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{10}$',
                                  message="Enter a valid phone number.")
     phone_number = models.CharField(verbose_name=_('Phone number'), validators=[phone_regex], max_length=16, blank=True, default='')
     email = models.EmailField('Correo')
     source = models.PositiveSmallIntegerField(verbose_name=_('Source'), choices=CHOICES)
+    notes = models.TextField(verbose_name=_('Notas'), blank=True, default='')
 
     created_at = models.DateTimeField(verbose_name=_('Created'), auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -37,7 +40,7 @@ class SaleOportunity(models.Model):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return 'Cliente: {0}'.format(self.name)
+        return 'Cliente: %s' % self.name
 
 @python_2_unicode_compatible
 class StatRegister(models.Model):
@@ -151,6 +154,8 @@ class VideoStat(models.Model):
 
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.template.loader import render_to_string
+from mailqueue.models import MailerMessage
 
 _UNSAVED_FILEFIELD = 'unsaved_filefield'
 
@@ -172,3 +177,17 @@ def save_file(sender, instance, created, **kwargs):
         # delete it if you feel uncomfortable...
         # instance.__dict__.pop(_UNSAVED_FILEFIELD)
 
+
+@receiver(post_save, sender=SaleOportunity)
+def send_email(sender, instance, created, **kwargs):
+    if instance.source != 2:
+        message = render_to_string('analytics/saleoportunity_email.txt', {'sopt': instance})
+        new_message = MailerMessage()
+        new_message.subject = _('Has recibido una nueva oportunidad de venta')
+        new_message.to_address = instance.ad.advertiser.email
+        new_message.from_address = 'info@roofmedia.mx'
+        new_message.from_name = 'Roof Media'
+        new_message.html_content = message
+        new_message.app = "analytics"
+        print('message', message)
+        new_message.save()

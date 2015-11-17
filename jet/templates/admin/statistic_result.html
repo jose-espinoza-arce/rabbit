@@ -68,6 +68,7 @@
                     <li><span>Me gusta:</span><span>{{ ad.total_upvotes }}</span></li>
                     <li><span>Vistas de teléfono:</span><span>{{ ad.ph_views }}</span></li>
                     <li><span>Clics a enlace</span><span>{{ ad.clics }}</span></li>
+                    <li><a href="{% url 'admin:analytics_saleoportunity_changelist' %}?q={{ ad.id }}">Oportunidades de venta</a><span>{{ ad.sales_oportunities.count }}</span></li>
                 </ul>
             </div>
         </div>
