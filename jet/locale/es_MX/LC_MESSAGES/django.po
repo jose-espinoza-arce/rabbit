@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-09 11:48-0500\n"
+"POT-Creation-Date: 2015-11-19 17:29-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,59 +15,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: jet/dashboard/dashboard.py:159
+#: jet/dashboard/dashboard.py:160 jet/dashboard/dashboard.py:238
 msgid "Quick links"
 msgstr "Enlaces"
 
-#: jet/dashboard/dashboard.py:165
+#: jet/dashboard/dashboard.py:166 jet/dashboard/dashboard.py:244
 msgid "Return to site"
 msgstr "Regresar al sitio"
 
-#: jet/dashboard/dashboard.py:166 jet/templates/admin/base.html:80
+#: jet/dashboard/dashboard.py:167 jet/dashboard/dashboard.py:245
+#: jet/templates/admin/base.html:85
 msgid "Change password"
 msgstr ""
 
-#: jet/dashboard/dashboard.py:168 jet/templates/admin/base.html:84
+#: jet/dashboard/dashboard.py:169 jet/dashboard/dashboard.py:247
+#: jet/templates/admin/base.html:89
 msgid "Log out"
 msgstr ""
 
-#: jet/dashboard/dashboard.py:176 jet/dashboard/modules.py:160
-#: jet/templates/admin/base.html:178 jet/templates/admin/index.html:14
+#: jet/dashboard/dashboard.py:177 jet/dashboard/dashboard.py:255
+#: jet/dashboard/modules.py:160 jet/templates/admin/base.html:183
+#: jet/templates/admin/index.html:14
 msgid "Applications"
 msgstr "Aplicaciones"
 
-#: jet/dashboard/dashboard.py:184
-msgid "Administration"
-msgstr "Administración"
-
-#: jet/dashboard/dashboard.py:192 jet/dashboard/modules.py:245
-#: jet/templates/admin/index.html:68
+#: jet/dashboard/dashboard.py:184 jet/dashboard/dashboard.py:271
+#: jet/dashboard/modules.py:245 jet/templates/admin/index.html:68
 msgid "Recent Actions"
 msgstr ""
 
-#: jet/dashboard/dashboard.py:200
-msgid "Latest Django News"
-msgstr ""
-
-#: jet/dashboard/dashboard.py:209
-msgid "Support"
-msgstr ""
-
-#: jet/dashboard/dashboard.py:212
-msgid "Django documentation"
-msgstr ""
-
-#: jet/dashboard/dashboard.py:217
-msgid "Django \"django-users\" mailing list"
-msgstr ""
-
-#: jet/dashboard/dashboard.py:222
-msgid "Django irc channel"
-msgstr ""
-
-#: jet/dashboard/dashboard.py:237
+#: jet/dashboard/dashboard.py:204 jet/dashboard/dashboard.py:283
 msgid "Application models"
 msgstr "Modelos y vistas"
+
+#: jet/dashboard/dashboard.py:219 jet/dashboard/dashboard.py:263
+msgid "Administration"
+msgstr "Administración"
 
 #: jet/dashboard/dashboard_modules/google_analytics.py:143
 #: jet/dashboard/dashboard_modules/yandex_metrika.py:101
@@ -301,7 +284,7 @@ msgid "Yandex Metrika period visitors"
 msgstr ""
 
 #: jet/dashboard/models.py:11 jet/dashboard/modules.py:116
-#: jet/templates/admin/base.html:210
+#: jet/templates/admin/base.html:215
 msgid "Title"
 msgstr ""
 
@@ -350,7 +333,7 @@ msgid "user dashboard modules"
 msgstr ""
 
 #: jet/dashboard/modules.py:115 jet/models.py:9
-#: jet/templates/admin/base.html:212
+#: jet/templates/admin/base.html:217
 msgid "URL"
 msgstr ""
 
@@ -404,12 +387,14 @@ msgstr ""
 
 #: jet/dashboard/templates/admin/app_index.html:32
 #: jet/dashboard/templates/jet.dashboard/update_module.html:14
-#: jet/templates/admin/base.html:95 jet/templates/admin/base.html.py:147
+#: jet/templates/admin/base.html:100 jet/templates/admin/base.html.py:152
 #: jet/templates/admin/change_form.html:17
 #: jet/templates/admin/change_list.html:33
 #: jet/templates/admin/delete_confirmation.html:8
 #: jet/templates/admin/delete_selected_confirmation.html:8
 #: jet/templates/admin/object_history.html:6
+#: jet/templates/admin/statistic.html:9
+#: jet/templates/admin/statistic_result.html:12
 #: jet/templates/registration/logged_out.html:4
 #: jet/templates/registration/password_change_done.html:6
 #: jet/templates/registration/password_change_form.html:6
@@ -511,13 +496,13 @@ msgstr ""
 #: jet/templates/admin/edit_inline/stacked.html:8
 #: jet/templates/admin/edit_inline/tabular.html:10
 #: jet/templates/admin/includes/fieldset.html:9
-#: jet/templates/admin/login.html:27
+#: jet/templates/admin/login.html:27 jet/templates/admin/statistic.html:22
 #: jet/templates/registration/password_change_form.html:21
 msgid "Please correct the errors below."
 msgstr ""
 
 #: jet/dashboard/templates/jet.dashboard/update_module.html:126
-#: jet/templates/admin/base.html:232 jet/templates/admin/base.html.py:239
+#: jet/templates/admin/base.html:237 jet/templates/admin/base.html.py:244
 #: jet/templates/admin/edit_inline/stacked.html:21
 #: jet/templates/admin/edit_inline/stacked.html:75
 #: jet/templates/admin/edit_inline/tabular.html:100
@@ -561,7 +546,7 @@ msgstr ""
 msgid "bookmark"
 msgstr ""
 
-#: jet/models.py:16 jet/templates/admin/base.html:225
+#: jet/models.py:16 jet/templates/admin/base.html:230
 msgid "bookmarks"
 msgstr ""
 
@@ -594,27 +579,27 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
-#: jet/templates/admin/base.html:154
+#: jet/templates/admin/base.html:159
 msgid "View site"
 msgstr "Ver sitio"
 
-#: jet/templates/admin/base.html:162
+#: jet/templates/admin/base.html:167
 msgid "Documentation"
 msgstr "Documentación"
 
-#: jet/templates/admin/base.html:207 jet/templates/admin/base.html.py:224
+#: jet/templates/admin/base.html:212 jet/templates/admin/base.html.py:229
 msgid "Add bookmark"
 msgstr "Agregar marcadores"
 
-#: jet/templates/admin/base.html:220
+#: jet/templates/admin/base.html:225
 msgid "Delete bookmark"
 msgstr "Eliminar marcador"
 
-#: jet/templates/admin/base.html:221
+#: jet/templates/admin/base.html:226
 msgid "Are you sure want to delete this bookmark?"
 msgstr "Está seguro que desea eliminar este marcador"
 
-#: jet/templates/admin/base.html:263
+#: jet/templates/admin/base.html:268
 msgid "Application page"
 msgstr "Página de la aplicación"
 
@@ -639,24 +624,29 @@ msgid "Add %(name)s"
 msgstr ""
 
 #: jet/templates/admin/change_list.html:61 jet/templates/admin/login.html:27
+#: jet/templates/admin/statistic.html:22
 #: jet/templates/registration/password_change_form.html:21
 msgid "Please correct the error below."
 msgstr ""
 
 #: jet/templates/admin/change_list_results.html:17
+#: jet/templates/admin/stat_list_results.html:17
 #, python-format
 msgid "Sorting priority: %(priority_number)s"
 msgstr ""
 
 #: jet/templates/admin/change_list_results.html:18
+#: jet/templates/admin/stat_list_results.html:18
 msgid "Remove from sorting"
 msgstr ""
 
 #: jet/templates/admin/change_list_results.html:19
+#: jet/templates/admin/stat_list_results.html:19
 msgid "Toggle sorting"
 msgstr ""
 
 #: jet/templates/admin/change_list_results.html:35
+#: jet/templates/admin/stat_list_results.html:35
 msgid "try to reset filters"
 msgstr ""
 

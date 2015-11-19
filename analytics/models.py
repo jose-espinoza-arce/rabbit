@@ -51,7 +51,7 @@ class StatRegister(models.Model):
 
     class Meta:
         verbose_name = _('Register')
-        verbose_name_plural = 'Registry'
+        verbose_name_plural = _('Registry')
         ordering = ('created_at',)
 
     def __str__(self):

@@ -159,7 +159,7 @@ class AdZoneAdmin(admin.ModelAdmin):
 
 class AdBaseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['title']}
-    list_display = ['title', 'since', 'advertiser', 'has_register', 'start_showing', 'stop_showing']
+    list_display = ['title', 'since', 'advertiser', 'tiene_registro', 'start_showing', 'stop_showing']
     list_filter = ['stop_showing', HasRegisterFilter]
     search_fields = ['title', 'advertiser__company_name']
     raw_id_fields = ['advertiser']
@@ -180,7 +180,7 @@ class AdBaseAdmin(admin.ModelAdmin):
 
 
 
-    def has_register(self, obj):
+    def tiene_registro(self, obj):
         if getattr(obj, 'stats_register', None):
             return _('Yes')
         else:
@@ -321,7 +321,7 @@ class BannerAdAdmin(AdBaseAdmin):
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'location', 'description', 'advertiser', 'url')}),
                  (_('Banner'), {'fields': ('content', 'content_mobile')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
-                 (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
+                 (_('Confirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
                  (_('Notification email'), {'fields' : ('notification_email_subject', 'notification_email')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),
@@ -337,7 +337,7 @@ class VideoAdAdmin(AdBaseAdmin):
     fieldsets = [(None, {'fields': ('title', 'slug', 'category', 'location', 'description', 'advertiser', 'url')}),
                  (_('Video'), {'fields': ('content', 'content_mobile', 'video_url')}),
                  (_('Call to action'), {'fields': ('actionform', 'file')}),
-                 (_('Corfirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
+                 (_('Confirmation email'), {'fields' : ('confirmation_email_subject', 'confirmation_email')}),
                  (_('Notification email'), {'fields' : ('notification_email_subject', 'notification_email')}),
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),

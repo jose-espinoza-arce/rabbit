@@ -10,7 +10,7 @@ register = template.Library()
 @register.filter
 def getfieldlabel(value, arg):
     """Gets an attribute of an object dynamically from a string name"""
-    
+
     return value[arg].label
     #
     # if hasattr(value, str(arg)):

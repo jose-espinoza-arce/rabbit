@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-09 11:48-0500\n"
+"POT-Creation-Date: 2015-11-19 17:29-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,13 +20,13 @@ msgstr ""
 
 #: feedback_form/admin.py:19
 msgid "Message excerpt"
-msgstr ""
+msgstr "Extraco del mensaje"
 
 #: feedback_form/admin.py:25
 #: feedback_form/templates/feedback_form/email/body.txt:16
 #: feedback_form/templates/feedback_form/email/body.txt:18
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: feedback_form/apps.py:6
 msgid "Feedback"
@@ -34,7 +34,7 @@ msgstr ""
 
 #: feedback_form/models.py:23
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: feedback_form/models.py:29
 msgid "Correo-e"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: feedback_form/models.py:34
 msgid "Current URL"
-msgstr ""
+msgstr "URL actual"
 
 #: feedback_form/models.py:40
 msgid "Mensaje"
@@ -50,15 +50,15 @@ msgstr ""
 
 #: feedback_form/models.py:46
 msgid "Creation Date"
-msgstr ""
+msgstr "Fecha de creación"
 
 #: feedback_form/templates/feedback_form/email/body.txt:4
 msgid "A new report has been posted:"
-msgstr ""
+msgstr "Un nuevo reporte ha sido enviado:"
 
 #: feedback_form/templates/feedback_form/email/body.txt:6
 msgid "A new feedback has been posted:"
-msgstr ""
+msgstr "Un nuevo feedback ha sido enviado:"
 
 #: feedback_form/templates/feedback_form/email/body.txt:10
 msgid "URL"
@@ -66,51 +66,51 @@ msgstr ""
 
 #: feedback_form/templates/feedback_form/email/body.txt:12
 msgid "Object type"
-msgstr ""
+msgstr "Tipo de objeto"
 
 #: feedback_form/templates/feedback_form/email/body.txt:13
 msgid "Object PK"
-msgstr ""
+msgstr "ID del objeto"
 
 #: feedback_form/templates/feedback_form/email/body.txt:20
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: feedback_form/templates/feedback_form/email/confirmation_body.txt:1
 msgid "Hi"
-msgstr ""
+msgstr "Hola"
 
 #: feedback_form/templates/feedback_form/email/confirmation_body.txt:3
 msgid "Thanks for your feedback! We'll get back to you soon."
-msgstr ""
+msgstr "Gracias por tu feedback! Te contactaremos pronto."
 
 #: feedback_form/templates/feedback_form/email/confirmation_body.txt:5
 msgid "See you soon!"
-msgstr ""
+msgstr "¡Hasta luego!"
 
 #: feedback_form/templates/feedback_form/email/confirmation_subject.txt:1
 msgid "Thank you"
-msgstr ""
+msgstr "Gracias"
 
 #: feedback_form/templates/feedback_form/email/subject.txt:1
 msgid "New report has arrived"
-msgstr ""
+msgstr "Un nuevo reporte ha llegado"
 
 #: feedback_form/templates/feedback_form/email/subject.txt:1
 msgid "New feedback has arrived"
-msgstr ""
+msgstr "Un nuevo feedback ha llegado"
 
 #: feedback_form/templates/feedback_form/partials/form.html:6
 msgid "You are about to report:"
-msgstr ""
+msgstr "Estas a punto de reportar:"
 
 #: feedback_form/templates/feedback_form/partials/form.html:8
 msgid "Send Feedback"
-msgstr ""
+msgstr "Envíar feedback"
 
 #: feedback_form/templates/feedback_form/partials/form.html:15
 msgid "Thank you!"
-msgstr ""
+msgstr "¡Gracias!"
 
 #: feedback_form/templates/feedback_form/partials/form_content.html:19
 msgid "Enviar Mensaje"

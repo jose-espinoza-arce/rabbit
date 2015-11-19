@@ -136,7 +136,7 @@ class StatRegisterAdmin(AdminViews):
         )
 
     def get_inline_instances(self, request, obj=None):
-        print('inline instances')
+
         #print(getattr(obj.ad, 'videoad', False))
         if getattr(obj, 'ad', False):
             if getattr(obj.ad, 'videoad', False):

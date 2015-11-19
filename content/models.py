@@ -58,7 +58,7 @@ class Advertiser(models.Model):
     company_name = models.CharField(
         verbose_name=_(u'Company Name'), max_length=255)
     website = models.URLField(verbose_name=_(u'Company Site'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Usuario'))
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(verbose_name=_('Phone number'), validators=[phone_regex], max_length=16, blank=True, default='')
@@ -102,7 +102,7 @@ class AdCategory(MPTTModel):
     name = models.CharField(verbose_name=_(u'Name'), max_length=255)
     slug = models.SlugField(verbose_name=_(u'Slug'), unique=True)
     description = models.TextField(verbose_name=_(u'Description'))
-    parent = TreeForeignKey('self', blank=True, null=True, related_name='child')
+    parent = TreeForeignKey('self',verbose_name=_('Categoría padre'), blank=True, null=True, related_name='child')
 
     #def __init__(self, *args, **kwargs):
     #    super(AdCategory, self).__init__(*args, **kwargs)

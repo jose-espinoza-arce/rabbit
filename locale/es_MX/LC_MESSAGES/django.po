@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-09 11:48-0500\n"
+"POT-Creation-Date: 2015-11-19 17:29-0600\n"
 "PO-Revision-Date: 2015-01-18 08:31+0000\n"
 "Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
 "Language-Team: Spanish (Mexico) (http://www.transifex.com/projects/p/django/"
@@ -57,14 +57,20 @@ msgstr "Ninguna disponible"
 msgid "Unknown content"
 msgstr "Contenido desconocido"
 
-msgid ""
-"The groups this user belongs to. A user will get all permissions granted to "
-"each of their groups."
-msgstr "Los grupos a los que este usuario pertenece."
+#, fuzzy
+#~| msgid "object id"
+#~ msgid "Subject"
+#~ msgstr "id de objeto"
 
-msgid ""
-"Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
-msgstr "Presiona \"Control\", o \"Command\" en Mac, para seleccionar más de uno."
+#~ msgid ""
+#~ "The groups this user belongs to. A user will get all permissions granted "
+#~ "to each of their groups."
+#~ msgstr "Los grupos a los que este usuario pertenece."
+
+#~ msgid ""
+#~ "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+#~ msgstr ""
+#~ "Presiona \"Control\", o \"Command\" en Mac, para seleccionar más de uno."
 
 # ------ADMIN---------
 #~ msgid "Successfully deleted %(count)d %(items)s."
@@ -119,9 +125,6 @@ msgstr "Presiona \"Control\", o \"Command\" en Mac, para seleccionar más de uno
 
 #~ msgid "action time"
 #~ msgstr "hora de la acción"
-
-#~ msgid "object id"
-#~ msgstr "id de objeto"
 
 #~ msgid "object repr"
 #~ msgstr "repr de objeto"
@@ -336,11 +339,11 @@ msgstr "Presiona \"Control\", o \"Command\" en Mac, para seleccionar más de uno
 #~ msgid "Welcome,"
 #~ msgstr "Bienvenido,"
 
-#~ msgid "email address"
-#~ msgstr "correo electŕonico"
+msgid "email address"
+msgstr "correo electŕonico"
 
-#~ msgid "Documentation"
-#~ msgstr "Documentación"
+msgid "Documentation"
+msgstr "Documentación"
 
 #~ msgid "Log out"
 #~ msgstr "Cerrar sesión"
@@ -588,17 +591,17 @@ msgstr "Presiona \"Control\", o \"Command\" en Mac, para seleccionar más de uno
 #~ msgid "Select %s to change"
 #~ msgstr "Seleccione %s a modificar"
 
-#~ msgid "Date:"
-#~ msgstr "Fecha:"
+msgid "Date:"
+msgstr "Fecha:"
 
 #~ msgid "Time:"
 #~ msgstr "Hora:"
 
-#~ msgid "Lookup"
-#~ msgstr "Buscar"
+msgid "Lookup"
+msgstr "Buscar"
 
-#~ msgid "Currently:"
-#~ msgstr "Actualmente:"
+msgid "Currently:"
+msgstr "Actualmente:"
 
 #~ msgid "Change:"
 #~ msgstr "Modificar:"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-09 11:48-0500\n"
+"POT-Creation-Date: 2015-11-19 17:29-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,59 +18,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: analytics/admin.py:135 analytics/admin.py:209
+msgid "Statistics"
+msgstr "Estadísticas"
+
 #: analytics/apps.py:7
 msgid "Analytics"
 msgstr ""
 
-#: analytics/models.py:21
-msgid "Name"
-msgstr ""
-
-#: analytics/models.py:24
-msgid "Phone number"
+#: analytics/models.py:25
+msgid "Datos"
 msgstr ""
 
 #: analytics/models.py:26
+msgid "Client Name"
+msgstr "Nombre del cliente"
+
+#: analytics/models.py:29
+msgid "Phone number"
+msgstr "Teléfono"
+
+#: analytics/models.py:31
 msgid "Source"
+msgstr "Fuente"
+
+#: analytics/models.py:32
+msgid "Notas"
 msgstr ""
 
-#: analytics/models.py:37
-#, python-format
-msgid "Client: %s, Advertiser: %s"
-msgstr ""
+#: analytics/models.py:34
+msgid "Created"
+msgstr "Creado"
 
-#: analytics/models.py:47
+#: analytics/models.py:53
 msgid "Register"
+msgstr "Registro"
+
+#: analytics/models.py:54
+msgid "Registry"
+msgstr "Registros"
+
+#: analytics/models.py:72 analytics/models.py:92 analytics/models.py:120
+msgid "Post ID"
 msgstr ""
 
-#: analytics/models.py:58
-msgid "Reached people"
-msgstr ""
-
-#: analytics/models.py:59
-msgid "Liekes"
-msgstr ""
-
-#: analytics/models.py:60
-msgid "Comments"
-msgstr ""
-
-#: analytics/models.py:61
-msgid "Shares"
-msgstr ""
-
-#: analytics/models.py:62 analytics/models.py:75 analytics/models.py:87
-msgid "Advert Clicks"
-msgstr ""
-
-#: analytics/models.py:63
-msgid "Link Clicks"
+#: analytics/models.py:73
+msgid "Facebook Image"
 msgstr ""
 
 #: analytics/models.py:74
+msgid "Reached people"
+msgstr "Alcance"
+
+#: analytics/models.py:75
+msgid "Likes"
+msgstr "Me gusta"
+
+#: analytics/models.py:76 analytics/models.py:123
+msgid "Comments"
+msgstr "Comentarios"
+
+#: analytics/models.py:77 analytics/models.py:125
+msgid "Shares"
+msgstr "Compartidas"
+
+#: analytics/models.py:78 analytics/models.py:95 analytics/models.py:108
+msgid "Advert Clicks"
+msgstr "Clics en el anuncio"
+
+#: analytics/models.py:79
+msgid "Link Clicks"
+msgstr "Clics en el enlace"
+
+#: analytics/models.py:93
+msgid "Linkedin Image"
+msgstr "Imagen para Linkedin"
+
+#: analytics/models.py:94
 msgid "Linkedin Members"
+msgstr "Miembros de Linkedin"
+
+#: analytics/models.py:96 analytics/models.py:109 analytics/models.py:124
+msgid "Advert Impressions"
+msgstr "Impresiones del anuncio"
+
+#: analytics/models.py:107
+msgid "Ad Group ID"
+msgstr "ID del grupo de anuncios"
+
+#: analytics/models.py:121
+msgid "Gplus scope"
+msgstr "Alcance en G+"
+
+#: analytics/models.py:122
+msgid "Pluses(+1)"
 msgstr ""
 
-#: analytics/models.py:76 analytics/models.py:88
-msgid "Advert Impressions"
+#: analytics/models.py:136
+msgid "Visitors"
+msgstr "Visitantes"
+
+#: analytics/models.py:137
+msgid "Users"
+msgstr "Usuarios"
+
+#: analytics/models.py:138
+msgid "Average time(mins)"
+msgstr "Tiempo promedia (mins)"
+
+#: analytics/models.py:149
+msgid "Times played"
+msgstr "Reproducciones"
+
+#: analytics/models.py:186
+msgid "Has recibido una nueva oportunidad de venta"
 msgstr ""
