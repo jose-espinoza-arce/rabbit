@@ -94,6 +94,7 @@ def dynamic_form_send_confirmation_email(form_model, form, advert, request):
 def dynamic_form_send_email(form_model, form, advert, request):
 
     mapped_data = form.get_mapped_data()
+
     ctx = {
         'form_model': form_model,
         'form': form,
@@ -105,9 +106,13 @@ def dynamic_form_send_email(form_model, form, advert, request):
     else:
         subject = _('Has recibido una nueva oportunidad de venta')
     if advert.notification_email:
+
         message = Template(advert.notification_email).render(Context(ctx))
+
     else:
+
         message = render_to_string('dynamic_forms/notification_email.txt', ctx)
+
 
     new_message = MailerMessage()
     new_message.subject = subject
@@ -119,6 +124,7 @@ def dynamic_form_send_email(form_model, form, advert, request):
     new_message.html_content = message
     new_message.app = "dynamic_forms"
     new_message.save()
+
 
 
 

@@ -224,7 +224,7 @@ class ChoiceField(BaseDynamicFormField):
 class DateField(BaseDynamicFormField):
 
     cls = 'django.forms.DateField'
-    display_label = _('Date')
+    display_label = _('Fecha')
 
     class Meta:
         localize = [bool, True, forms.NullBooleanField]
