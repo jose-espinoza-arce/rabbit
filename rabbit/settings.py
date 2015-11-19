@@ -29,7 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-MANAGERS = (('Jose', 'jose@roofmedia.mx'),)
+MANAGERS = (('Manager', 'manager@roofmedia.mx'),)
 
 
 # Email settings
