@@ -29,7 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-MANAGERS = (('Manager', 'manager@roofmedia.mx'),)
+MANAGERS = (('Manager', 'manager@roofmedia.mx'), ('Oswald', 'oswaldo_alca@mucha-web.com'),)
 
 
 # Email settings
