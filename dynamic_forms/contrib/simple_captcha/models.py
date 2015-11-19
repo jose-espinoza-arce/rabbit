@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from dynamic_forms.formfields import BaseDynamicFormField, dynamic_form_field
 
 
-@dynamic_form_field
+#@dynamic_form_field
 class CaptchaField(BaseDynamicFormField):
 
     cls = 'captcha.fields.CaptchaField'

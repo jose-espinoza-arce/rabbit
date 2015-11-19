@@ -355,6 +355,7 @@ var List = (function($){
             this.end = $('a.the-end');
             this.window = $(window);
             this.imglink = $('.img-link');
+            this.location = $('.location-form');
             this.dragging = false;
 
 
@@ -414,7 +415,9 @@ var List = (function($){
                 self.end.attr('data-clicked', 1);
             });
             this.bindbricks(this.imglink);
-
+            this.location.change(function(e){
+               self.location.submit()
+            });
         },
         loadmasonry: function(newImages){
             var self = this;

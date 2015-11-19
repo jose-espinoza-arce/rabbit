@@ -180,7 +180,7 @@ def save_file(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=SaleOportunity)
 def send_email(sender, instance, created, **kwargs):
-    if instance.source != 2:
+    if instance.source != 2 and created:
         message = render_to_string('analytics/saleoportunity_email.txt', {'sopt': instance})
         new_message = MailerMessage()
         new_message.subject = _('Has recibido una nueva oportunidad de venta')
@@ -189,5 +189,4 @@ def send_email(sender, instance, created, **kwargs):
         new_message.from_name = 'Roof Media'
         new_message.html_content = message
         new_message.app = "analytics"
-        print('message', message)
         new_message.save()

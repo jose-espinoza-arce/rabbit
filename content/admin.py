@@ -118,17 +118,17 @@ class AdBaseForm(forms.ModelForm):
                            pero no asigno ningún archivo'
                     self.add_error('file', msg)
                     self.add_error('actionform', msg)
-            if set(actionform.actions).intersection(confirm_action_list):
-                if not conf_email:
-                    msg = 'Seleccionó un formulario con envío de confirmación \
-                           pero no asignó ningún correo electrónico.'
-                    self.add_error('confirmation_email', msg)
-                    self.add_error('actionform', msg)
-                if not conf_email_subj:
-                    msg = 'Seleccionó un formulario con envío de confirmación \
-                           pero no asignó asunto para el correo electrónico'
-                    self.add_error('confirmation_email_subject', msg)
-                    self.add_error('actionform', msg)
+            # if set(actionform.actions).intersection(confirm_action_list):
+            #     if not conf_email:
+            #         msg = 'Seleccionó un formulario con envío de confirmación \
+            #                pero no asignó ningún correo electrónico.'
+            #         self.add_error('confirmation_email', msg)
+            #         self.add_error('actionform', msg)
+            #     if not conf_email_subj:
+            #         msg = 'Seleccionó un formulario con envío de confirmación \
+            #                pero no asignó asunto para el correo electrónico'
+            #         self.add_error('confirmation_email_subject', msg)
+            #         self.add_error('actionform', msg)
 
         return self.cleaned_data
 
@@ -175,6 +175,9 @@ class AdBaseAdmin(admin.ModelAdmin):
                     #(_('Notification email'), {'fields' : ('notification_email_subject', 'notification_email')}),
                     (_('Period'), {'fields': ('start_showing', 'stop_showing')})
                 ]
+    def has_add_permission(self, request):
+        return False
+
 
 
     def has_register(self, obj):
@@ -217,6 +220,11 @@ class AdBaseAdmin(admin.ModelAdmin):
 
     def is_client(self, request):
         return self.clients_group in request.user.groups.all()
+
+    # def has_change_permission(self, request, obj=None):
+    #     if obj is not None and obj.status > 1:
+    #         return False
+    #     return super(AdBaseAdmin, self).has_change_permission(request, obj=obj)
 
 
 class AdPhoneViewAdmin(admin.ModelAdmin):
@@ -318,6 +326,9 @@ class BannerAdAdmin(AdBaseAdmin):
                  (_('Period'), {'fields': ('start_showing', 'stop_showing')}),
                  (_('Tags'), {'fields': ('tags',)}),
                 ]
+    def has_add_permission(self, request):
+        return super(AdBaseAdmin, self).has_add_permission(request)
+
 
 
 class VideoAdAdmin(AdBaseAdmin):
@@ -332,6 +343,8 @@ class VideoAdAdmin(AdBaseAdmin):
                  (_('Tags'), {'fields': ('tags',)}),
                 ]
 
+    def has_add_permission(self, request):
+        return super(AdBaseAdmin, self).has_add_permission(request)
 
 
 

@@ -12,12 +12,12 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import ListView, DetailView
 from django.http import Http404
 from django.views.generic import TemplateView
-
+from django import forms
 from django.contrib import messages
 from django.utils import timezone
 import json
 
-from content.models import AdBase, AdClick, AdBase, AdImpression, AdPhoneView
+from content.models import AdBase, AdClick, AdBase, AdImpression, AdPhoneView, Location
 from django.shortcuts import get_object_or_404, redirect
 
 from taggit.models import Tag
@@ -28,14 +28,25 @@ from content.forms import AdSearchForm
 class AvisoView(TemplateView):
     template_name = 'content/aviso.html'
 
+class LocationFilterForm(forms.Form):
+    location = forms.ModelChoiceField(queryset=Location.objects.all(), empty_label='Ubicación')
+
 class AdListView(ListView):
     model = AdBase
     paginate_by = 20
+    location = None
 
     def get_context_data(self, **kwargs):
         ctx = super(AdListView, self).get_context_data(**kwargs)
-        slugs = self.request.path.split('/')
+        slugs = self.request.path.rstrip('/').split('/')
         q = ''
+        if 'location' in self.request.GET:
+            try:
+                loc = Location.objects.get(pk=self.request.GET['location'])
+            except:
+                loc = None
+        else:
+            loc = None
 
         if 'instance' in kwargs.keys():
             ctx['category'] = kwargs['instance']
@@ -45,8 +56,8 @@ class AdListView(ListView):
             slugs.pop(0)
             names = [tag.name for tag in [Tag.objects.get(slug=slug) for slug in slugs]]
             q = (', ').join(names) + ', '
-
         ctx['search_form'] = AdSearchForm(initial={'q': q})
+        ctx['location_form'] = LocationFilterForm(initial={'location': loc})
         return ctx
 
     def get_queryset(self):
@@ -60,16 +71,31 @@ class AdListView(ListView):
         queryset = self.get_queryset()
         request.META["CSRF_COOKIE_USED"] = True
 
+        # Filtro por categorías o tags
         if 'path' in kwargs.keys():
             if 'instance' in kwargs.keys():
                 descendants = kwargs['instance'].get_descendants(include_self=True)
-                self.queryset = queryset.filter(category__in=descendants)
+                queryset = queryset.filter(category__in=descendants)
             elif 'tags' in kwargs.keys():
-                self.queryset = queryset.filter(tags__in=kwargs['tags']).distinct()
+                queryset = queryset.filter(tags__in=kwargs['tags']).distinct()
             else:
                 return redirect('content:ad_list')
 
-        self.object_list = self.get_queryset()
+        # Filtro de ubicación
+        if 'location' in self.request.GET:
+            loc = self.request.GET['location']
+            try:
+                self.location = Location.objects.get(pk=loc)
+                queryset = queryset.filter(location=self.location)
+            except:
+                message = 'Ubicación invalida.'
+                messages.add_message(self.request, messages.WARNING, message)
+
+
+        #self.queryset = queryset
+
+        # Resultados filtrados
+        self.object_list = queryset
         count = self.object_list.count()
 
         if request.is_ajax():
@@ -105,12 +131,14 @@ class AdListView(ListView):
 
         context = self.get_context_data(**kwargs)
 
+        # Checar primera visita para mostrar slide ¿Cómo funciona?, first_visit is a view controller var
+        # and visited is a template controller var
         if request.session.get('first_visit', True):
             request.session['visited'] = False
         else:
             request.session['visited'] = True
-
         request.session['first_visit'] = False
+
         if not request.user.is_authenticated:
             request.session.set_expiry(0)
 

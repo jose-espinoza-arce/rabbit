@@ -1,6 +1,6 @@
 <div style="color: black;">
 <p>Agradecemos nuevamente su interés en la publicación {{ ad.title }},
-un ejecutivo se pondrá en contacto con usted para atenderlor.</p>
+un ejecutivo se pondrá en contacto con usted para atenderlo.</p>
 
 <p>
 Estamos a sus órdenes para resolver cualquier duda que tenga.

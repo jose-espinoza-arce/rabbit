@@ -13,8 +13,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 
 
-phone_validator = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message=_("Enter a valid phone number"))
+phone_validator = RegexValidator(regex=r'^\+?1?\d{10}$',
+                                 message=_("Ingresa un número válido de 10 dígitos."))
 
 def format_display_label(cls_name):
     if cls_name.endswith('Field'):
@@ -233,7 +233,7 @@ class DateField(BaseDynamicFormField):
         form.fields['fecha'] = self.construct()
 
 
-@dynamic_form_field
+#@dynamic_form_field
 class DateTimeField(BaseDynamicFormField):
 
     cls = 'django.forms.DateTimeField'

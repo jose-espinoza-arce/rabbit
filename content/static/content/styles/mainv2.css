@@ -89,3 +89,21 @@
 .aviso > p {
   margin: 0 0 25px;
 }
+
+.location-form {
+  float: right;
+  position: relative;
+  top: -6px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.location-form .form-control{
+  font-weight: 500 !important;
+
+}
+
+.location-form  option:first-child {
+  font-style: oblique;
+  font-size: 12px;
+  font-weight: 100 !important;
+}

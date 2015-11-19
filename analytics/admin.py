@@ -190,7 +190,7 @@ class StatRegisterAdmin(AdminViews):
         template = 'admin/statistic_result.html'
         context = dict(
             self.admin_site.each_context(request),
-            title= ad.title,
+            title=ad.title,
             ad=ad,
             facebook=facebook,
             linkedin=linkedin,
@@ -205,7 +205,6 @@ class StatRegisterAdmin(AdminViews):
         return TemplateResponse(request, template, context)
 
     def statistics(self, request, *args, **kwargs):
-        print('client perms')
         context = dict(
             title=_('Statistics'),
             module_name='analytics'

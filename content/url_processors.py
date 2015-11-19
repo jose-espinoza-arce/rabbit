@@ -30,7 +30,7 @@ class tagview():
             raise ValueError('Path was not captured! Please capture it in your urlconf. Example: url(r\'^tags/(?P<path>.*)\', mptt_urls.view(...), ...)')
 
 
-        path = kwargs['path']
+        path = kwargs['path'].rstrip('/')
         if not path:
             messages.add_message(request, messages.INFO, 'Podrían interesarle los siguientes enlaces.')
             return render(request, 'content/adbase_list.html', {'search_form': AdSearchForm(), 'tags': []})
@@ -38,13 +38,14 @@ class tagview():
         path_slugs = path.split('/')
         tag_slugs = [tag.slug for tag in self.tagmodel.objects.all()]
         path_tag_slugs = list(set(path_slugs).intersection(tag_slugs))
+        print('path tag slugs', path_tag_slugs)
 
 
         if not path_tag_slugs:
             messages.add_message(request, messages.ERROR, 'No se encontraron resultados.')
             return redirect('content:tagged_ads', path='')
         elif set(path_tag_slugs) != set(path_slugs):
-            return redirect('content:tagged_ads', path='/'.join(path_tag_slugs))
+            return redirect('content:tagged_ads', path='/'.join(path_tag_slugs)+'/')
 
 
         kwargs['tags'] = self.tagmodel.objects.filter(slug__in=path_tag_slugs)
@@ -55,7 +56,7 @@ class searchview():
     def __call__(self, request, *args, **kwargs):
         if request.GET:
             q = request.GET['q']
-            path = '/'.join([slugify(unidecode(tag)) for tag in parse_tags(q)])
+            path = '/'.join([slugify(unidecode(tag)) for tag in parse_tags(q)]) + '/'
             return redirect('content:tagged_ads', path=path)
 
 

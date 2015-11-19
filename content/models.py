@@ -120,7 +120,8 @@ class AdCategory(MPTTModel):
         return self.name
 
     def my_get_path(self):
-        return '/'.join([getattr(item, 'slug') for item in self.get_ancestors(include_self=True)])
+        path = '/'.join([getattr(item, 'slug') for item in self.get_ancestors(include_self=True)])
+        return path + '/'
 
 
 @python_2_unicode_compatible
@@ -196,7 +197,7 @@ class AdBase(models.Model):
         return self.title
 
     def get_path(self):
-        return self.category.my_get_path() + '/ad/' + self.slug
+        return self.category.my_get_path() + 'ad/' + self.slug
 
     #@models.permalink
     def get_absolute_url(self):
